@@ -36,11 +36,20 @@ daily,2026090900,2026-09-10T00:00:00+08:00,,50,26.0,32.0,20260909234127,HKO.xml
     expect(snap?.daily.first.minC, 26.0);
   });
 
-  test('forecastSnapshotId includes LastModified', () {
-    expect(
-      HkoCsvArchive.forecastSnapshotId('2026090900', '20260910071145'),
-      '2026090900_20260910071145',
+  test('parseForecastArchiveCsv snapshotId selects chart forecast hours', () {
+    const csv = '''
+record_type,model_time,forecast_time_hkt,temperature_c,weather_icon,daily_min_c,daily_max_c,last_modified,source
+hourly,2026090900,2026-09-10T00:00:00+08:00,28.0,50,,,20260910071145,HKO.xml
+hourly,2026090900,2026-09-10T12:00:00+08:00,32.0,50,,,20260910071145,HKO.xml
+''';
+    final snap = parseForecastArchiveCsv(
+      csv,
+      snapshotId: '2026090900_20260910071145',
     );
-    expect(HkoCsvArchive.forecastSnapshotId('2026090900', ''), '2026090900');
+    expect(snap?.id, '2026090900_20260910071145');
+    expect(snap?.modelTime, '2026090900');
+    expect(snap?.lastModified, '20260910071145');
+    // Matching by modelTime alone would collide with older snapshots.
+    expect(snap?.modelTime == '2026090900_20260910071145', isFalse);
   });
 }

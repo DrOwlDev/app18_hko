@@ -37,6 +37,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   MarketEvent? _highEvent;
   bool _loading = true;
   String? _error;
+  bool _hideTempTable = true;
 
   HkoCsvArchive? _localArchive;
   HkoCsvArchiveReader? _webReader;
@@ -124,7 +125,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
       } else {
         csv = await _localArchive!.readForecastCsv(id);
       }
-      final snap = parseForecastArchiveCsv(csv);
+      final snap = parseForecastArchiveCsv(csv, snapshotId: id);
       if (snap != null) snapshots.add(snap);
     }
 
@@ -137,11 +138,19 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     ForecastArchiveSnapshot? selected;
     if (_selectedSnapshot != null) {
       for (final s in snapshots) {
-        if (s.modelTime == _selectedSnapshot) {
+        if (s.id == _selectedSnapshot) {
           selected = s;
           break;
         }
       }
+    }
+    // Fallback: load the selected file directly (id may not match modelTime).
+    if (selected == null && _selectedSnapshot != null) {
+      final id = _selectedSnapshot!;
+      final csv = kIsWeb
+          ? (await _webReader!.fetchText('forecast/$id.csv') ?? '')
+          : await _localArchive!.readForecastCsv(id);
+      selected = parseForecastArchiveCsv(csv, snapshotId: id);
     }
     _chartSeries = buildArchiveChartSeries(
       targetDay: day,
@@ -259,6 +268,22 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
               ),
             ],
           ),
+          Row(
+            children: [
+              Checkbox(
+                visualDensity: VisualDensity.compact,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                value: _hideTempTable,
+                onChanged: (v) {
+                  setState(() => _hideTempTable = v ?? true);
+                },
+              ),
+              const Text(
+                'Hide Table',
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
           if (snapshotCaption != null) ...[
             const SizedBox(height: 6),
             Text(
@@ -296,8 +321,9 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
                 child: DailyTemperatureChart(
                   series: _chartSeries!,
                   height: 320,
-                  hideNonExtremeTempRows: false,
+                  hideNonExtremeTempRows: true,
                   overlayForecast: true,
+                  showPointsTable: !_hideTempTable,
                 ),
               ),
             ),

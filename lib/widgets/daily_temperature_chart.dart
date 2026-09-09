@@ -17,6 +17,7 @@ class DailyTemperatureChart extends StatelessWidget {
     this.height = 180,
     this.hideNonExtremeTempRows = true,
     this.overlayForecast = false,
+    this.showPointsTable = true,
   });
 
   final DailyTemperatureSeries series;
@@ -29,6 +30,9 @@ class DailyTemperatureChart extends StatelessWidget {
   /// When true, draw the full yellow forecast line independently of observed
   /// (no bridge from last observed). Used for forecast-accuracy comparison.
   final bool overlayForecast;
+
+  /// When false, omit the temperature points table under the chart.
+  final bool showPointsTable;
 
   @override
   Widget build(BuildContext context) {
@@ -555,15 +559,17 @@ class DailyTemperatureChart extends StatelessWidget {
               ),
             ),
           ],
-          const SizedBox(height: 8),
-          _TemperaturePointsTable(
-            points: points,
-            unit: series.unit == 'F' ? 'F' : 'C',
-            hourFmt: hourFmt,
-            minColor: minColor,
-            maxColor: maxColor,
-            hideNonExtremeTempRows: hideNonExtremeTempRows,
-          ),
+          if (showPointsTable) ...[
+            const SizedBox(height: 8),
+            _TemperaturePointsTable(
+              points: points,
+              unit: series.unit == 'F' ? 'F' : 'C',
+              hourFmt: hourFmt,
+              minColor: minColor,
+              maxColor: maxColor,
+              hideNonExtremeTempRows: hideNonExtremeTempRows,
+            ),
+          ],
         ],
       ),
     );

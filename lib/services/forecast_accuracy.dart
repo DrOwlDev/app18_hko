@@ -192,7 +192,7 @@ DayAccuracyRow _rowForSnapshot(
   final predHighBucket = predMax == null ? null : settlementBucket(predMax);
 
   return DayAccuracyRow(
-    modelTime: snap.modelTime,
+    modelTime: snap.id,
     forecastMinC: predMin,
     forecastMaxC: predMax,
     predLowBucket: predLowBucket,
@@ -277,6 +277,6 @@ DailyTemperatureSeries? buildArchiveChartSeries({
     dayEnd: dayEnd,
     nowLocal: nowLocal.isBefore(dayEnd) ? nowLocal : dayEnd,
     points: points,
-    forecastModelTime: forecast?.modelTime,
+    forecastModelTime: forecast?.id ?? forecast?.modelTime,
   );
 }

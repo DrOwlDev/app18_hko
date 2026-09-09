@@ -511,9 +511,14 @@ class ForecastArchiveSnapshot {
     required this.modelTime,
     required this.hourly,
     required this.daily,
+    this.snapshotId,
+    this.lastModified,
   });
 
+  /// Archive filename stem (e.g. `2026090900_20260910071145`).
+  final String? snapshotId;
   final String modelTime;
+  final String? lastModified;
   final List<({DateTime hourHkt, double tempC, int? weatherIcon})> hourly;
   final List<({
     DateTime dateHkt,
@@ -521,14 +526,22 @@ class ForecastArchiveSnapshot {
     double? maxC,
     int? weatherIcon,
   })> daily;
+
+  String get id =>
+      snapshotId ??
+      HkoCsvArchive.forecastSnapshotId(modelTime, lastModified ?? '');
 }
 
-ForecastArchiveSnapshot? parseForecastArchiveCsv(String csv) {
+ForecastArchiveSnapshot? parseForecastArchiveCsv(
+  String csv, {
+  String? snapshotId,
+}) {
   if (csv.trim().isEmpty) return null;
   final location = CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
   final lines = csv.split('\n');
   if (lines.isEmpty) return null;
   String? modelTime;
+  String? lastModified;
   final hourly = <({DateTime hourHkt, double tempC, int? weatherIcon})>[];
   final daily = <
       ({
@@ -545,6 +558,9 @@ ForecastArchiveSnapshot? parseForecastArchiveCsv(String csv) {
     if (parts.length < 4) continue;
     final kind = parts[0];
     modelTime ??= parts[1];
+    if (parts.length > 7 && parts[7].trim().isNotEmpty) {
+      lastModified ??= parts[7].trim();
+    }
     final timeRaw = parts[2];
     if (kind == 'hourly') {
       final parsed = DateTime.tryParse(timeRaw);
@@ -567,7 +583,9 @@ ForecastArchiveSnapshot? parseForecastArchiveCsv(String csv) {
   final mt = modelTime;
   if (mt == null) return null;
   return ForecastArchiveSnapshot(
+    snapshotId: snapshotId,
     modelTime: mt,
+    lastModified: lastModified,
     hourly: hourly,
     daily: daily,
   );
