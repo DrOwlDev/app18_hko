@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: github-pages
+  group: refresh-pages-data
   cancel-in-progress: true
 
 jobs:
@@ -47,18 +47,22 @@ jobs:
           fi
 
       - name: Checkout gh-pages
+        id: ghpages
+        continue-on-error: true
         uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: gh-pages
 
       - name: Update snapshot + HKO data on Pages
+        if: steps.ghpages.outcome == 'success'
         run: |
           mkdir -p gh-pages/data/hko
           cp web/data/markets.json gh-pages/data/markets.json
           cp -r data/hko/. gh-pages/data/hko/
 
       - name: Commit and push gh-pages data
+        if: steps.ghpages.outcome == 'success'
         working-directory: gh-pages
         run: |
           git config user.name "github-actions[bot]"
@@ -70,3 +74,7 @@ jobs:
           fi
           git commit -m "Refresh HKO data $(date -u +%Y-%m-%dT%H:%MZ)"
           git push origin HEAD:gh-pages
+
+      - name: Skip Pages update when gh-pages missing
+        if: steps.ghpages.outcome != 'success'
+        run: echo "gh-pages branch not ready yet; run Deploy GitHub Pages first"
