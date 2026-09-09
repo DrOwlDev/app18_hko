@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' if (dart.library.html) 'hko_csv_io_stub.dart';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -50,9 +49,6 @@ class HkoCsvArchive {
   static const webDataPrefix = 'data/hko';
 
   static Directory defaultLocalRoot() {
-    if (kIsWeb) {
-      throw UnsupportedError('Local archive root unavailable on web');
-    }
     final home = Platform.environment['USERPROFILE'] ??
         Platform.environment['HOME'] ??
         '.';
