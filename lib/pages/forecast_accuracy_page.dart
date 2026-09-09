@@ -358,9 +358,9 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     return stamp;
   }
 
-  String _snapshotLabel(String modelTime) {
-    final hkt = formatHkoModelTimeHkt(modelTime);
-    if (hkt == null) return modelTime;
-    return '$hkt · $modelTime';
+  String _snapshotLabel(String snapshotId) {
+    final caption = formatHkoForecastRetrievedCaption(modelTime: snapshotId);
+    if (caption != null) return caption.replaceFirst('HKO OCF/ARWF forecast ', '');
+    return snapshotId;
   }
 }

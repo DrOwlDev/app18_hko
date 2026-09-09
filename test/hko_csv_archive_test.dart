@@ -36,13 +36,11 @@ daily,2026090900,2026-09-10T00:00:00+08:00,,50,26.0,32.0,20260909234127,HKO.xml
     expect(snap?.daily.first.minC, 26.0);
   });
 
-  test('readLastModelTime returns null when missing', () async {
-    final dir = await Directory.systemTemp.createTemp('hko_archive_test');
-    addTearDown(() => dir.deleteSync(recursive: true));
-    final archive = HkoCsvArchive(rootDir: dir);
-    expect(await archive.readLastModelTime(), isNull);
-    await archive.writeLastModelTime('2026090900');
-    expect(await archive.readLastModelTime(), '2026090900');
-    archive.close();
+  test('forecastSnapshotId includes LastModified', () {
+    expect(
+      HkoCsvArchive.forecastSnapshotId('2026090900', '20260910071145'),
+      '2026090900_20260910071145',
+    );
+    expect(HkoCsvArchive.forecastSnapshotId('2026090900', ''), '2026090900');
   });
 }

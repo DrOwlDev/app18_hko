@@ -390,7 +390,11 @@ DateTime? parseHkoCompactDateTime(String raw) {
 /// Human-readable HKT label for an OCF [ModelTime] (e.g. `2026091000`).
 String? formatHkoModelTimeHkt(String? modelTime) {
   if (modelTime == null || modelTime.isEmpty) return null;
-  final wall = parseHkoCompactDateTime(modelTime);
+  // Snapshot ids may be `ModelTime_LastModified`.
+  final modelPart = modelTime.contains('_')
+      ? modelTime.split('_').first
+      : modelTime;
+  final wall = parseHkoCompactDateTime(modelPart);
   if (wall == null) return modelTime;
   const months = [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -402,34 +406,58 @@ String? formatHkoModelTimeHkt(String? modelTime) {
   return '$mon ${wall.day}, ${wall.year} $hh:$mm HKT';
 }
 
-/// Clear UI caption for when the HKO forecast was issued / last fetched.
+/// Parses `LastModified` / trailing part of snapshot id (`YYYYMMDDHHmmss`).
+String? formatHkoLastModifiedHkt(String? raw) {
+  if (raw == null || raw.isEmpty) return null;
+  var stamp = raw;
+  if (stamp.contains('_')) {
+    final parts = stamp.split('_');
+    stamp = parts.last;
+  }
+  if (!RegExp(r'^\d{12,14}$').hasMatch(stamp)) return null;
+  final wall = parseHkoCompactDateTime(stamp.substring(0, 12));
+  if (wall == null) return null;
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  ];
+  final mon = months[wall.month - 1];
+  final hh = wall.hour.toString().padLeft(2, '0');
+  final mm = wall.minute.toString().padLeft(2, '0');
+  return '$mon ${wall.day}, ${wall.year} $hh:$mm HKT';
+}
+
+/// Clear UI caption for when the HKO forecast was issued / last refreshed.
 String? formatHkoForecastRetrievedCaption({
   String? modelTime,
   DateTime? retrievedAtUtc,
+  String? lastModified,
 }) {
-  final issued = formatHkoModelTimeHkt(modelTime);
-  if (issued == null && retrievedAtUtc == null) return null;
-  final buf = StringBuffer('HKO forecast');
+  final modelId = modelTime == null
+      ? null
+      : (modelTime.contains('_') ? modelTime.split('_').first : modelTime);
+  final modifiedId = lastModified ??
+      (modelTime != null && modelTime.contains('_')
+          ? modelTime.split('_').last
+          : null);
+  final issued = formatHkoModelTimeHkt(modelId);
+  final refreshed = formatHkoLastModifiedHkt(modifiedId);
+  if (issued == null && refreshed == null && retrievedAtUtc == null) {
+    return null;
+  }
+  final buf = StringBuffer('HKO OCF/ARWF forecast');
   if (issued != null) {
-    buf.write(' from $issued');
-    if (modelTime != null && modelTime.isNotEmpty) {
-      buf.write(' (ModelTime $modelTime)');
-    }
+    buf.write(' ModelTime $issued');
+    if (modelId != null) buf.write(' ($modelId)');
+  }
+  if (refreshed != null) {
+    buf.write(' · refreshed $refreshed');
   }
   if (retrievedAtUtc != null) {
     final local = retrievedAtUtc.toLocal();
-    const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-    ];
-    final mon = months[local.month - 1];
     final hh = local.hour.toString().padLeft(2, '0');
     final mm = local.minute.toString().padLeft(2, '0');
-    buf.write(
-      issued == null
-          ? ' last retrieved $mon ${local.day}, ${local.year} $hh:$mm local'
-          : ' · last retrieved $hh:$mm local',
-    );
+    buf.write(' · app fetched $hh:$mm local');
   }
   return buf.toString();
 }

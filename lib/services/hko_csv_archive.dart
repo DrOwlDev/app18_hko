@@ -75,6 +75,25 @@ class HkoCsvArchive {
         .writeAsString('$modelTime\n');
   }
 
+  Future<String?> readLastForecastModified() async {
+    final f = File('${metaDir.path}/last_forecast_modified.txt');
+    if (!await f.exists()) return null;
+    final text = (await f.readAsString()).trim();
+    return text.isEmpty ? null : text;
+  }
+
+  Future<void> writeLastForecastModified(String lastModified) async {
+    await metaDir.create(recursive: true);
+    await File('${metaDir.path}/last_forecast_modified.txt')
+        .writeAsString('$lastModified\n');
+  }
+
+  /// Snapshot id: `ModelTime_LastModified` (HKO refreshes under one ModelTime).
+  static String forecastSnapshotId(String modelTime, String lastModified) {
+    if (lastModified.isEmpty) return modelTime;
+    return '${modelTime}_$lastModified';
+  }
+
   /// Appends new minute observations for the current HKT day.
   Future<int> appendObservations() async {
     final location = CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
@@ -134,7 +153,11 @@ class HkoCsvArchive {
     return added;
   }
 
-  /// Writes a forecast snapshot when [ModelTime] changes.
+  /// Writes a forecast snapshot when OCF [LastModified] changes.
+  ///
+  /// HKO often keeps the same [ModelTime] while refreshing hourly temps
+  /// (portal red line = latest refresh). Archiving only on ModelTime change
+  /// freezes a stale yellow line.
   Future<bool> appendForecastIfNew() async {
     final response = await _client.get(
       Uri.parse(HkoTemperatureApi.ocfForecastUrl),
@@ -150,15 +173,22 @@ class HkoCsvArchive {
     final json = Map<String, dynamic>.from(decoded);
     final modelTime = json['ModelTime']?.toString() ?? '';
     if (modelTime.isEmpty) return false;
-
-    final last = await readLastModelTime();
-    if (last == modelTime) return false;
-
-    final location = CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
     final lastModified = json['LastModified']?.toString() ?? '';
 
+    final prevModified = await readLastForecastModified();
+    final prevModel = await readLastModelTime();
+    // Prefer LastModified; fall back to ModelTime for older archives.
+    if (lastModified.isNotEmpty) {
+      if (prevModified == lastModified) return false;
+    } else if (prevModel == modelTime) {
+      return false;
+    }
+
+    final location = CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
+    final snapshotId = forecastSnapshotId(modelTime, lastModified);
+
     await forecastDir.create(recursive: true);
-    final file = File('${forecastDir.path}/$modelTime.csv');
+    final file = File('${forecastDir.path}/$snapshotId.csv');
     final buffer = StringBuffer()
       ..writeln('record_type,model_time,forecast_time_hkt,temperature_c,'
           'weather_icon,daily_min_c,daily_max_c,last_modified,source');
@@ -208,7 +238,10 @@ class HkoCsvArchive {
 
     await file.writeAsString(buffer.toString());
     await writeLastModelTime(modelTime);
-    await _updateForecastIndex(modelTime);
+    if (lastModified.isNotEmpty) {
+      await writeLastForecastModified(lastModified);
+    }
+    await _updateForecastIndex(snapshotId);
     return true;
   }
 
