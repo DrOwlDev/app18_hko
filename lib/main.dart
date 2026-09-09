@@ -423,9 +423,13 @@ class _MarketListPageState extends State<MarketListPage> {
                       initialData: widget.collector!.lastStatus,
                       builder: (context, snap) {
                         final st = snap.data;
-                        final label = st?.lastModelTime == null
-                            ? 'HKO archive'
-                            : 'HKO ${st!.lastModelTime}';
+                        final caption = formatHkoForecastRetrievedCaption(
+                          modelTime: st?.lastModelTime,
+                        );
+                        final label = caption ??
+                            (st?.lastModelTime == null
+                                ? 'HKO archive'
+                                : 'HKO ${st!.lastModelTime}');
                         return Padding(
                           padding: const EdgeInsets.only(right: 6),
                           child: Text(

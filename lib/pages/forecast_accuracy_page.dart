@@ -2,12 +2,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../models/market_event.dart';
 import '../services/city_timezones.dart';
 import '../services/forecast_accuracy.dart';
 import '../services/hko_csv_archive.dart';
 import '../services/hko_data_collector.dart';
+import '../services/hko_temperature_api.dart';
+import '../services/polymarket_api.dart';
 import '../services/temperature_series.dart';
 import '../widgets/daily_temperature_chart.dart';
+import '../widgets/settlement_bucket_hud.dart';
 
 class ForecastAccuracyPage extends StatefulWidget {
   const ForecastAccuracyPage({super.key, this.collector});
@@ -20,13 +24,17 @@ class ForecastAccuracyPage extends StatefulWidget {
 
 class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   final _dateFormat = DateFormat('yyyy-MM-dd');
+  final _api = PolymarketApi(preferStaticSnapshot: kIsWeb);
   List<DateTime> _days = [];
   List<String> _snapshots = [];
+  List<MarketEvent> _events = [];
   DateTime? _selectedDay;
   String? _selectedSnapshot;
   String _observedCsv = '';
   List<DayAccuracyRow> _rows = [];
   DailyTemperatureSeries? _chartSeries;
+  MarketEvent? _lowEvent;
+  MarketEvent? _highEvent;
   bool _loading = true;
   String? _error;
 
@@ -48,6 +56,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   @override
   void dispose() {
     _webReader?.close();
+    _api.close();
     super.dispose();
   }
 
@@ -64,6 +73,11 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
       } else {
         observedDays = await _localArchive!.listObservedDays();
         _snapshots = await _localArchive!.listForecastSnapshots();
+      }
+      try {
+        _events = await _api.fetchTemperatureEvents();
+      } catch (_) {
+        _events = [];
       }
       _days = mergeAccuracyDays(observedDays: observedDays);
       final today = hktDayWindow(pastDays: 0, nextDays: 0).first;
@@ -86,6 +100,8 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
         _observedCsv = '';
         _rows = [];
         _chartSeries = null;
+        _lowEvent = null;
+        _highEvent = null;
       });
       return;
     }
@@ -133,6 +149,22 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
       forecast: selected,
     );
 
+    _lowEvent = null;
+    _highEvent = null;
+    for (final e in _events) {
+      if (!isHongKongTemperatureMarket(e)) continue;
+      final d = e.observationDayInCity;
+      if (d == null) continue;
+      if (d.year != day.year || d.month != day.month || d.day != day.day) {
+        continue;
+      }
+      if (e.tempKind == TempMarketKind.low) {
+        _lowEvent = e;
+      } else {
+        _highEvent = e;
+      }
+    }
+
     if (mounted) setState(() {});
   }
 
@@ -159,6 +191,10 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
         ),
       );
     }
+
+    final snapshotCaption = formatHkoForecastRetrievedCaption(
+      modelTime: _selectedSnapshot,
+    );
 
     return RefreshIndicator(
       onRefresh: _loadInitial,
@@ -208,7 +244,10 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
                       value: _selectedSnapshot,
                       items: [
                         for (final id in _snapshots)
-                          DropdownMenuItem(value: id, child: Text(id)),
+                          DropdownMenuItem(
+                            value: id,
+                            child: Text(_snapshotLabel(id)),
+                          ),
                       ],
                       onChanged: (v) async {
                         setState(() => _selectedSnapshot = v);
@@ -220,7 +259,36 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
               ),
             ],
           ),
+          if (snapshotCaption != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              snapshotCaption,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF334155),
+              ),
+            ),
+          ],
           if (_chartSeries != null) ...[
+            if (_lowEvent != null) ...[
+              const SizedBox(height: 8),
+              SettlementBucketHud(
+                series: _chartSeries!,
+                markets: _lowEvent!.markets,
+                tempKind: TempMarketKind.low,
+                title: 'Settlement · Lowest',
+              ),
+            ],
+            if (_highEvent != null) ...[
+              const SizedBox(height: 4),
+              SettlementBucketHud(
+                series: _chartSeries!,
+                markets: _highEvent!.markets,
+                tempKind: TempMarketKind.high,
+                title: 'Settlement · Highest',
+              ),
+            ],
             const SizedBox(height: 8),
             Card(
               child: Padding(
@@ -288,5 +356,11 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     final today = DateTime(nowHkt.year, nowHkt.month, nowHkt.day);
     if (day.isAfter(today)) return '$stamp (forecast)';
     return stamp;
+  }
+
+  String _snapshotLabel(String modelTime) {
+    final hkt = formatHkoModelTimeHkt(modelTime);
+    if (hkt == null) return modelTime;
+    return '$hkt · $modelTime';
   }
 }

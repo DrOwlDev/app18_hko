@@ -83,6 +83,8 @@ class DailyTemperatureSeries {
     required this.nowLocal,
     required this.points,
     this.latestObservation,
+    this.forecastModelTime,
+    this.forecastRetrievedAtUtc,
   });
 
   final String siteId;
@@ -92,6 +94,12 @@ class DailyTemperatureSeries {
   final tz.TZDateTime nowLocal;
   final List<HourlyTempPoint> points;
   final LatestStationObservation? latestObservation;
+
+  /// HKO OCF `ModelTime` (e.g. `2026091000`) for the forecast used in this series.
+  final String? forecastModelTime;
+
+  /// When this app last successfully fetched the OCF forecast from HKO (UTC).
+  final DateTime? forecastRetrievedAtUtc;
 
   Map<String, dynamic> toJson() => {
         'siteId': siteId,
@@ -103,6 +111,11 @@ class DailyTemperatureSeries {
         'points': points.map((p) => p.toJson()).toList(),
         if (latestObservation != null)
           'latestObservation': latestObservation!.toJson(),
+        if (forecastModelTime != null && forecastModelTime!.isNotEmpty)
+          'forecastModelTime': forecastModelTime,
+        if (forecastRetrievedAtUtc != null)
+          'forecastRetrievedAtUtc':
+              forecastRetrievedAtUtc!.toUtc().toIso8601String(),
       };
 
   factory DailyTemperatureSeries.fromJson(Map<String, dynamic> json) {
@@ -139,6 +152,10 @@ class DailyTemperatureSeries {
         location: location,
       );
     }
+    final retrievedRaw = json['forecastRetrievedAtUtc']?.toString();
+    final retrievedAt = retrievedRaw == null || retrievedRaw.isEmpty
+        ? null
+        : DateTime.tryParse(retrievedRaw)?.toUtc();
     return DailyTemperatureSeries(
       siteId: json['siteId']?.toString() ?? '',
       unit: json['unit']?.toString() == 'F' ? 'F' : 'C',
@@ -147,6 +164,8 @@ class DailyTemperatureSeries {
       nowLocal: _tzFromUtcIso(json['nowLocal']?.toString(), location),
       points: points,
       latestObservation: latest,
+      forecastModelTime: json['forecastModelTime']?.toString(),
+      forecastRetrievedAtUtc: retrievedAt,
     );
   }
 }
@@ -349,22 +368,7 @@ List<HourlyTempPoint> mergeObservedForecastOverlay({
   final obsDay =
       dayPoints.where((p) => p.kind == TempPointKind.observed).toList();
   final basis = obsDay.isNotEmpty ? obsDay : dayPoints;
-  if (basis.isEmpty) return points;
-  final minTemp =
-      basis.map((p) => p.temperature).reduce((a, b) => a < b ? a : b);
-  final maxTemp =
-      basis.map((p) => p.temperature).reduce((a, b) => a > b ? a : b);
-  return [
-    for (final p in points)
-      p.copyWith(
-        isDailyMinimum: basis.contains(p) &&
-            p.localHourStart.isBefore(dayEnd) &&
-            (p.temperature - minTemp).abs() < 1e-9,
-        isDailyMaximum: basis.contains(p) &&
-            p.localHourStart.isBefore(dayEnd) &&
-            (p.temperature - maxTemp).abs() < 1e-9,
-      ),
-  ];
+  return _markSingleDailyExtremes(points, basis);
 }
 
 List<HourlyTempPoint> markDailyExtremes(
@@ -373,18 +377,37 @@ List<HourlyTempPoint> markDailyExtremes(
 ) {
   final dayPoints =
       points.where((p) => p.localHourStart.isBefore(dayEnd)).toList();
-  if (dayPoints.isEmpty) return points;
+  return _markSingleDailyExtremes(points, dayPoints);
+}
+
+/// Marks exactly one daily min and one daily max (first occurrence each).
+/// Minute-level series often plateaus; flagging every equal temp would paint
+/// a solid blob of star markers on the chart.
+List<HourlyTempPoint> _markSingleDailyExtremes(
+  List<HourlyTempPoint> points,
+  List<HourlyTempPoint> basis,
+) {
+  if (basis.isEmpty) return points;
   final minTemp =
-      dayPoints.map((p) => p.temperature).reduce((a, b) => a < b ? a : b);
+      basis.map((p) => p.temperature).reduce((a, b) => a < b ? a : b);
   final maxTemp =
-      dayPoints.map((p) => p.temperature).reduce((a, b) => a > b ? a : b);
+      basis.map((p) => p.temperature).reduce((a, b) => a > b ? a : b);
+  HourlyTempPoint? minPoint;
+  HourlyTempPoint? maxPoint;
+  for (final p in basis) {
+    if (minPoint == null && (p.temperature - minTemp).abs() < 1e-9) {
+      minPoint = p;
+    }
+    if (maxPoint == null && (p.temperature - maxTemp).abs() < 1e-9) {
+      maxPoint = p;
+    }
+    if (minPoint != null && maxPoint != null) break;
+  }
   return [
     for (final p in points)
       p.copyWith(
-        isDailyMinimum: p.localHourStart.isBefore(dayEnd) &&
-            (p.temperature - minTemp).abs() < 1e-9,
-        isDailyMaximum: p.localHourStart.isBefore(dayEnd) &&
-            (p.temperature - maxTemp).abs() < 1e-9,
+        isDailyMinimum: identical(p, minPoint),
+        isDailyMaximum: identical(p, maxPoint),
       ),
   ];
 }

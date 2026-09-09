@@ -11,11 +11,13 @@ class SettlementBucketHud extends StatelessWidget {
     required this.series,
     required this.markets,
     required this.tempKind,
+    this.title = 'Settlement',
   });
 
   final DailyTemperatureSeries series;
   final List<OutcomeMarket> markets;
   final TempMarketKind tempKind;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +70,14 @@ class SettlementBucketHud extends StatelessWidget {
         runSpacing: 4,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          const Tooltip(
+          Tooltip(
             message:
                 'Settlement physics from the station temperature series for '
                 'this market day.',
-            waitDuration: Duration(milliseconds: 400),
+            waitDuration: const Duration(milliseconds: 400),
             child: Text(
-              'Settlement',
-              style: TextStyle(
+              title,
+              style: const TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w800,
                 color: Color(0xFF334155),

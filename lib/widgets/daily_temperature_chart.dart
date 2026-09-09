@@ -161,6 +161,10 @@ class DailyTemperatureChart extends StatelessWidget {
       for (final p in forecastPoints)
         if (p.weatherIconCode != null) p,
     ];
+    final forecastRetrievedCaption = formatHkoForecastRetrievedCaption(
+      modelTime: series.forecastModelTime,
+      retrievedAtUtc: series.forecastRetrievedAtUtc,
+    );
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(4, 8, 8, 8),
@@ -439,6 +443,21 @@ class DailyTemperatureChart extends StatelessWidget {
                         isStrokeCapRound: true,
                         dotData: FlDotData(
                           show: true,
+                          // Minute-level obs would otherwise stack into a black
+                          // blob; only mark extrema + the latest sample.
+                          checkToShowDot: (spot, bar) {
+                            final index = bar.spots.indexWhere(
+                              (s) => s.x == spot.x && s.y == spot.y,
+                            );
+                            if (index < 0 || index >= observedPoints.length) {
+                              return false;
+                            }
+                            final point = observedPoints[index];
+                            if (point.isDailyMaximum || point.isDailyMinimum) {
+                              return true;
+                            }
+                            return index == observedSpots.length - 1;
+                          },
                           getDotPainter: (spot, percent, bar, index) {
                             final point = observedPoints[index];
                             if (point.isDailyMaximum) {
@@ -456,9 +475,9 @@ class DailyTemperatureChart extends StatelessWidget {
                               );
                             }
                             return FlDotCirclePainter(
-                              radius: 2.5,
+                              radius: 4.5,
                               color: lineColor,
-                              strokeWidth: 1.5,
+                              strokeWidth: 0,
                               strokeColor: lineColor,
                             );
                           },
@@ -522,6 +541,20 @@ class DailyTemperatureChart extends StatelessWidget {
               ),
             ),
           ),
+          if (forecastRetrievedCaption != null) ...[
+            const SizedBox(height: 6),
+            Padding(
+              padding: const EdgeInsets.only(left: leftTitleWidth, right: 4),
+              child: Text(
+                forecastRetrievedCaption,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF334155),
+                ),
+              ),
+            ),
+          ],
           const SizedBox(height: 8),
           _TemperaturePointsTable(
             points: points,

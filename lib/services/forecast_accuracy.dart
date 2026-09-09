@@ -277,5 +277,6 @@ DailyTemperatureSeries? buildArchiveChartSeries({
     dayEnd: dayEnd,
     nowLocal: nowLocal.isBefore(dayEnd) ? nowLocal : dayEnd,
     points: points,
+    forecastModelTime: forecast?.modelTime,
   );
 }

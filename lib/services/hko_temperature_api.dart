@@ -78,6 +78,9 @@ class HkoTemperatureApi {
     final observedC = await obsFuture;
     final forecast = await forecastFuture;
     final latestObservation = await latestFuture;
+    final retrievedAt = forecast.modelTime == null || forecast.modelTime!.isEmpty
+        ? null
+        : DateTime.now().toUtc();
 
     final obsSource =
         (observedDataSource != null && observedDataSource.trim().isNotEmpty)
@@ -104,6 +107,8 @@ class HkoTemperatureApi {
       nowLocal: nowLocal,
       points: points,
       latestObservation: latestObservation,
+      forecastModelTime: forecast.modelTime,
+      forecastRetrievedAtUtc: retrievedAt,
     );
   }
 
@@ -130,8 +135,11 @@ class HkoTemperatureApi {
     }
   }
 
-  Future<({Map<int, double> tempsC, Map<int, int> weatherIconCodes})>
-      _fetchOcfForecastC({
+  Future<({
+    Map<int, double> tempsC,
+    Map<int, int> weatherIconCodes,
+    String? modelTime,
+  })> _fetchOcfForecastC({
     required tz.Location location,
     required tz.TZDateTime dayStart,
     required tz.TZDateTime dayEnd,
@@ -142,20 +150,39 @@ class HkoTemperatureApi {
         headers: _jsonHeaders,
       );
       if (response.statusCode != 200) {
-        return (tempsC: <int, double>{}, weatherIconCodes: <int, int>{});
+        return (
+          tempsC: <int, double>{},
+          weatherIconCodes: <int, int>{},
+          modelTime: null,
+        );
       }
       final decoded = jsonDecode(response.body);
       if (decoded is! Map) {
-        return (tempsC: <int, double>{}, weatherIconCodes: <int, int>{});
+        return (
+          tempsC: <int, double>{},
+          weatherIconCodes: <int, int>{},
+          modelTime: null,
+        );
       }
-      return indexOcfHourlyForecast(
-        json: Map<String, dynamic>.from(decoded),
+      final json = Map<String, dynamic>.from(decoded);
+      final indexed = indexOcfHourlyForecast(
+        json: json,
         location: location,
         dayStart: dayStart,
         dayEnd: dayEnd,
       );
+      final modelTime = json['ModelTime']?.toString();
+      return (
+        tempsC: indexed.tempsC,
+        weatherIconCodes: indexed.weatherIconCodes,
+        modelTime: (modelTime != null && modelTime.isNotEmpty) ? modelTime : null,
+      );
     } catch (_) {
-      return (tempsC: <int, double>{}, weatherIconCodes: <int, int>{});
+      return (
+        tempsC: <int, double>{},
+        weatherIconCodes: <int, int>{},
+        modelTime: null,
+      );
     }
   }
 
@@ -358,6 +385,53 @@ DateTime? parseHkoCompactDateTime(String raw) {
     int.parse(match.group(4)!),
     int.parse(match.group(5)!),
   );
+}
+
+/// Human-readable HKT label for an OCF [ModelTime] (e.g. `2026091000`).
+String? formatHkoModelTimeHkt(String? modelTime) {
+  if (modelTime == null || modelTime.isEmpty) return null;
+  final wall = parseHkoCompactDateTime(modelTime);
+  if (wall == null) return modelTime;
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  ];
+  final mon = months[wall.month - 1];
+  final hh = wall.hour.toString().padLeft(2, '0');
+  final mm = wall.minute.toString().padLeft(2, '0');
+  return '$mon ${wall.day}, ${wall.year} $hh:$mm HKT';
+}
+
+/// Clear UI caption for when the HKO forecast was issued / last fetched.
+String? formatHkoForecastRetrievedCaption({
+  String? modelTime,
+  DateTime? retrievedAtUtc,
+}) {
+  final issued = formatHkoModelTimeHkt(modelTime);
+  if (issued == null && retrievedAtUtc == null) return null;
+  final buf = StringBuffer('HKO forecast');
+  if (issued != null) {
+    buf.write(' from $issued');
+    if (modelTime != null && modelTime.isNotEmpty) {
+      buf.write(' (ModelTime $modelTime)');
+    }
+  }
+  if (retrievedAtUtc != null) {
+    final local = retrievedAtUtc.toLocal();
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    ];
+    final mon = months[local.month - 1];
+    final hh = local.hour.toString().padLeft(2, '0');
+    final mm = local.minute.toString().padLeft(2, '0');
+    buf.write(
+      issued == null
+          ? ' last retrieved $mon ${local.day}, ${local.year} $hh:$mm local'
+          : ' · last retrieved $hh:$mm local',
+    );
+  }
+  return buf.toString();
 }
 
 double? _parseHkoNumber(String raw) {
