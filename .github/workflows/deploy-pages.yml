@@ -1,0 +1,54 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Collect HKO CSV archive
+        run: dart run tool/collect_hko_data.dart data/hko
+
+      - name: Export Hong Kong markets snapshot
+        run: dart run tool/export_markets.dart web/data/markets.json
+
+      - name: Build web
+        run: flutter build web --release --base-href /app18_hko/
+
+      - name: Ensure data in build output
+        run: |
+          mkdir -p build/web/data
+          cp web/data/markets.json build/web/data/markets.json
+          mkdir -p build/web/data/hko
+          cp -r data/hko/. build/web/data/hko/
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          force_orphan: true
