@@ -271,7 +271,7 @@ class HkoCsvArchive {
     final days = <DateTime>[];
     await for (final entity in observedDir.list()) {
       if (entity is! File) continue;
-      final name = entity.uri.pathSegments.last;
+      final name = entity.path.split(RegExp(r'[/\\]')).last;
       final match = RegExp(r'^(\d{4})-(\d{2})-(\d{2})\.csv$').firstMatch(name);
       if (match == null) continue;
       days.add(DateTime(
@@ -290,7 +290,7 @@ class HkoCsvArchive {
     final ids = <String>[];
     await for (final entity in forecastDir.list()) {
       if (entity is! File) continue;
-      final name = entity.uri.pathSegments.last;
+      final name = entity.path.split(RegExp(r'[/\\]')).last;
       if (!name.endsWith('.csv')) continue;
       ids.add(name.replaceAll('.csv', ''));
     }

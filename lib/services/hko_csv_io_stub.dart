@@ -1,7 +1,12 @@
 /// Minimal dart:io stubs so archive code can compile for web (unused at runtime).
 
-class File {
+abstract class FileSystemEntity {
+  String get path;
+}
+
+class File extends FileSystemEntity {
   File(this.path);
+  @override
   final String path;
 
   Future<bool> exists() async => false;
@@ -13,8 +18,9 @@ class File {
       throw UnsupportedError('File I/O unavailable on web');
 }
 
-class Directory {
+class Directory extends FileSystemEntity {
   Directory(this.path);
+  @override
   final String path;
 
   Future<bool> exists() async => false;
@@ -22,10 +28,6 @@ class Directory {
       throw UnsupportedError('File I/O unavailable on web');
   Stream<FileSystemEntity> list({bool recursive = false}) =>
       throw UnsupportedError('File I/O unavailable on web');
-}
-
-abstract class FileSystemEntity {
-  String get path;
 }
 
 class FileMode {
