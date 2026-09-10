@@ -105,8 +105,8 @@ class _HomeShellState extends State<HomeShell> {
                   fontWeight: FontWeight.w700,
                 ),
                 tabs: const [
+                  Tab(text: 'Forecast'),
                   Tab(text: 'Markets'),
-                  Tab(text: 'Forecast Accuracy'),
                   Tab(text: 'Portfolio'),
                 ],
               ),
@@ -115,6 +115,7 @@ class _HomeShellState extends State<HomeShell> {
               top: false,
               child: TabBarView(
                 children: [
+                  ForecastAccuracyPage(collector: _collector),
                   MarketListPage(
                     collector: _collector,
                     onEventsChanged: (events) {
@@ -126,12 +127,11 @@ class _HomeShellState extends State<HomeShell> {
                       setState(() => _pendingExpandEventId = null);
                     },
                   ),
-                  ForecastAccuracyPage(collector: _collector),
                   PositionsPage(
                     markets: _marketsCache,
                     onOpenMarket: (eventId) {
                       setState(() => _pendingExpandEventId = eventId);
-                      DefaultTabController.of(tabContext).animateTo(0);
+                      DefaultTabController.of(tabContext).animateTo(1);
                     },
                   ),
                 ],

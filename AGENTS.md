@@ -7,7 +7,7 @@
 - Always show all Hong Kong low and high markets (no Type / Strategy filters).
 - Hong Kong only — no city search; HKO regional portal button on every market row.
 - Portfolio: sort by time-to-close (EOD passed first); label "Shares / Payout"; show Initial Cost; open market links in Firefox.
-- Forecast Accuracy chart: taller vertically; always draw the yellow forecast line alongside observed; when forecasted min/max differs from observed, draw extra horizontal lines for those forecast extrema.
+- Forecast chart: taller vertically; always draw the yellow forecast line from HKT 00:00 through next-day 00:00 alongside observed (backfill past hours HKO drops on refresh); when forecasted min/max differs from observed, draw extra horizontal lines for those forecast extrema.
 
 ## Learned Workspace Facts
 
@@ -16,5 +16,5 @@
 - **GitHub Pages**: same-origin `data/markets.json` + `data/hko/` (no CORS); Actions refresh ~every 5 minutes.
 - HKO charts: `hkoc.csv` observed + OCF `HKO.xml` forecast; forecast dedupe via OCF `ModelTime`.
 - Settlement buckets: truncate toward zero (`27.9°C → 27`).
-- Tabs: **Markets** + **Forecast Accuracy** + **Portfolio** (no Sites, Android). Forecast Accuracy HKT day list is today−3 through today+3 (forecast-only days labeled), plus any archived observed days.
+- Tabs: **Forecast** (first) + **Markets** + **Portfolio** (no Sites, Android). Forecast HKT day list is today−3 through today+3 (forecast-only days labeled), plus any archived observed days.
 - Portfolio loads Polymarket Data API for proxy wallet `0x8cEF3c1B592953D61EEE2bC9375C5944A8926B6d`; tap opens/expands matching HK market on Markets when present.

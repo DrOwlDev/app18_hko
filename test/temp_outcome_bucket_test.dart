@@ -104,6 +104,19 @@ void main() {
       );
     });
 
+    test('exact bucket stays alive for fractional obs in same truncate degree',
+        () {
+      final exact31 = parseTempOutcomeBucket('31°C')!;
+      expect(
+        isPhysicsDeadOutcome(exact31, 31.9, kind: TempMarketKind.high),
+        isFalse,
+      );
+      expect(
+        isPhysicsDeadOutcome(exact31, 32.0, kind: TempMarketKind.high),
+        isTrue,
+      );
+    });
+
     test('or below dies when max exceeds floor', () {
       final floor = parseTempOutcomeBucket('25°C or below')!;
       expect(
@@ -151,6 +164,15 @@ void main() {
         kind: TempMarketKind.high,
       );
       expect(leading?.label, '28°C');
+    });
+
+    test('high leading uses truncate bucket for fractional obs max', () {
+      final leading = leadingSettlementBucket(
+        [m('30°C'), m('31°C'), m('32°C'), m('33°C or above')],
+        31.9,
+        kind: TempMarketKind.high,
+      );
+      expect(leading?.label, '31°C');
     });
   });
 

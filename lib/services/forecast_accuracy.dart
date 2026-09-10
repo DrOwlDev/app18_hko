@@ -211,10 +211,15 @@ DayAccuracyRow _rowForSnapshot(
 }
 
 /// Build a chart series from archived observed + one forecast snapshot.
+///
+/// [relatedSnapshots] earlier/later refreshes of the same ModelTime are merged
+/// so past hours HKO dropped from the latest OCF payload still appear (yellow
+/// line from 00:00). Includes next-day 00:00 when present in the archive.
 DailyTemperatureSeries? buildArchiveChartSeries({
   required DateTime targetDay,
   required String observedCsv,
   required ForecastArchiveSnapshot? forecast,
+  List<ForecastArchiveSnapshot> relatedSnapshots = const [],
   tz.Location? location,
 }) {
   final loc = location ?? tz.getLocation('Asia/Hong_Kong');
@@ -236,15 +241,42 @@ DailyTemperatureSeries? buildArchiveChartSeries({
     observedC[local.millisecondsSinceEpoch] = s.tempC;
   }
 
+  bool includeForecastHour(DateTime hourHkt) {
+    final local = tz.TZDateTime(
+      loc,
+      hourHkt.year,
+      hourHkt.month,
+      hourHkt.day,
+      hourHkt.hour,
+    );
+    if (!local.isBefore(dayStart) && local.isBefore(dayEnd)) return true;
+    // Endpoint: next calendar day 00:00.
+    return local.year == dayEnd.year &&
+        local.month == dayEnd.month &&
+        local.day == dayEnd.day &&
+        local.hour == 0;
+  }
+
   final forecastC = <int, double>{};
   final weatherCodes = <int, int>{};
-  if (forecast != null) {
-    for (final h in forecast.hourly) {
-      if (h.hourHkt.year != targetDay.year ||
-          h.hourHkt.month != targetDay.month ||
-          h.hourHkt.day != targetDay.day) {
-        continue;
-      }
+
+  // Older same-ModelTime refreshes first; selected last so latest hours win.
+  final family = <ForecastArchiveSnapshot>[
+    ...relatedSnapshots,
+    if (forecast != null) forecast,
+  ];
+  final seen = <String>{};
+  final ordered = <ForecastArchiveSnapshot>[];
+  for (final s in family) {
+    final id = s.id;
+    if (seen.add(id)) ordered.add(s);
+  }
+  ordered.sort((a, b) => a.id.compareTo(b.id));
+
+  for (final snap in ordered) {
+    if (forecast != null && snap.modelTime != forecast.modelTime) continue;
+    for (final h in snap.hourly) {
+      if (!includeForecastHour(h.hourHkt)) continue;
       final hourStart = tz.TZDateTime(
         loc,
         h.hourHkt.year,
@@ -252,9 +284,10 @@ DailyTemperatureSeries? buildArchiveChartSeries({
         h.hourHkt.day,
         h.hourHkt.hour,
       );
-      forecastC[hourStart.millisecondsSinceEpoch] = h.tempC;
+      final key = hourStart.millisecondsSinceEpoch;
+      forecastC[key] = h.tempC;
       if (h.weatherIcon != null) {
-        weatherCodes[hourStart.millisecondsSinceEpoch] = h.weatherIcon!;
+        weatherCodes[key] = h.weatherIcon!;
       }
     }
   }

@@ -187,6 +187,33 @@ class HkoCsvArchive {
     final location = CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
     final snapshotId = forecastSnapshotId(modelTime, lastModified);
 
+    // Carry forward hourly rows HKO dropped from this refresh (past hours),
+    // so Accuracy charts keep a full 00:00→next-00:00 yellow line.
+    final mergedHourly = <String, String>{}; // iso hour -> csv data cols
+    for (final id in await listForecastSnapshots()) {
+      if (!id.startsWith(modelTime)) continue;
+      final prior = parseForecastArchiveCsv(
+        await readForecastCsv(id),
+        snapshotId: id,
+      );
+      if (prior == null) continue;
+      for (final h in prior.hourly) {
+        final local = tz.TZDateTime(
+          location,
+          h.hourHkt.year,
+          h.hourHkt.month,
+          h.hourHkt.day,
+          h.hourHkt.hour,
+        );
+        final iso = _formatHktIso(local);
+        final icon = h.weatherIcon?.toString() ?? '';
+        mergedHourly.putIfAbsent(
+          iso,
+          () => 'hourly,$modelTime,$iso,${h.tempC},$icon,,,PLACEHOLDER,HKO.xml',
+        );
+      }
+    }
+
     await forecastDir.create(recursive: true);
     final file = File('${forecastDir.path}/$snapshotId.csv');
     final buffer = StringBuffer()
@@ -210,10 +237,17 @@ class HkoCsvArchive {
           wall.hour,
         );
         final icon = item['ForecastWeather']?.toString() ?? '';
-        buffer.writeln(
-          'hourly,$modelTime,${_formatHktIso(local)},$temp,$icon,,,$lastModified,HKO.xml',
-        );
+        final iso = _formatHktIso(local);
+        mergedHourly[iso] =
+            'hourly,$modelTime,$iso,$temp,$icon,,,$lastModified,HKO.xml';
       }
+    }
+
+    final hourKeys = mergedHourly.keys.toList()..sort();
+    for (final iso in hourKeys) {
+      buffer.writeln(
+        mergedHourly[iso]!.replaceAll(',PLACEHOLDER,', ',$lastModified,'),
+      );
     }
 
     final daily = json['DailyForecast'];

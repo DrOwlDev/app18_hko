@@ -23,7 +23,13 @@ class SettlementBucketHud extends StatelessWidget {
   Widget build(BuildContext context) {
     final high = tempKind == TempMarketKind.high;
     final obs = seriesObservedExtremum(series, tempKind);
-    final fcst = seriesForecastRemainingExtremum(series, tempKind);
+    final rawFcst = seriesForecastRemainingExtremum(series, tempKind);
+    // If remaining forecast cannot set a new high/low vs observed, show —.
+    double? fcst = rawFcst;
+    if (obs != null && rawFcst != null) {
+      if (high && rawFcst <= obs) fcst = null;
+      if (!high && rawFcst >= obs) fcst = null;
+    }
     final unit = series.unit == 'F' ? 'F' : 'C';
     final leading = obs == null
         ? null

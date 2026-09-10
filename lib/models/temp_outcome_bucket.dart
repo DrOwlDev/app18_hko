@@ -198,19 +198,25 @@ double? seriesForecastRemainingExtremum(
         : seriesForecastRemainingMin(series, nowLocal: nowLocal);
 
 /// Physics-dead from current observed extremum (min for low, max for high).
+///
+/// Uses [settlementBucket] (truncate toward zero) so e.g. obs 31.9°C still
+/// leaves the `31°C` high outcome alive.
 bool isPhysicsDeadOutcome(
   TempOutcomeBucket bucket,
   double observedExtremum, {
   required TempMarketKind kind,
 }) {
+  final obsBucket = settlementBucket(observedExtremum);
   if (kind == TempMarketKind.high) {
     switch (bucket.kind) {
       case TempBucketKind.exact:
-        return bucket.exact != null && observedExtremum > bucket.exact!;
+        return bucket.exact != null &&
+            obsBucket > settlementBucket(bucket.exact!);
       case TempBucketKind.range:
-        return bucket.hi != null && observedExtremum > bucket.hi!;
+        return bucket.hi != null && obsBucket > settlementBucket(bucket.hi!);
       case TempBucketKind.orBelow:
-        return bucket.exact != null && observedExtremum > bucket.exact!;
+        return bucket.exact != null &&
+            obsBucket > settlementBucket(bucket.exact!);
       case TempBucketKind.orAbove:
         return false;
     }
@@ -218,13 +224,15 @@ bool isPhysicsDeadOutcome(
 
   switch (bucket.kind) {
     case TempBucketKind.exact:
-      return bucket.exact != null && observedExtremum < bucket.exact!;
+      return bucket.exact != null &&
+          obsBucket < settlementBucket(bucket.exact!);
     case TempBucketKind.range:
-      return bucket.lo != null && observedExtremum < bucket.lo!;
+      return bucket.lo != null && obsBucket < settlementBucket(bucket.lo!);
     case TempBucketKind.orBelow:
       return false;
     case TempBucketKind.orAbove:
-      return bucket.exact != null && observedExtremum < bucket.exact!;
+      return bucket.exact != null &&
+          obsBucket < settlementBucket(bucket.exact!);
   }
 }
 

@@ -7,14 +7,12 @@ import 'package:app18_hko/services/city_timezones.dart';
 void main() {
   setUpAll(CityTimezones.ensureInitialized);
 
-  testWidgets('HKO app shows Markets, Forecast Accuracy, and Portfolio tabs',
+  testWidgets('HKO app shows Forecast, Markets, and Portfolio tabs',
       (WidgetTester tester) async {
     await tester.pumpWidget(const LowTempApp());
+    expect(find.text('Forecast'), findsOneWidget);
     expect(find.text('Markets'), findsOneWidget);
-    expect(find.text('Forecast Accuracy'), findsOneWidget);
     expect(find.text('Portfolio'), findsOneWidget);
-    expect(find.textContaining('Hide Odds'), findsOneWidget);
-    expect(find.textContaining('Hide Table'), findsOneWidget);
   });
 
   test('MarketEvent parses Hong Kong low temperature market', () {

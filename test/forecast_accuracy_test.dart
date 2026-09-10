@@ -80,4 +80,58 @@ hourly,2026090900,2026-09-10T02:00:00+08:00,27.0,50,,,20260909234127,HKO.xml
       2,
     );
   });
+
+  test('buildArchiveChartSeries backfills morning hours and next midnight', () {
+    CityTimezones.ensureInitialized();
+    const observedCsv = '''
+observed_at_hkt,temperature_c,rh_pct,source
+2026-09-10T12:00:00+08:00,30.0,70,hkoc.csv
+''';
+    const olderCsv = '''
+record_type,model_time,forecast_time_hkt,temperature_c,weather_icon,daily_min_c,daily_max_c,last_modified,source
+hourly,2026090912,2026-09-10T00:00:00+08:00,28.0,,,,20260910121147,HKO.xml
+hourly,2026090912,2026-09-10T06:00:00+08:00,27.5,,,,20260910121147,HKO.xml
+hourly,2026090912,2026-09-10T11:00:00+08:00,30.0,,,,20260910121147,HKO.xml
+''';
+    const newerCsv = '''
+record_type,model_time,forecast_time_hkt,temperature_c,weather_icon,daily_min_c,daily_max_c,last_modified,source
+hourly,2026090912,2026-09-10T11:00:00+08:00,30.1,,,,20260910181154,HKO.xml
+hourly,2026090912,2026-09-10T23:00:00+08:00,27.5,,,,20260910181154,HKO.xml
+hourly,2026090912,2026-09-11T00:00:00+08:00,27.1,,,,20260910181154,HKO.xml
+''';
+    final older = parseForecastArchiveCsv(
+      olderCsv,
+      snapshotId: '2026090912_20260910121147',
+    )!;
+    final newer = parseForecastArchiveCsv(
+      newerCsv,
+      snapshotId: '2026090912_20260910181154',
+    )!;
+    final series = buildArchiveChartSeries(
+      targetDay: DateTime(2026, 9, 10),
+      observedCsv: observedCsv,
+      forecast: newer,
+      relatedSnapshots: [older, newer],
+    )!;
+    final forecastPoints =
+        series.points.where((p) => p.kind == TempPointKind.forecast).toList();
+    final hours = forecastPoints.map((p) => p.localHourStart.hour).toSet();
+    expect(hours, containsAll([0, 6, 11, 23]));
+    expect(
+      forecastPoints.any(
+        (p) =>
+            p.localHourStart.day == 11 &&
+            p.localHourStart.hour == 0 &&
+            (p.temperature - 27.1).abs() < 1e-9,
+      ),
+      isTrue,
+    );
+    // Newer refresh wins on overlapping hours.
+    expect(
+      forecastPoints
+          .firstWhere((p) => p.localHourStart.hour == 11)
+          .temperature,
+      30.1,
+    );
+  });
 }

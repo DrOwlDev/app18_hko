@@ -156,6 +156,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
       targetDay: day,
       observedCsv: _observedCsv,
       forecast: selected,
+      relatedSnapshots: snapshots,
     );
 
     _lowEvent = null;
