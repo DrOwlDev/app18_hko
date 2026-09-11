@@ -26,6 +26,21 @@ int? normalizeHkoWeatherIconCode(int? raw) {
 String hkoWeatherIconImageUrl(int code) =>
     'https://www.hko.gov.hk/images/HKOWxIconOutline/pic$code.png';
 
+/// Rain / shower / thunderstorm HKO icons (light rain through heavy rain, etc.).
+bool isHkoRainWeatherIcon(int code) {
+  switch (code) {
+    case 53: // Sunny Periods with A Few Showers
+    case 54: // Sunny Intervals with Showers
+    case 62: // Light Rain
+    case 63: // Rain
+    case 64: // Heavy Rain
+    case 65: // Thunderstorms
+      return true;
+    default:
+      return false;
+  }
+}
+
 String hkoWeatherIconCaption(int code) {
   switch (code) {
     case 50:

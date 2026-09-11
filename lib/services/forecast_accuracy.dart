@@ -3,6 +3,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'city_timezones.dart';
 import 'hko_csv_archive.dart';
+import 'hko_temperature_api.dart';
 import 'temperature_series.dart';
 
 /// HKT calendar days from [pastDays] ago through [nextDays] ahead (inclusive).
@@ -295,13 +296,20 @@ DailyTemperatureSeries? buildArchiveChartSeries({
 
   if (observedC.isEmpty && forecastC.isEmpty) return null;
 
+  final expandedWeather = weatherCodes.isEmpty
+      ? null
+      : expandOcfWeatherIconCodes(
+          hourKeys: forecastC.keys,
+          sparseCodes: weatherCodes,
+        );
+
   final points = mergeObservedForecastOverlay(
     dayStart: dayStart,
     dayEnd: dayEnd,
     observedC: observedC,
     forecastC: forecastC,
     unit: 'C',
-    forecastWeatherCodes: weatherCodes.isEmpty ? null : weatherCodes,
+    forecastWeatherCodes: expandedWeather,
   );
 
   return DailyTemperatureSeries(

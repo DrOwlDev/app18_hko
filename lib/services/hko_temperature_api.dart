@@ -347,7 +347,8 @@ List<({DateTime utc, double tempC})> parseHkocCsvSamples(String csvBody) {
 }
 
 /// OCF emits [ForecastWeather] about every 3 hours; expand so every forecast
-/// hour gets an icon (forward-fill, then back-fill before the first code).
+/// hour gets an icon. Rain icons fill both forward and backward until the
+/// next explicit weather icon (priority over non-rain neighbors).
 Map<int, int> expandOcfWeatherIconCodes({
   required Iterable<int> hourKeys,
   required Map<int, int> sparseCodes,
@@ -356,21 +357,60 @@ Map<int, int> expandOcfWeatherIconCodes({
   final hours = hourKeys.toList()..sort();
   if (hours.isEmpty) return Map<int, int>.from(sparseCodes);
 
+  final anchors = <int>[
+    for (final h in hours)
+      if (sparseCodes.containsKey(h)) h,
+  ];
+  if (anchors.isEmpty) return Map<int, int>.from(sparseCodes);
+
   final out = <int, int>{};
-  int? last;
+
+  // Before first explicit icon: inherit first code (rain back-fills day start).
+  final firstCode = sparseCodes[anchors.first]!;
   for (final h in hours) {
-    final explicit = sparseCodes[h];
-    if (explicit != null) last = explicit;
-    if (last != null) out[h] = last;
+    if (h >= anchors.first) break;
+    out[h] = firstCode;
   }
 
-  int? next;
-  for (var i = hours.length - 1; i >= 0; i--) {
-    final h = hours[i];
-    final explicit = sparseCodes[h];
-    if (explicit != null) next = explicit;
-    if (!out.containsKey(h) && next != null) out[h] = next;
+  for (var i = 0; i < anchors.length; i++) {
+    final a = anchors[i];
+    final codeA = sparseCodes[a]!;
+    out[a] = codeA;
+
+    if (i + 1 >= anchors.length) {
+      for (final h in hours) {
+        if (h > a) out[h] = codeA;
+      }
+      break;
+    }
+
+    final b = anchors[i + 1];
+    final codeB = sparseCodes[b]!;
+    final gap = [for (final h in hours) if (h > a && h < b) h];
+    if (gap.isEmpty) continue;
+
+    final rainA = isHkoRainWeatherIcon(codeA);
+    final rainB = isHkoRainWeatherIcon(codeB);
+    if (rainA && rainB) {
+      final mid = gap.length / 2;
+      for (var gi = 0; gi < gap.length; gi++) {
+        out[gap[gi]] = gi < mid ? codeA : codeB;
+      }
+    } else if (rainA) {
+      for (final h in gap) {
+        out[h] = codeA;
+      }
+    } else if (rainB) {
+      for (final h in gap) {
+        out[h] = codeB;
+      }
+    } else {
+      for (final h in gap) {
+        out[h] = codeA;
+      }
+    }
   }
+
   return out;
 }
 

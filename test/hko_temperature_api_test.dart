@@ -138,11 +138,11 @@ Date/Time,Temperature,RH
             tz.TZDateTime(hk, 2026, 9, 6).millisecondsSinceEpoch],
         75,
       );
-      // Intermediate hours without explicit ForecastWeather inherit prior icon.
+      // Intermediate hours: rain at 15 back-fills over sunny at 09.
       expect(
         indexed.weatherIconCodes[
             tz.TZDateTime(hk, 2026, 9, 5, 10).millisecondsSinceEpoch],
-        50,
+        62,
       );
       expect(
         indexed.weatherIconCodes[
@@ -164,6 +164,21 @@ Date/Time,Temperature,RH
         ),
         {1: 62, 2: 62, 3: 62},
       );
+      // Rain at 4 fills backward over sunny at 1 for gap hours 2–3.
+      expect(
+        expandOcfWeatherIconCodes(
+          hourKeys: [1, 2, 3, 4, 5],
+          sparseCodes: {1: 50, 4: 62},
+        ),
+        {1: 50, 2: 62, 3: 62, 4: 62, 5: 62},
+      );
+    });
+
+    test('isHkoRainWeatherIcon covers showers through thunderstorms', () {
+      expect(isHkoRainWeatherIcon(62), isTrue);
+      expect(isHkoRainWeatherIcon(53), isTrue);
+      expect(isHkoRainWeatherIcon(50), isFalse);
+      expect(isHkoRainWeatherIcon(60), isFalse);
     });
 
     test('normalizeHkoWeatherIconCode maps composites', () {

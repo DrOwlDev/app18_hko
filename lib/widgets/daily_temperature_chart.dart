@@ -137,15 +137,16 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
     final probeBelowByBucket = <int, int>{};
     String? probeSummary;
     if (probeTemp != null) {
-      // Probe bucket [T, T+0.99]: above = ≥ T (inclusive), below = < T.
+      // Probe bucket [T, T+0.99]: below = < T; above = ≥ T+1 (excludes clicked bucket).
+      final aboveFrom = probeTemp.round() + 1;
       for (final p in forecastPoints) {
         final t = p.localHourStart.millisecondsSinceEpoch.toDouble();
         if (t < nowMs || t > dayEndMs) continue;
         final bucket = settlementBucket(p.temperature);
-        if (p.temperature >= probeTemp) {
+        if (p.temperature >= probeTemp + 1) {
           probeAbove++;
           probeAboveByBucket[bucket] = (probeAboveByBucket[bucket] ?? 0) + 1;
-        } else {
+        } else if (p.temperature < probeTemp) {
           probeBelow++;
           probeBelowByBucket[bucket] = (probeBelowByBucket[bucket] ?? 0) + 1;
         }
@@ -154,18 +155,19 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
         maxY = (probeTemp + 0.99).ceilToDouble();
       }
       final unit = series.unit == 'F' ? 'F' : 'C';
+      final probeDeg = probeTemp.round();
       final aboveParts = (probeAboveByBucket.keys.toList()..sort())
-          .map((b) => '${probeAboveByBucket[b]} @ $b$unit')
+          .map((b) => '$b$unit=${probeAboveByBucket[b]}')
           .join(' ; ');
       final belowParts = (probeBelowByBucket.keys.toList()
             ..sort((a, b) => b.compareTo(a)))
-          .map((b) => '${probeBelowByBucket[b]} @ $b$unit')
+          .map((b) => '$b$unit=${probeBelowByBucket[b]}')
           .join(' ; ');
       probeSummary =
-          '${probeTemp.round()}$unit probe - Total above = $probeAbove'
-          '${probeAbove > 0 ? ' [ $aboveParts ]' : ''}'
-          ' | Total below = $probeBelow'
-          '${probeBelow > 0 ? ' [ $belowParts ]' : ''}';
+          '$probeDeg$unit probe - BELOW $probeDeg$unit=$probeBelow'
+          '${probeBelow > 0 ? ' [ $belowParts ]' : ''}'
+          ' - ABOVE $aboveFrom$unit=$probeAbove'
+          '${probeAbove > 0 ? ' [ $aboveParts ]' : ''}';
     }
 
     double? dailyMinTemp;
@@ -264,7 +266,7 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
           ],
           if (showHkoForecastIcons && forecastIconPoints.isNotEmpty)
             SizedBox(
-              height: 28,
+              height: 26,
               child: Padding(
                 padding: const EdgeInsets.only(left: leftTitleWidth, right: 4),
                 child: LayoutBuilder(
@@ -274,10 +276,16 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                     if (span <= 0 || width <= 0) {
                       return const SizedBox.shrink();
                     }
+                    // One icon per forecast hour (OCF sparse codes expanded with
+                    // rain-priority fill). Prefer chronological order.
+                    final hourlyIcons = [...forecastIconPoints]..sort(
+                          (a, b) => a.localHourStart
+                              .compareTo(b.localHourStart),
+                        );
                     return Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        for (final p in forecastIconPoints)
+                        for (final p in hourlyIcons)
                           _HkoForecastWeatherIcon(
                             left: ((p.localHourStart.millisecondsSinceEpoch
                                             .toDouble() -
@@ -650,6 +658,16 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                                 size: 12,
                               );
                             }
+                            final rain = point.weatherIconCode != null &&
+                                isHkoRainWeatherIcon(point.weatherIconCode!);
+                            if (rain) {
+                              return FlDotCirclePainter(
+                                radius: 3,
+                                color: const Color(0xFFDC2626),
+                                strokeWidth: 0,
+                                strokeColor: const Color(0xFFDC2626),
+                              );
+                            }
                             return FlDotCirclePainter(
                               radius: 2.5,
                               color: Colors.white,
@@ -881,11 +899,25 @@ class _HkoForecastWeatherIcon extends StatelessWidget {
   final double left;
   final int code;
 
-  static const _size = 22.0;
+  static const _size = 18.0;
+  static const _rainColor = Color(0xFFDC2626);
 
   @override
   Widget build(BuildContext context) {
     final caption = hkoWeatherIconCaption(code);
+    final rain = isHkoRainWeatherIcon(code);
+    final image = Image.network(
+      hkoWeatherIconImageUrl(code),
+      width: _size,
+      height: _size,
+      fit: BoxFit.contain,
+      filterQuality: FilterQuality.medium,
+      errorBuilder: (context, error, stackTrace) => Icon(
+        _fallbackIcon(code),
+        size: 16,
+        color: rain ? _rainColor : const Color(0xFF64748B),
+      ),
+    );
     return Positioned(
       left: left - _size / 2,
       top: 2,
@@ -894,24 +926,19 @@ class _HkoForecastWeatherIcon extends StatelessWidget {
       child: Tooltip(
         message: caption,
         waitDuration: const Duration(milliseconds: 400),
-        child: Image.network(
-          hkoWeatherIconImageUrl(code),
-          width: _size,
-          height: _size,
-          fit: BoxFit.contain,
-          filterQuality: FilterQuality.medium,
-          errorBuilder: (context, error, stackTrace) => Icon(
-            _fallbackIcon(code),
-            size: 18,
-            color: const Color(0xFF64748B),
-          ),
-        ),
+        child: rain
+            ? ColorFiltered(
+                colorFilter:
+                    const ColorFilter.mode(_rainColor, BlendMode.srcIn),
+                child: image,
+              )
+            : image,
       ),
     );
   }
 
   static IconData _fallbackIcon(int code) {
-    if (code >= 62 && code <= 65) return Icons.umbrella;
+    if (isHkoRainWeatherIcon(code)) return Icons.umbrella;
     if (code >= 70 && code <= 77) return Icons.nights_stay;
     if (code >= 50 && code <= 54) return Icons.wb_sunny;
     return Icons.cloud;
