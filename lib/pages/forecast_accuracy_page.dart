@@ -380,15 +380,9 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   String _fmt(double? v) => v == null ? '—' : v.toStringAsFixed(1);
 
   static const _weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  static const _months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-  ];
 
   String _dayLabel(DateTime day) {
-    final wd = _weekdays[day.weekday - 1];
-    final stamp =
-        '$wd ${day.day.toString().padLeft(2, '0')}-${_months[day.month - 1]}';
+    final stamp = '${_weekdays[day.weekday - 1]} ${day.day}/${day.month}';
     final nowHkt = CityTimezones.nowInCity('Hong Kong');
     if (nowHkt == null) return stamp;
     final today = DateTime(nowHkt.year, nowHkt.month, nowHkt.day);
@@ -396,31 +390,48 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     return stamp;
   }
 
-  /// e.g. `Model Fri 11-Sep 00:00 (Refreshed Sat 12-Sep 00:11)`
+  /// e.g. `Fri 11/9 0am (Sat 12/9 03:12)`
   String _snapshotLabel(String snapshotId) {
     final modelPart =
         snapshotId.contains('_') ? snapshotId.split('_').first : snapshotId;
     final modifiedPart =
         snapshotId.contains('_') ? snapshotId.split('_').last : null;
-    final model = _compactHktStamp(modelPart);
-    final refreshed = _compactHktStamp(modifiedPart);
+    final model = _compactModelStamp(modelPart);
+    final refreshed = _compactRefreshedStamp(modifiedPart);
     if (model == null) return snapshotId;
-    if (refreshed == null) return 'Model $model';
-    return 'Model $model (Refreshed $refreshed)';
+    if (refreshed == null) return model;
+    return '$model ($refreshed)';
   }
 
-  /// `YYYYMMDDHH[MM[SS]]` → `ddd dd-MMM HH:mm`
-  String? _compactHktStamp(String? raw) {
-    if (raw == null || raw.isEmpty) return null;
-    final wall = parseHkoCompactDateTime(
-      raw.length >= 12 ? raw.substring(0, 12) : raw,
-    );
+  /// `YYYYMMDDHH…` → `ddd D/M Ham` (e.g. `Fri 11/9 0am`)
+  String? _compactModelStamp(String? raw) {
+    final wall = _parseCompactWall(raw);
     if (wall == null) return null;
     final wd = _weekdays[wall.weekday - 1];
-    final dd = wall.day.toString().padLeft(2, '0');
-    final mon = _months[wall.month - 1];
+    return '$wd ${wall.day}/${wall.month} ${_hourAmPm(wall.hour)}';
+  }
+
+  /// `YYYYMMDDHHMM…` → `ddd D/M HH:mm` (e.g. `Sat 12/9 03:12`)
+  String? _compactRefreshedStamp(String? raw) {
+    final wall = _parseCompactWall(raw);
+    if (wall == null) return null;
+    final wd = _weekdays[wall.weekday - 1];
     final hh = wall.hour.toString().padLeft(2, '0');
     final mm = wall.minute.toString().padLeft(2, '0');
-    return '$wd $dd-$mon $hh:$mm';
+    return '$wd ${wall.day}/${wall.month} $hh:$mm';
+  }
+
+  DateTime? _parseCompactWall(String? raw) {
+    if (raw == null || raw.isEmpty) return null;
+    return parseHkoCompactDateTime(
+      raw.length >= 12 ? raw.substring(0, 12) : raw,
+    );
+  }
+
+  static String _hourAmPm(int hour) {
+    if (hour == 0) return '0am';
+    if (hour < 12) return '${hour}am';
+    if (hour == 12) return '12pm';
+    return '${hour - 12}pm';
   }
 }
