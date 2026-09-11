@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-11T09:15:48.112907Z",
+  "updatedAt": "2026-09-11T13:39:46.992984Z",
   "eventCount": 6,
   "temperatureSeriesCount": 6,
   "events": [
@@ -7,8 +7,8 @@
       "id": "992153",
       "title": "Lowest temperature in Hong Kong on September 11?",
       "slug": "lowest-temperature-in-hong-kong-on-september-11-2026",
-      "volume": 30406.196060000006,
-      "volume24hr": 20006.212143,
+      "volume": 33245.495364,
+      "volume24hr": 18750.69998,
       "endDate": "2026-09-11T12:00:00.000Z",
       "description": "This market will resolve to the temperature range that contains the lowest temperature recorded by the Hong Kong Observatory in degrees Celsius on 11 Sep '26.\n\nThe resolution source for this market will be information from the Hong Kong Observatory, specifically the \"Absolute Daily Min (deg. C)\" the specified date once information is finalized in the relevant \"Daily Extract\", available here: https://www.weather.gov.hk/en/cis/climat.htm\n\nIn the event that there is no data for the observation date by 11:59 PM ET on the seventh day following the observation date, this market will resolve to the lowest bracket.\n\nThis market will resolve once data for this date has been published on the resolution source, or by 11:59 PM ET on the seventh day following the observation date, whichever comes first.\n\nThe resolution source for this market measures temperatures in Celsius to one decimal place (eg, 9.1°C). Thus, this is the level of precision that will be used when resolving the market.\n\nAny revisions to temperatures recorded after data is initially published for this market's timeframe will not be considered for this market's resolution.",
       "resolutionSource": "",
@@ -22,17 +22,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.001",
-            "0.999"
+            "0.003",
+            "0.997"
           ],
-          "volume": 561.761,
-          "bestAsk": 0.002,
+          "volume": 1043.516038,
+          "bestBid": 0.001,
+          "bestAsk": 0.005,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
             "10844194896674101467822913858083148247159417308766279276685905427063132803411",
             "71892669018947384892864114457129472365153044924700543593676378789515202192625"
           ],
-          "clobBuyYes": 0.002
+          "clobBuyYes": 0.005,
+          "clobBuyNo": 0.999
         },
         {
           "id": "4399218",
@@ -46,7 +48,7 @@
             "0.0025",
             "0.9975"
           ],
-          "volume": 844.7686359999999,
+          "volume": 1044.7686359999998,
           "bestAsk": 0.005,
           "lastTradePrice": 0.005,
           "clobTokenIds": [
@@ -64,17 +66,17 @@
             "No"
           ],
           "outcomePrices": [
-            "0.004",
-            "0.996"
+            "0.007",
+            "0.993"
           ],
-          "volume": 1990.8498650000006,
-          "bestAsk": 0.008,
-          "lastTradePrice": 0.009,
+          "volume": 2082.502365,
+          "bestAsk": 0.014,
+          "lastTradePrice": 0.012,
           "clobTokenIds": [
             "50903468246125360710905785133842844796632451476468055834099041348778879906055",
             "47053875049336963143510146547174554720043673100854311907424164336570878814152"
           ],
-          "clobBuyYes": 0.008
+          "clobBuyYes": 0.014
         },
         {
           "id": "4399220",
@@ -85,19 +87,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.03",
-            "0.97"
+            "0.0105",
+            "0.9895"
           ],
-          "volume": 4815.319686000001,
-          "bestBid": 0.01,
-          "bestAsk": 0.05,
-          "lastTradePrice": 0.01,
+          "volume": 4861.322708,
+          "bestBid": 0.001,
+          "bestAsk": 0.02,
+          "lastTradePrice": 0.02,
           "clobTokenIds": [
             "73690555629494803443003290510895264750541821794934519337209939726471444260177",
             "43575228788790190619856728514244384104848215111710999373752963120401603322785"
           ],
-          "clobBuyYes": 0.05,
-          "clobBuyNo": 0.99
+          "clobBuyYes": 0.02,
+          "clobBuyNo": 0.999
         },
         {
           "id": "4399221",
@@ -108,19 +110,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.96",
-            "0.04"
+            "0.9595",
+            "0.0405"
           ],
-          "volume": 6475.1184809999995,
-          "bestBid": 0.94,
-          "bestAsk": 0.98,
-          "lastTradePrice": 0.98,
+          "volume": 7763.583891,
+          "bestBid": 0.921,
+          "bestAsk": 0.998,
+          "lastTradePrice": 0.99,
           "clobTokenIds": [
             "55001391878223696760611590135790313994480706603021203299488332739257890759988",
             "74803685978260305469323813195277140549978607872405821876211069565895494307454"
           ],
-          "clobBuyYes": 0.98,
-          "clobBuyNo": 0.06
+          "clobBuyYes": 0.998,
+          "clobBuyNo": 0.079
         },
         {
           "id": "4399222",
@@ -131,17 +133,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.001",
-            "0.999"
+            "0.0015",
+            "0.9985"
           ],
-          "volume": 5258.994866000001,
+          "volume": 5258.994866,
+          "bestBid": 0.001,
           "bestAsk": 0.002,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
             "84435186850556055817027118171651382365365951351794752284334640171271861923833",
             "110149605160359576834969508036238744703109789107868597573860824647309370912663"
           ],
-          "clobBuyYes": 0.002
+          "clobBuyYes": 0.002,
+          "clobBuyNo": 0.999
         },
         {
           "id": "4399223",
@@ -155,7 +159,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 7885.385574000002,
+          "volume": 7885.385573999999,
           "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
@@ -173,17 +177,17 @@
             "No"
           ],
           "outcomePrices": [
-            "0.0005",
-            "0.9995"
+            "0.0015",
+            "0.9985"
           ],
-          "volume": 2305.905952,
-          "bestAsk": 0.001,
+          "volume": 3100.739286,
+          "bestAsk": 0.003,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
             "56942964001804929228538883731143306912896368968169227657153053582904846530570",
             "72584191740631352156941968433103536846079287633371104396836655474457199201624"
           ],
-          "clobBuyYes": 0.001
+          "clobBuyYes": 0.003
         },
         {
           "id": "4399225",
@@ -254,7 +258,7 @@
         "timeZone": "Asia/Hong_Kong",
         "dayStart": "2026-09-10T16:00:00.000Z",
         "dayEnd": "2026-09-11T16:00:00.000Z",
-        "nowLocal": "2026-09-11T09:15:47.112685Z",
+        "nowLocal": "2026-09-11T13:39:46.008545Z",
         "points": [
           {
             "t": "2026-09-10T16:00:00.000Z",
@@ -6385,69 +6389,1661 @@
             "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
-            "t": "2026-09-11T10:00:00.000Z",
+            "t": "2026-09-11T09:01:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:02:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:03:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:04:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:05:00.000Z",
+            "temp": 30.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:06:00.000Z",
+            "temp": 30.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:07:00.000Z",
+            "temp": 30.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:08:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:09:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:10:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:11:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:12:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:13:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:14:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:15:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:16:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:17:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:18:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:19:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:20:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:21:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:22:00.000Z",
+            "temp": 30.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:23:00.000Z",
+            "temp": 30.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:24:00.000Z",
+            "temp": 30.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:25:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:26:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:27:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:28:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:29:00.000Z",
             "temp": 30.0,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 52
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:30:00.000Z",
+            "temp": 30.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:31:00.000Z",
+            "temp": 30.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:32:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:33:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:34:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:35:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:36:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:37:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:38:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:39:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:40:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:41:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:42:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:43:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:44:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:45:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:46:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:47:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:48:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:49:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:50:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:51:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:52:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:53:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:54:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:55:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:56:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:57:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:58:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:59:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:00:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:01:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:02:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:03:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:04:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:05:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:06:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:07:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:08:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:09:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:10:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:11:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:12:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:13:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:14:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:15:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:16:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:17:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:18:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:19:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:20:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:21:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:22:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:23:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:24:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:25:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:26:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:27:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:28:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:29:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:30:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:31:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:32:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:33:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:34:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:35:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:36:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:37:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:38:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:39:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:40:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:41:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:42:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:43:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:44:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:45:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:46:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:47:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:48:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:49:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:50:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:51:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:52:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:53:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:54:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:55:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:56:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:57:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:58:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:59:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T11:00:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:01:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:02:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:03:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:04:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:05:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:06:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:07:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:08:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:09:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:10:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:11:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:12:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:13:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:14:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:15:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:16:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:17:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:18:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:19:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:20:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:21:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:22:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:23:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:24:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:25:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:26:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:27:00.000Z",
             "temp": 29.2,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 52
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:28:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:29:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:30:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:31:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:32:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:33:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:34:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:35:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:36:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:37:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:38:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:39:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:40:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:41:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:42:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:43:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:44:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:45:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:46:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:47:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:48:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:49:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:50:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:51:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:52:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:53:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:54:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:55:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:56:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:57:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:58:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:59:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T12:00:00.000Z",
-            "temp": 29.0,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 70
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:01:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:02:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:03:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:04:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:05:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:06:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:07:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:08:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:09:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:10:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:11:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:12:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:13:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:14:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:15:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:16:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:17:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:18:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:19:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:20:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:21:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:22:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:23:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:24:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:25:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:26:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:27:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:28:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:29:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:30:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:31:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:32:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:33:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:34:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:35:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:36:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:37:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:38:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:39:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:40:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:41:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:42:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:43:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:44:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:45:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:46:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:47:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:48:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:49:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:50:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:51:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:52:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:53:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:54:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:55:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:56:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:57:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:58:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:59:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T13:00:00.000Z",
-            "temp": 28.4,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 70
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:01:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:02:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:03:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:04:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:05:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:06:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:07:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:08:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:09:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:10:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:11:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:12:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:13:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:14:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:15:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:16:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:17:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:18:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:19:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:20:00.000Z",
+            "temp": 28.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:21:00.000Z",
+            "temp": 28.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:22:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:23:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:24:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:25:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:26:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:27:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:28:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:29:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:30:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T14:00:00.000Z",
-            "temp": 28.0,
+            "temp": 28.3,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 70
           },
           {
             "t": "2026-09-11T15:00:00.000Z",
-            "temp": 27.8,
+            "temp": 28.1,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T16:00:00.000Z",
-            "temp": 27.7,
+            "temp": 28.0,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           }
         ],
         "latestObservation": {
-          "temp": 30.6,
-          "t": "2026-09-11T09:00:00.000Z"
+          "temp": 28.6,
+          "t": "2026-09-11T13:30:00.000Z"
         },
         "forecastModelTime": "2026091012",
-        "forecastRetrievedAtUtc": "2026-09-11T09:15:48.107957Z"
+        "forecastRetrievedAtUtc": "2026-09-11T13:39:46.970735Z"
       }
     },
     {
       "id": "997485",
       "title": "Lowest temperature in Hong Kong on September 12?",
       "slug": "lowest-temperature-in-hong-kong-on-september-12-2026",
-      "volume": 4073.165719,
-      "volume24hr": 3937.483903,
+      "volume": 5203.285702,
+      "volume24hr": 5026.603886,
       "endDate": "2026-09-12T12:00:00.000Z",
       "description": "This market will resolve to the temperature range that contains the lowest temperature recorded by the Hong Kong Observatory in degrees Celsius on 12 Sep '26.\n\nThe resolution source for this market will be information from the Hong Kong Observatory, specifically the \"Absolute Daily Min (deg. C)\" the specified date once information is finalized in the relevant \"Daily Extract\", available here: https://www.weather.gov.hk/en/cis/climat.htm\n\nIn the event that there is no data for the observation date by 11:59 PM ET on the seventh day following the observation date, this market will resolve to the lowest bracket.\n\nThis market will resolve once data for this date has been published on the resolution source, or by 11:59 PM ET on the seventh day following the observation date, whichever comes first.\n\nThe resolution source for this market measures temperatures in Celsius to one decimal place (eg, 9.1°C). Thus, this is the level of precision that will be used when resolving the market.\n\nAny revisions to temperatures recorded after data is initially published for this market's timeframe will not be considered for this market's resolution.",
       "resolutionSource": "",
@@ -6461,18 +8057,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.022",
-            "0.978"
+            "0.0095",
+            "0.9905"
           ],
-          "volume": 154.42299999999997,
+          "volume": 154.423,
           "bestBid": 0.002,
-          "bestAsk": 0.042,
+          "bestAsk": 0.017,
           "lastTradePrice": 0.002,
           "clobTokenIds": [
             "115607960372061606283214947289645450504808695303282479575664378023022139500428",
             "93403588243557716232830623712774270533542713106900258946434579350602647793763"
           ],
-          "clobBuyYes": 0.042,
+          "clobBuyYes": 0.017,
           "clobBuyNo": 0.998
         },
         {
@@ -6484,18 +8080,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.07",
-            "0.93"
+            "0.025",
+            "0.975"
           ],
-          "volume": 119.98310000000001,
+          "volume": 126.98310000000001,
           "bestBid": 0.01,
-          "bestAsk": 0.13,
+          "bestAsk": 0.04,
           "lastTradePrice": 0.03,
           "clobTokenIds": [
             "21247459366566110327093439380784860733548442682858215221993405602107720133649",
             "92558438979895580076735335048386588508235700671655403687061464682808557187856"
           ],
-          "clobBuyYes": 0.13,
+          "clobBuyYes": 0.04,
           "clobBuyNo": 0.99
         },
         {
@@ -6510,7 +8106,7 @@
             "0.115",
             "0.885"
           ],
-          "volume": 386.333431,
+          "volume": 393.333431,
           "bestBid": 0.11,
           "bestAsk": 0.12,
           "lastTradePrice": 0.12,
@@ -6530,19 +8126,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.385",
-            "0.615"
+            "0.33",
+            "0.67"
           ],
-          "volume": 936.522862,
-          "bestBid": 0.38,
-          "bestAsk": 0.39,
+          "volume": 1098.632862,
+          "bestBid": 0.3,
+          "bestAsk": 0.36,
           "lastTradePrice": 0.38,
           "clobTokenIds": [
             "110773248296886054479521366033267487666508157995334043612417701773453678403160",
             "64464751372045059631730197124428577701178873079353551403944200963815829002138"
           ],
-          "clobBuyYes": 0.4,
-          "clobBuyNo": 0.62
+          "clobBuyYes": 0.36,
+          "clobBuyNo": 0.7
         },
         {
           "id": "4430443",
@@ -6553,19 +8149,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.305",
-            "0.695"
+            "0.325",
+            "0.675"
           ],
-          "volume": 637.8229020000001,
-          "bestBid": 0.3,
-          "bestAsk": 0.31,
-          "lastTradePrice": 0.3,
+          "volume": 686.156236,
+          "bestBid": 0.29,
+          "bestAsk": 0.36,
+          "lastTradePrice": 0.36,
           "clobTokenIds": [
             "50219056528573382808178037803276456129693371515634423215354093849335341355440",
             "68847611145591363474468373096805699513185723021548049913458745031510696890876"
           ],
-          "clobBuyYes": 0.31,
-          "clobBuyNo": 0.7
+          "clobBuyYes": 0.36,
+          "clobBuyNo": 0.71
         },
         {
           "id": "4430444",
@@ -6576,19 +8172,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.175",
-            "0.825"
+            "0.245",
+            "0.755"
           ],
-          "volume": 1240.369624,
-          "bestBid": 0.15,
-          "bestAsk": 0.2,
-          "lastTradePrice": 0.19,
+          "volume": 1797.9305579999998,
+          "bestBid": 0.21,
+          "bestAsk": 0.28,
+          "lastTradePrice": 0.22,
           "clobTokenIds": [
             "49974911677428513940991444991402840347681404832255806550294436295751562799594",
             "59913632708125624482644716026752899075365717073462605680814142575933035800547"
           ],
-          "clobBuyYes": 0.2,
-          "clobBuyNo": 0.85
+          "clobBuyYes": 0.28,
+          "clobBuyNo": 0.79
         },
         {
           "id": "4430445",
@@ -6599,17 +8195,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.035",
-            "0.965"
+            "0.015",
+            "0.985"
           ],
-          "volume": 405.5408,
-          "bestAsk": 0.07,
-          "lastTradePrice": 0.02,
+          "volume": 727.695115,
+          "bestBid": 0.01,
+          "bestAsk": 0.02,
+          "lastTradePrice": 0.07,
           "clobTokenIds": [
             "115225249227837522178842443942591720786124120691316454508808407399152330033127",
             "27988124507264514555151166601168670679541977718747752275232585208982452846377"
           ],
-          "clobBuyYes": 0.07
+          "clobBuyYes": 0.02,
+          "clobBuyNo": 0.99
         },
         {
           "id": "4430446",
@@ -6643,17 +8241,17 @@
             "No"
           ],
           "outcomePrices": [
-            "0.009",
-            "0.991"
+            "0.0005",
+            "0.9995"
           ],
-          "volume": 37.17,
-          "bestAsk": 0.018,
+          "volume": 157.0,
+          "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
             "61308760867184819786486232808752023007523129462143570426533575876391110573634",
             "78643574516522052764220419237186921069370754202432089057697148834494134786637"
           ],
-          "clobBuyYes": 0.015
+          "clobBuyYes": 0.001
         },
         {
           "id": "4430448",
@@ -6708,46 +8306,46 @@
         "timeZone": "Asia/Hong_Kong",
         "dayStart": "2026-09-11T16:00:00.000Z",
         "dayEnd": "2026-09-12T16:00:00.000Z",
-        "nowLocal": "2026-09-11T09:15:47.113980Z",
+        "nowLocal": "2026-09-11T13:39:46.009549Z",
         "points": [
           {
             "t": "2026-09-11T16:00:00.000Z",
-            "temp": 27.7,
+            "temp": 28.0,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T17:00:00.000Z",
-            "temp": 27.4,
+            "temp": 27.7,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T18:00:00.000Z",
-            "temp": 27.2,
+            "temp": 27.4,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T19:00:00.000Z",
-            "temp": 26.5,
+            "temp": 26.7,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T20:00:00.000Z",
-            "temp": 25.9,
+            "temp": 26.0,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T21:00:00.000Z",
-            "temp": 25.2,
+            "temp": 25.3,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 70
@@ -6889,19 +8487,19 @@
           }
         ],
         "latestObservation": {
-          "temp": 30.6,
-          "t": "2026-09-11T09:00:00.000Z"
+          "temp": 28.6,
+          "t": "2026-09-11T13:30:00.000Z"
         },
         "forecastModelTime": "2026091012",
-        "forecastRetrievedAtUtc": "2026-09-11T09:15:48.083132Z"
+        "forecastRetrievedAtUtc": "2026-09-11T13:39:46.991962Z"
       }
     },
     {
       "id": "1002587",
       "title": "Lowest temperature in Hong Kong on September 13?",
       "slug": "lowest-temperature-in-hong-kong-on-september-13-2026",
-      "volume": 140.35,
-      "volume24hr": 140.35,
+      "volume": 502.73900000000003,
+      "volume24hr": 502.739,
       "endDate": "2026-09-13T12:00:00.000Z",
       "description": "This market will resolve to the temperature range that contains the lowest temperature recorded by the Hong Kong Observatory in degrees Celsius on 13 Sep '26.\n\nThe resolution source for this market will be information from the Hong Kong Observatory, specifically the \"Absolute Daily Min (deg. C)\" the specified date once information is finalized in the relevant \"Daily Extract\", available here: https://www.weather.gov.hk/en/cis/climat.htm\n\nIn the event that there is no data for the observation date by 11:59 PM ET on the seventh day following the observation date, this market will resolve to the lowest bracket.\n\nThis market will resolve once data for this date has been published on the resolution source, or by 11:59 PM ET on the seventh day following the observation date, whichever comes first.\n\nThe resolution source for this market measures temperatures in Celsius to one decimal place (eg, 9.1°C). Thus, this is the level of precision that will be used when resolving the market.\n\nAny revisions to temperatures recorded after data is initially published for this market's timeframe will not be considered for this market's resolution.",
       "resolutionSource": "",
@@ -6915,16 +8513,16 @@
             "No"
           ],
           "outcomePrices": [
-            "0.21",
-            "0.79"
+            "0.035",
+            "0.965"
           ],
           "volume": 0.0,
-          "bestAsk": 0.42,
+          "bestAsk": 0.07,
           "clobTokenIds": [
             "17697596035066254536123617873020333471352708372213041753852318354783337991232",
             "97745236033467394608557690835624563246459501529857747264106185646765307536002"
           ],
-          "clobBuyYes": 0.42
+          "clobBuyYes": 0.07
         },
         {
           "id": "4461131",
@@ -6935,16 +8533,16 @@
             "No"
           ],
           "outcomePrices": [
-            "0.145",
-            "0.855"
+            "0.03",
+            "0.97"
           ],
           "volume": 0.0,
-          "bestAsk": 0.29,
+          "bestAsk": 0.06,
           "clobTokenIds": [
             "39479482888628701180156594254998170033065991304641364505215404668656105431869",
             "74390810959287734326453254412504646634847262119996923030670477931368063032368"
           ],
-          "clobBuyYes": 0.29
+          "clobBuyYes": 0.06
         },
         {
           "id": "4461132",
@@ -6955,18 +8553,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.2",
-            "0.8"
+            "0.185",
+            "0.815"
           ],
           "volume": 0.0,
-          "bestBid": 0.1,
-          "bestAsk": 0.3,
+          "bestBid": 0.16,
+          "bestAsk": 0.21,
           "clobTokenIds": [
             "72269695376002207447269555618629426334796576128443457147925055192360058182476",
             "3968024217468270203783495233182166352603349798599034349690508308290079447761"
           ],
-          "clobBuyYes": 0.3,
-          "clobBuyNo": 0.9
+          "clobBuyYes": 0.21,
+          "clobBuyNo": 0.84
         },
         {
           "id": "4461133",
@@ -6977,19 +8575,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.365",
-            "0.635"
+            "0.345",
+            "0.655"
           ],
-          "volume": 52.35,
-          "bestBid": 0.25,
-          "bestAsk": 0.48,
-          "lastTradePrice": 0.21,
+          "volume": 160.7,
+          "bestBid": 0.32,
+          "bestAsk": 0.37,
+          "lastTradePrice": 0.36,
           "clobTokenIds": [
             "12619125677956108620563022306945705111208428897329594704056698411910852197984",
             "26745804726663760777697233968987345193157678669428918206155687163625251350220"
           ],
-          "clobBuyYes": 0.48,
-          "clobBuyNo": 0.75
+          "clobBuyYes": 0.37,
+          "clobBuyNo": 0.68
         },
         {
           "id": "4461134",
@@ -7000,19 +8598,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.325",
-            "0.675"
+            "0.365",
+            "0.635"
           ],
-          "volume": 88.0,
-          "bestBid": 0.21,
-          "bestAsk": 0.44,
-          "lastTradePrice": 0.2,
+          "volume": 213.0,
+          "bestBid": 0.36,
+          "bestAsk": 0.37,
+          "lastTradePrice": 0.36,
           "clobTokenIds": [
             "101263985565644380054605382724744600910362074296421183120313672954410198492304",
             "95565167213177011708466906926553346956000123219183564052401571344713862260994"
           ],
-          "clobBuyYes": 0.44,
-          "clobBuyNo": 0.79
+          "clobBuyYes": 0.37,
+          "clobBuyNo": 0.64
         },
         {
           "id": "4461135",
@@ -7023,18 +8621,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.235",
-            "0.765"
+            "0.135",
+            "0.865"
           ],
           "volume": 0.0,
-          "bestBid": 0.1,
-          "bestAsk": 0.37,
+          "bestBid": 0.11,
+          "bestAsk": 0.16,
           "clobTokenIds": [
             "106926965605362310925151910835148971305290222101227924591799707870939152558025",
             "13637417658997286523425116978376641956906493149194435573601724608561983890326"
           ],
-          "clobBuyYes": 0.37,
-          "clobBuyNo": 0.9
+          "clobBuyYes": 0.16,
+          "clobBuyNo": 0.89
         },
         {
           "id": "4461136",
@@ -7045,17 +8643,17 @@
             "No"
           ],
           "outcomePrices": [
-            "0.15",
-            "0.85"
+            "0.06",
+            "0.94"
           ],
           "volume": 0.0,
           "bestBid": 0.03,
-          "bestAsk": 0.27,
+          "bestAsk": 0.09,
           "clobTokenIds": [
             "84204168460189961272196184277738702591025418469920800710284324539798472697480",
             "48830903105206779264396130685653115938987994089771899955681955547391390374912"
           ],
-          "clobBuyYes": 0.27,
+          "clobBuyYes": 0.09,
           "clobBuyNo": 0.97
         },
         {
@@ -7067,16 +8665,16 @@
             "No"
           ],
           "outcomePrices": [
-            "0.145",
-            "0.855"
+            "0.045",
+            "0.955"
           ],
           "volume": 0.0,
-          "bestAsk": 0.29,
+          "bestAsk": 0.09,
           "clobTokenIds": [
             "10402045554478226772743763748875132101794963462985827459616056493995166449761",
             "10362202850109701356017694379634679965890432617499882971200655559822077664774"
           ],
-          "clobBuyYes": 0.29
+          "clobBuyYes": 0.09
         },
         {
           "id": "4461138",
@@ -7087,18 +8685,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.006",
-            "0.994"
+            "0.0025",
+            "0.9975"
           ],
-          "volume": 0.0,
-          "bestBid": 0.002,
-          "bestAsk": 0.01,
+          "volume": 43.013000000000005,
+          "bestBid": 0.001,
+          "bestAsk": 0.004,
           "clobTokenIds": [
             "22566950831666392748930009473341092447226040321727229772624739435437746208474",
             "50143100776079755878740478182816897311673200076734979554976762715776524860981"
           ],
-          "clobBuyYes": 0.01,
-          "clobBuyNo": 0.998
+          "clobBuyYes": 0.005,
+          "clobBuyNo": 0.999
         },
         {
           "id": "4461139",
@@ -7109,18 +8707,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.006",
-            "0.994"
+            "0.0025",
+            "0.9975"
           ],
-          "volume": 0.0,
-          "bestBid": 0.002,
-          "bestAsk": 0.01,
+          "volume": 43.013000000000005,
+          "bestBid": 0.001,
+          "bestAsk": 0.004,
           "clobTokenIds": [
             "18618759618192638761068868720582427603247096039598200278262774101173383019079",
             "71270597636376480054944913913276031116464703676122365204943240615516176469600"
           ],
-          "clobBuyYes": 0.01,
-          "clobBuyNo": 0.998
+          "clobBuyYes": 0.005,
+          "clobBuyNo": 0.999
         },
         {
           "id": "4461140",
@@ -7131,18 +8729,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.006",
-            "0.994"
+            "0.0025",
+            "0.9975"
           ],
-          "volume": 0.0,
-          "bestBid": 0.002,
-          "bestAsk": 0.01,
+          "volume": 43.013000000000005,
+          "bestBid": 0.001,
+          "bestAsk": 0.004,
           "clobTokenIds": [
             "43306429118580055547429612964553968893176069286866531644803380396310498180130",
             "27844313826263456752374154236910251924677943659919484176098993472563911966119"
           ],
-          "clobBuyYes": 0.01,
-          "clobBuyNo": 0.998
+          "clobBuyYes": 0.005,
+          "clobBuyNo": 0.999
         }
       ],
       "temperatureSeries": {
@@ -7151,7 +8749,7 @@
         "timeZone": "Asia/Hong_Kong",
         "dayStart": "2026-09-12T16:00:00.000Z",
         "dayEnd": "2026-09-13T16:00:00.000Z",
-        "nowLocal": "2026-09-11T09:15:47.114249Z",
+        "nowLocal": "2026-09-11T13:39:46.009705Z",
         "points": [
           {
             "t": "2026-09-12T16:00:00.000Z",
@@ -7332,19 +8930,19 @@
           }
         ],
         "latestObservation": {
-          "temp": 30.6,
-          "t": "2026-09-11T09:00:00.000Z"
+          "temp": 28.6,
+          "t": "2026-09-11T13:30:00.000Z"
         },
         "forecastModelTime": "2026091012",
-        "forecastRetrievedAtUtc": "2026-09-11T09:15:48.111727Z"
+        "forecastRetrievedAtUtc": "2026-09-11T13:39:46.950192Z"
       }
     },
     {
       "id": "992251",
       "title": "Highest temperature in Hong Kong on September 11?",
       "slug": "highest-temperature-in-hong-kong-on-september-11-2026",
-      "volume": 103270.87500200002,
-      "volume24hr": 94026.67808700001,
+      "volume": 104383.30500200001,
+      "volume24hr": 94161.591427,
       "endDate": "2026-09-11T12:00:00.000Z",
       "description": "This market will resolve to the temperature range that contains the highest temperature recorded by the Hong Kong Observatory in degrees Celsius on 11 Sep '26.\n\nThe resolution source for this market will be information from the Hong Kong Observatory, specifically the \"Absolute Daily Max (deg. C)\" the specified date once information is finalized in the relevant \"Daily Extract\", available here: https://www.weather.gov.hk/en/cis/climat.htm\n\nIn the event that there is no data for the observation date by 11:59 PM ET on the seventh day following the observation date, this market will resolve to the lowest bracket.\n\nThis market will resolve once data for this date has been published on the resolution source, or by 11:59 PM ET on the seventh day following the observation date, whichever comes first.\n\nThe resolution source for this market measures temperatures in Celsius to one decimal place (eg, 9.1°C). Thus, this is the level of precision that will be used when resolving the market.\n\nAny revisions to temperatures recorded after data is initially published for this market's timeframe will not be considered for this market's resolution.",
       "resolutionSource": "",
@@ -7401,7 +8999,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 19398.445311,
+          "volume": 19398.445310999996,
           "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
@@ -7422,7 +9020,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 10497.57763,
+          "volume": 11248.107629999999,
           "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
@@ -7443,7 +9041,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 11049.515337000003,
+          "volume": 11317.975337000002,
           "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
@@ -7464,7 +9062,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 17976.611317000003,
+          "volume": 18546.561317,
           "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
@@ -7482,19 +9080,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.9985",
-            "0.0015"
+            "0.9995",
+            "0.0005"
           ],
-          "volume": 15063.135315,
-          "bestBid": 0.998,
-          "bestAsk": 0.999,
-          "lastTradePrice": 0.998,
+          "volume": 15482.325315,
+          "bestBid": 0.999,
+          "bestAsk": 1.0,
+          "lastTradePrice": 0.999,
           "clobTokenIds": [
             "32061180938677251066701435025057365895077742495067167016445853879471891397979",
             "74667934501073339749730812342566220095651494500109125708963359024654242166704"
           ],
-          "clobBuyYes": 0.999,
-          "clobBuyNo": 0.002
+          "clobBuyNo": 0.001
         },
         {
           "id": "4400053",
@@ -7508,7 +9105,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 24778.943626000007,
+          "volume": 25203.723625999995,
           "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
@@ -7529,7 +9126,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 3509.0494660000004,
+          "volume": 3509.0494659999995,
           "bestAsk": 0.001,
           "lastTradePrice": 0.006,
           "clobTokenIds": [
@@ -7550,7 +9147,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 274.38899999999995,
+          "volume": 274.389,
           "bestAsk": 0.001,
           "clobTokenIds": [
             "21475503899580425782102899939772892070685923184023572800466059398222054269974",
@@ -7585,7 +9182,7 @@
         "timeZone": "Asia/Hong_Kong",
         "dayStart": "2026-09-10T16:00:00.000Z",
         "dayEnd": "2026-09-11T16:00:00.000Z",
-        "nowLocal": "2026-09-11T09:15:47.112685Z",
+        "nowLocal": "2026-09-11T13:39:46.008545Z",
         "points": [
           {
             "t": "2026-09-10T16:00:00.000Z",
@@ -13716,69 +15313,1661 @@
             "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
-            "t": "2026-09-11T10:00:00.000Z",
+            "t": "2026-09-11T09:01:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:02:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:03:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:04:00.000Z",
+            "temp": 30.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:05:00.000Z",
+            "temp": 30.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:06:00.000Z",
+            "temp": 30.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:07:00.000Z",
+            "temp": 30.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:08:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:09:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:10:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:11:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:12:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:13:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:14:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:15:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:16:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:17:00.000Z",
+            "temp": 30.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:18:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:19:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:20:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:21:00.000Z",
+            "temp": 30.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:22:00.000Z",
+            "temp": 30.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:23:00.000Z",
+            "temp": 30.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:24:00.000Z",
+            "temp": 30.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:25:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:26:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:27:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:28:00.000Z",
+            "temp": 30.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:29:00.000Z",
             "temp": 30.0,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 52
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:30:00.000Z",
+            "temp": 30.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:31:00.000Z",
+            "temp": 30.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:32:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:33:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:34:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:35:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:36:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:37:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:38:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:39:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:40:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:41:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:42:00.000Z",
+            "temp": 29.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:43:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:44:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:45:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:46:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:47:00.000Z",
+            "temp": 29.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:48:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:49:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:50:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:51:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:52:00.000Z",
+            "temp": 29.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:53:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:54:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:55:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:56:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:57:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:58:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T09:59:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:00:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:01:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:02:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:03:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:04:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:05:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:06:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:07:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:08:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:09:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:10:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:11:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:12:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:13:00.000Z",
+            "temp": 29.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:14:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:15:00.000Z",
+            "temp": 29.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:16:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:17:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:18:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:19:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:20:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:21:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:22:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:23:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:24:00.000Z",
+            "temp": 29.4,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:25:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:26:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:27:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:28:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:29:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:30:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:31:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:32:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:33:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:34:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:35:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:36:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:37:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:38:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:39:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:40:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:41:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:42:00.000Z",
+            "temp": 29.3,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:43:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:44:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:45:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:46:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:47:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:48:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:49:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:50:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:51:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:52:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:53:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:54:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:55:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:56:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:57:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:58:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T10:59:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T11:00:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:01:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:02:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:03:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:04:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:05:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:06:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:07:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:08:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:09:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:10:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:11:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:12:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:13:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:14:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:15:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:16:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:17:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:18:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:19:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:20:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:21:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:22:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:23:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:24:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:25:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:26:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:27:00.000Z",
             "temp": 29.2,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 52
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:28:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:29:00.000Z",
+            "temp": 29.2,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:30:00.000Z",
+            "temp": 29.1,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:31:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:32:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:33:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:34:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:35:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:36:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:37:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:38:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:39:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:40:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:41:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:42:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:43:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:44:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:45:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:46:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:47:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:48:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:49:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:50:00.000Z",
+            "temp": 29.0,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:51:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:52:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:53:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:54:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:55:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:56:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:57:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:58:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T11:59:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T12:00:00.000Z",
-            "temp": 29.0,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 70
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:01:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:02:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:03:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:04:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:05:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:06:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:07:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:08:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:09:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:10:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:11:00.000Z",
+            "temp": 28.9,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:12:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:13:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:14:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:15:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:16:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:17:00.000Z",
+            "temp": 28.8,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:18:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:19:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:20:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:21:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:22:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:23:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:24:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:25:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:26:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:27:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:28:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:29:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:30:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:31:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:32:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:33:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:34:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:35:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:36:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:37:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:38:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:39:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:40:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:41:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:42:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:43:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:44:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:45:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:46:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:47:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:48:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:49:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:50:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:51:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:52:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:53:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:54:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:55:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:56:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:57:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:58:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T12:59:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T13:00:00.000Z",
-            "temp": 28.4,
-            "kind": "forecast",
-            "dataSource": "maps.weather.gov.hk/ocf",
-            "weatherIconCode": 70
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:01:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:02:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:03:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:04:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:05:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:06:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:07:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:08:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:09:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:10:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:11:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:12:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:13:00.000Z",
+            "temp": 28.7,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:14:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:15:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:16:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:17:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:18:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:19:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:20:00.000Z",
+            "temp": 28.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:21:00.000Z",
+            "temp": 28.5,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:22:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:23:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:24:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:25:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:26:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:27:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:28:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:29:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
+          },
+          {
+            "t": "2026-09-11T13:30:00.000Z",
+            "temp": 28.6,
+            "kind": "observed",
+            "dataSource": "https://www.weather.gov.hk/en/cis/climat.htm"
           },
           {
             "t": "2026-09-11T14:00:00.000Z",
-            "temp": 28.0,
+            "temp": 28.3,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 70
           },
           {
             "t": "2026-09-11T15:00:00.000Z",
-            "temp": 27.8,
+            "temp": 28.1,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T16:00:00.000Z",
-            "temp": 27.7,
+            "temp": 28.0,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           }
         ],
         "latestObservation": {
-          "temp": 30.6,
-          "t": "2026-09-11T09:00:00.000Z"
+          "temp": 28.6,
+          "t": "2026-09-11T13:30:00.000Z"
         },
         "forecastModelTime": "2026091012",
-        "forecastRetrievedAtUtc": "2026-09-11T09:15:48.107957Z"
+        "forecastRetrievedAtUtc": "2026-09-11T13:39:46.970735Z"
       }
     },
     {
       "id": "997589",
       "title": "Highest temperature in Hong Kong on September 12?",
       "slug": "highest-temperature-in-hong-kong-on-september-12-2026",
-      "volume": 12593.985386,
-      "volume24hr": 11634.891118,
+      "volume": 15032.886368,
+      "volume24hr": 13414.682111,
       "endDate": "2026-09-12T12:00:00.000Z",
       "description": "This market will resolve to the temperature range that contains the highest temperature recorded by the Hong Kong Observatory in degrees Celsius on 12 Sep '26.\n\nThe resolution source for this market will be information from the Hong Kong Observatory, specifically the \"Absolute Daily Max (deg. C)\" the specified date once information is finalized in the relevant \"Daily Extract\", available here: https://www.weather.gov.hk/en/cis/climat.htm\n\nIn the event that there is no data for the observation date by 11:59 PM ET on the seventh day following the observation date, this market will resolve to the lowest bracket.\n\nThis market will resolve once data for this date has been published on the resolution source, or by 11:59 PM ET on the seventh day following the observation date, whichever comes first.\n\nThe resolution source for this market measures temperatures in Celsius to one decimal place (eg, 9.1°C). Thus, this is the level of precision that will be used when resolving the market.\n\nAny revisions to temperatures recorded after data is initially published for this market's timeframe will not be considered for this market's resolution.",
       "resolutionSource": "",
@@ -13816,7 +17005,7 @@
             "0.0005",
             "0.9995"
           ],
-          "volume": 114.99600000000001,
+          "volume": 114.996,
           "bestAsk": 0.001,
           "clobTokenIds": [
             "78241847586834704097430883058506060017586102167797718213875100959919307044233",
@@ -13833,18 +17022,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.0015",
-            "0.9985"
+            "0.003",
+            "0.997"
           ],
-          "volume": 429.35299999999995,
+          "volume": 588.2529999999999,
           "bestBid": 0.001,
-          "bestAsk": 0.002,
+          "bestAsk": 0.005,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
             "54284106920458536823787199350219441348221237672371616494748048336160262984639",
             "69461578458844071024626372858170142174852762355557660813398454611718669145903"
           ],
-          "clobBuyYes": 0.002,
+          "clobBuyYes": 0.005,
           "clobBuyNo": 0.999
         },
         {
@@ -13859,7 +17048,7 @@
             "0.04",
             "0.96"
           ],
-          "volume": 1525.788286,
+          "volume": 2422.310919,
           "bestBid": 0.03,
           "bestAsk": 0.05,
           "lastTradePrice": 0.04,
@@ -13882,7 +17071,7 @@
             "0.155",
             "0.845"
           ],
-          "volume": 1899.213323,
+          "volume": 2149.124949,
           "bestBid": 0.15,
           "bestAsk": 0.16,
           "lastTradePrice": 0.16,
@@ -13902,18 +17091,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.28",
-            "0.72"
+            "0.275",
+            "0.725"
           ],
-          "volume": 1841.4619070000003,
+          "volume": 1918.337348,
           "bestBid": 0.27,
-          "bestAsk": 0.29,
+          "bestAsk": 0.28,
           "lastTradePrice": 0.28,
           "clobTokenIds": [
             "53508796919714156538819586832017803874171373383286027885472369192192200888677",
             "67901049013158816109704707971643360432871007749310188501797626065646788590855"
           ],
-          "clobBuyYes": 0.29,
+          "clobBuyYes": 0.28,
           "clobBuyNo": 0.73
         },
         {
@@ -13925,19 +17114,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.365",
-            "0.635"
+            "0.36",
+            "0.64"
           ],
-          "volume": 2611.394036,
-          "bestBid": 0.36,
+          "volume": 3012.557944,
+          "bestBid": 0.35,
           "bestAsk": 0.37,
-          "lastTradePrice": 0.38,
+          "lastTradePrice": 0.37,
           "clobTokenIds": [
             "48671106383429737327018746150348886579082533619715756778052149749416296619395",
             "64484695451827184095386619745076734056457373404195809299663250148887738899598"
           ],
           "clobBuyYes": 0.37,
-          "clobBuyNo": 0.64
+          "clobBuyNo": 0.65
         },
         {
           "id": "4431286",
@@ -13948,19 +17137,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.165",
-            "0.835"
+            "0.175",
+            "0.825"
           ],
-          "volume": 1131.318422,
-          "bestBid": 0.16,
-          "bestAsk": 0.17,
-          "lastTradePrice": 0.17,
+          "volume": 1335.512462,
+          "bestBid": 0.17,
+          "bestAsk": 0.18,
+          "lastTradePrice": 0.19,
           "clobTokenIds": [
             "105249499068637150914723948076740455722096816238413539329805506186015527660674",
             "108041047593330920219472411771601318901362394059738570287855685564571606065471"
           ],
-          "clobBuyYes": 0.17,
-          "clobBuyNo": 0.84
+          "clobBuyYes": 0.18,
+          "clobBuyNo": 0.83
         },
         {
           "id": "4431287",
@@ -13971,18 +17160,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.025",
-            "0.975"
+            "0.03",
+            "0.97"
           ],
-          "volume": 1975.2978569999996,
+          "volume": 2450.631191,
           "bestBid": 0.02,
-          "bestAsk": 0.03,
-          "lastTradePrice": 0.04,
+          "bestAsk": 0.04,
+          "lastTradePrice": 0.03,
           "clobTokenIds": [
             "72410435824711947712137213184653997296608946833451669719909127499128559039941",
             "8060092887617659231965795017712421851898918911229943772466054100283598232946"
           ],
-          "clobBuyYes": 0.03,
+          "clobBuyYes": 0.04,
           "clobBuyNo": 0.98
         },
         {
@@ -14017,17 +17206,17 @@
             "No"
           ],
           "outcomePrices": [
-            "0.001",
-            "0.999"
+            "0.0005",
+            "0.9995"
           ],
           "volume": 209.111,
-          "bestAsk": 0.002,
+          "bestAsk": 0.001,
           "lastTradePrice": 0.001,
           "clobTokenIds": [
             "19332758596019760863746481228366755769299081398626931515559156154171350649974",
             "100302474424466763105162128392520502595661188977472093801728743116211132687392"
           ],
-          "clobBuyYes": 0.002
+          "clobBuyYes": 0.001
         }
       ],
       "temperatureSeries": {
@@ -14036,46 +17225,46 @@
         "timeZone": "Asia/Hong_Kong",
         "dayStart": "2026-09-11T16:00:00.000Z",
         "dayEnd": "2026-09-12T16:00:00.000Z",
-        "nowLocal": "2026-09-11T09:15:47.113980Z",
+        "nowLocal": "2026-09-11T13:39:46.009549Z",
         "points": [
           {
             "t": "2026-09-11T16:00:00.000Z",
-            "temp": 27.7,
+            "temp": 28.0,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T17:00:00.000Z",
-            "temp": 27.4,
+            "temp": 27.7,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T18:00:00.000Z",
-            "temp": 27.2,
+            "temp": 27.4,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T19:00:00.000Z",
-            "temp": 26.5,
+            "temp": 26.7,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T20:00:00.000Z",
-            "temp": 25.9,
+            "temp": 26.0,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 62
           },
           {
             "t": "2026-09-11T21:00:00.000Z",
-            "temp": 25.2,
+            "temp": 25.3,
             "kind": "forecast",
             "dataSource": "maps.weather.gov.hk/ocf",
             "weatherIconCode": 70
@@ -14217,19 +17406,19 @@
           }
         ],
         "latestObservation": {
-          "temp": 30.6,
-          "t": "2026-09-11T09:00:00.000Z"
+          "temp": 28.6,
+          "t": "2026-09-11T13:30:00.000Z"
         },
         "forecastModelTime": "2026091012",
-        "forecastRetrievedAtUtc": "2026-09-11T09:15:48.083132Z"
+        "forecastRetrievedAtUtc": "2026-09-11T13:39:46.991962Z"
       }
     },
     {
       "id": "1002691",
       "title": "Highest temperature in Hong Kong on September 13?",
       "slug": "highest-temperature-in-hong-kong-on-september-13-2026",
-      "volume": 1100.448614,
-      "volume24hr": 1110.448614,
+      "volume": 1508.309945,
+      "volume24hr": 1518.309945,
       "endDate": "2026-09-13T12:00:00.000Z",
       "description": "This market will resolve to the temperature range that contains the highest temperature recorded by the Hong Kong Observatory in degrees Celsius on 13 Sep '26.\n\nThe resolution source for this market will be information from the Hong Kong Observatory, specifically the \"Absolute Daily Max (deg. C)\" the specified date once information is finalized in the relevant \"Daily Extract\", available here: https://www.weather.gov.hk/en/cis/climat.htm\n\nIn the event that there is no data for the observation date by 11:59 PM ET on the seventh day following the observation date, this market will resolve to the lowest bracket.\n\nThis market will resolve once data for this date has been published on the resolution source, or by 11:59 PM ET on the seventh day following the observation date, whichever comes first.\n\nThe resolution source for this market measures temperatures in Celsius to one decimal place (eg, 9.1°C). Thus, this is the level of precision that will be used when resolving the market.\n\nAny revisions to temperatures recorded after data is initially published for this market's timeframe will not be considered for this market's resolution.",
       "resolutionSource": "",
@@ -14246,7 +17435,7 @@
             "0.0025",
             "0.9975"
           ],
-          "volume": 57.4,
+          "volume": 94.03800000000001,
           "bestBid": 0.002,
           "bestAsk": 0.003,
           "lastTradePrice": 0.01,
@@ -14266,17 +17455,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.02",
-            "0.98"
+            "0.015",
+            "0.985"
           ],
-          "volume": 22.5,
-          "bestAsk": 0.04,
-          "lastTradePrice": 0.04,
+          "volume": 106.13,
+          "bestBid": 0.01,
+          "bestAsk": 0.02,
+          "lastTradePrice": 0.01,
           "clobTokenIds": [
             "20079474835656475840723375708864695246863111329775919348101950900163788649299",
             "48998866514214570167280108877020057139421301921651055616256946104959113573312"
           ],
-          "clobBuyYes": 0.04
+          "clobBuyYes": 0.02,
+          "clobBuyNo": 0.99
         },
         {
           "id": "4461724",
@@ -14287,19 +17478,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.15",
-            "0.85"
+            "0.175",
+            "0.825"
           ],
-          "volume": 150.923252,
-          "bestBid": 0.11,
-          "bestAsk": 0.19,
-          "lastTradePrice": 0.15,
+          "volume": 462.049797,
+          "bestBid": 0.17,
+          "bestAsk": 0.18,
+          "lastTradePrice": 0.18,
           "clobTokenIds": [
             "2559457653792751124203570802333368788617217661319911386333968747600754978856",
             "69752333574806792508459608177838992733458501865916629968581244056006294529830"
           ],
-          "clobBuyYes": 0.19,
-          "clobBuyNo": 0.89
+          "clobBuyYes": 0.18,
+          "clobBuyNo": 0.83
         },
         {
           "id": "4461725",
@@ -14310,19 +17501,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.29",
-            "0.71"
+            "0.285",
+            "0.715"
           ],
-          "volume": 208.391443,
-          "bestBid": 0.27,
-          "bestAsk": 0.31,
-          "lastTradePrice": 0.27,
+          "volume": 313.909375,
+          "bestBid": 0.28,
+          "bestAsk": 0.29,
+          "lastTradePrice": 0.29,
           "clobTokenIds": [
             "5969380704077595623931811218180460102408169474135803477725760444604127391254",
             "47470543701208908535807544755016267178698028225174941850291689326024899645970"
           ],
-          "clobBuyYes": 0.31,
-          "clobBuyNo": 0.73
+          "clobBuyYes": 0.29,
+          "clobBuyNo": 0.72
         },
         {
           "id": "4461726",
@@ -14333,19 +17524,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.345",
-            "0.655"
+            "0.325",
+            "0.675"
           ],
-          "volume": 372.402703,
-          "bestBid": 0.33,
-          "bestAsk": 0.36,
+          "volume": 441.829735,
+          "bestBid": 0.32,
+          "bestAsk": 0.33,
           "lastTradePrice": 0.36,
           "clobTokenIds": [
             "86541623694862759618417636065280666120615930830664552775857525919086026895828",
             "11525337955598262605758819323774007134297629412099938215940521612647450812612"
           ],
-          "clobBuyYes": 0.36,
-          "clobBuyNo": 0.67
+          "clobBuyYes": 0.33,
+          "clobBuyNo": 0.68
         },
         {
           "id": "4461727",
@@ -14356,18 +17547,18 @@
             "No"
           ],
           "outcomePrices": [
-            "0.165",
-            "0.835"
+            "0.155",
+            "0.845"
           ],
-          "volume": 79.835883,
+          "volume": 123.477056,
           "bestBid": 0.15,
-          "bestAsk": 0.18,
-          "lastTradePrice": 0.27,
+          "bestAsk": 0.16,
+          "lastTradePrice": 0.16,
           "clobTokenIds": [
             "71637011329834131441818115304599184628396689350932997054492450419333102275223",
             "107590161857897115246309618248926600179885804859459895752573502050476702670231"
           ],
-          "clobBuyYes": 0.18,
+          "clobBuyYes": 0.16,
           "clobBuyNo": 0.85
         },
         {
@@ -14379,19 +17570,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.065",
-            "0.935"
+            "0.075",
+            "0.925"
           ],
-          "volume": 79.187233,
-          "bestBid": 0.06,
-          "bestAsk": 0.07,
+          "volume": 165.084218,
+          "bestBid": 0.07,
+          "bestAsk": 0.08,
           "lastTradePrice": 0.07,
           "clobTokenIds": [
             "958065792805682127399730286775551050008170071394637949453128009391513457790",
             "48712818872241016643379172892339322332309890069149836777502610675895545567796"
           ],
-          "clobBuyYes": 0.07,
-          "clobBuyNo": 0.94
+          "clobBuyYes": 0.08,
+          "clobBuyNo": 0.93
         },
         {
           "id": "4461729",
@@ -14402,18 +17593,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.0055",
-            "0.9945"
+            "0.0275",
+            "0.9725"
           ],
-          "volume": 67.405,
-          "bestBid": 0.002,
-          "bestAsk": 0.009,
+          "volume": 231.43785000000003,
+          "bestBid": 0.02,
+          "bestAsk": 0.035,
+          "lastTradePrice": 0.01,
           "clobTokenIds": [
             "22125537574696056675523114463486995636633482837705978045753541633473829016407",
             "110666233410179273065782987928610725297569819432240310699002730307530315642521"
           ],
-          "clobBuyYes": 0.009,
-          "clobBuyNo": 0.998
+          "clobBuyYes": 0.035,
+          "clobBuyNo": 0.98
         },
         {
           "id": "4461730",
@@ -14424,16 +17616,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.01",
-            "0.99"
+            "0.003",
+            "0.997"
           ],
-          "volume": 4.9981,
-          "bestAsk": 0.02,
+          "volume": 41.6281,
+          "bestBid": 0.001,
+          "bestAsk": 0.005,
+          "lastTradePrice": 0.001,
           "clobTokenIds": [
             "88013601033052754318279650912819106426963332729293065978845454948022259221372",
             "63580005412442651655687325939924339881090959227273562170506102867131128889686"
           ],
-          "clobBuyYes": 0.02
+          "clobBuyYes": 0.005,
+          "clobBuyNo": 0.999
         },
         {
           "id": "4461731",
@@ -14444,16 +17639,19 @@
             "No"
           ],
           "outcomePrices": [
-            "0.01",
-            "0.99"
+            "0.0015",
+            "0.9985"
           ],
-          "volume": 0.0,
-          "bestAsk": 0.02,
+          "volume": 4.13,
+          "bestBid": 0.001,
+          "bestAsk": 0.002,
+          "lastTradePrice": 0.001,
           "clobTokenIds": [
             "781976309327506037139095654036618282258867203289871680037402976819180332645",
             "66252731872652411871623812790763311940757342029175255225239346513729294922796"
           ],
-          "clobBuyYes": 0.02
+          "clobBuyYes": 0.002,
+          "clobBuyNo": 0.999
         },
         {
           "id": "4461732",
@@ -14467,7 +17665,7 @@
             "0.002",
             "0.998"
           ],
-          "volume": 57.405,
+          "volume": 127.049,
           "bestBid": 0.001,
           "bestAsk": 0.003,
           "clobTokenIds": [
@@ -14484,7 +17682,7 @@
         "timeZone": "Asia/Hong_Kong",
         "dayStart": "2026-09-12T16:00:00.000Z",
         "dayEnd": "2026-09-13T16:00:00.000Z",
-        "nowLocal": "2026-09-11T09:15:47.114249Z",
+        "nowLocal": "2026-09-11T13:39:46.009705Z",
         "points": [
           {
             "t": "2026-09-12T16:00:00.000Z",
@@ -14665,11 +17863,11 @@
           }
         ],
         "latestObservation": {
-          "temp": 30.6,
-          "t": "2026-09-11T09:00:00.000Z"
+          "temp": 28.6,
+          "t": "2026-09-11T13:30:00.000Z"
         },
         "forecastModelTime": "2026091012",
-        "forecastRetrievedAtUtc": "2026-09-11T09:15:48.111727Z"
+        "forecastRetrievedAtUtc": "2026-09-11T13:39:46.950192Z"
       }
     }
   ]
