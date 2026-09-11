@@ -316,6 +316,18 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                     show: true,
                     drawVerticalLine: true,
                     horizontalInterval: 1,
+                    verticalInterval:
+                        const Duration(hours: 1).inMilliseconds.toDouble(),
+                    checkToShowVerticalLine: (value) {
+                      final local =
+                          tz.TZDateTime.fromMillisecondsSinceEpoch(
+                        series.dayStart.location,
+                        value.round(),
+                      );
+                      return local.minute == 0 &&
+                          local.second == 0 &&
+                          local.millisecond == 0;
+                    },
                     getDrawingHorizontalLine: (v) => FlLine(
                       color: Colors.grey.shade300,
                       strokeWidth: 1,
@@ -496,21 +508,31 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 22,
+                        // Step hourly; only label every 3h so ticks stay on grid lines.
                         interval:
-                            const Duration(hours: 3).inMilliseconds.toDouble(),
+                            const Duration(hours: 1).inMilliseconds.toDouble(),
                         getTitlesWidget: (value, meta) {
                           final local =
                               tz.TZDateTime.fromMillisecondsSinceEpoch(
                             series.dayStart.location,
                             value.round(),
                           );
-                          final label = local.hour == 0 &&
-                                  local.millisecondsSinceEpoch !=
-                                      series.dayStart.millisecondsSinceEpoch
+                          if (local.minute != 0 ||
+                              local.second != 0 ||
+                              local.millisecond != 0) {
+                            return const SizedBox.shrink();
+                          }
+                          final isNextDayMidnight = local.hour == 0 &&
+                              local.millisecondsSinceEpoch !=
+                                  series.dayStart.millisecondsSinceEpoch;
+                          if (local.hour % 3 != 0 && !isNextDayMidnight) {
+                            return const SizedBox.shrink();
+                          }
+                          final label = isNextDayMidnight
                               ? dayFmt.format(local)
                               : hourFmt.format(local);
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 4),
+                          return SideTitleWidget(
+                            meta: meta,
                             child: Text(
                               label,
                               style: TextStyle(

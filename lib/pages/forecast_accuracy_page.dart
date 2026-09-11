@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 import '../models/market_event.dart';
 import '../services/city_timezones.dart';
@@ -266,10 +267,14 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
               Expanded(
                 flex: 7,
                 child: InputDecorator(
-                  decoration: const InputDecoration(
-                    labelText: 'Forecast snapshot (ModelTime)',
+                  decoration: InputDecoration(
+                    labelText: 'Forecast Model',
                     isDense: true,
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
+                    filled: _isSelectedModelRefreshStale,
+                    fillColor: _isSelectedModelRefreshStale
+                        ? const Color(0xFFFB923C)
+                        : null,
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
@@ -403,6 +408,34 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   String _fmt(double? v) => v == null ? '—' : v.toStringAsFixed(1);
 
   static const _weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  /// True when selected snapshot's LastModified (refresh) is >3h before now HKT.
+  bool get _isSelectedModelRefreshStale {
+    final id = _selectedSnapshot;
+    if (id == null) return false;
+    final refreshed = _snapshotRefreshHkt(id);
+    if (refreshed == null) return false;
+    final nowHkt = CityTimezones.nowInCity('Hong Kong');
+    if (nowHkt == null) return false;
+    return nowHkt.difference(refreshed) > const Duration(hours: 3);
+  }
+
+  /// LastModified as HKT from snapshot id `ModelTime_LastModified`.
+  tz.TZDateTime? _snapshotRefreshHkt(String snapshotId) {
+    if (!snapshotId.contains('_')) return null;
+    final wall = _parseCompactWall(snapshotId.split('_').last);
+    if (wall == null) return null;
+    final loc = CityTimezones.locationForCity('Hong Kong');
+    if (loc == null) return null;
+    return tz.TZDateTime(
+      loc,
+      wall.year,
+      wall.month,
+      wall.day,
+      wall.hour,
+      wall.minute,
+    );
+  }
 
   String _dayLabel(DateTime day) {
     final stamp = '${_weekdays[day.weekday - 1]} ${day.day}/${day.month}';

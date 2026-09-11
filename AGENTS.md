@@ -7,7 +7,7 @@
 - Always show all Hong Kong low and high markets (no Type / Strategy filters).
 - Hong Kong only — no city search; HKO regional portal button on every market row.
 - Portfolio: sort by time-to-close (EOD passed first); label "Shares / Payout"; show Initial Cost; open market links in Firefox.
-- Forecast tab: Hide data table by default; HKT day as `ddd D/M` with `(F)` for forecast-only; ModelTime selector ~70% width labeled `ddd D/M Ham (ddd D/M HH:mm)`.
+- Forecast tab: Hide data table by default; HKT day as `ddd D/M` with `(F)` for forecast-only; Forecast Model selector ~70% width labeled `ddd D/M Ham (ddd D/M HH:mm)`; orange fill when selected model refresh is older than 3 hours.
 - Forecast chart: tall vertically; yellow forecast from HKT 00:00 through next-day 00:00 (backfill past hours HKO drops on refresh); observed as line + single current black marker (no per-point dots); hourly HKO OCF weather icons above chart (rain/shower/thunder red; rain fills neighboring hours until next explicit icon); Y-axis every whole °C (clickable → purple [T, T+0.99] bucket band + remaining-forecast below <T / above ≥T+1 with per-degree breakdown); red "now" line labeled with latest HK Observatory air temp from text readings / 1-min CSV; extra horizontal lines when forecasted min/max ≠ observed.
 
 ## Learned Workspace Facts
