@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import '../models/temp_outcome_bucket.dart';
 import '../services/hko_temperature_api.dart';
 import '../services/hko_weather_icons.dart';
 import '../services/temperature_series.dart';
@@ -132,20 +133,39 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
     final probeTemp = _probeTemp;
     var probeAbove = 0;
     var probeBelow = 0;
+    final probeAboveByBucket = <int, int>{};
+    final probeBelowByBucket = <int, int>{};
+    String? probeSummary;
     if (probeTemp != null) {
-      // Settlement-style bucket [T, T+0.99]: above = ≥ T+1, below = < T.
+      // Probe bucket [T, T+0.99]: above = ≥ T (inclusive), below = < T.
       for (final p in forecastPoints) {
         final t = p.localHourStart.millisecondsSinceEpoch.toDouble();
         if (t < nowMs || t > dayEndMs) continue;
-        if (p.temperature >= probeTemp + 1) {
+        final bucket = settlementBucket(p.temperature);
+        if (p.temperature >= probeTemp) {
           probeAbove++;
-        } else if (p.temperature < probeTemp) {
+          probeAboveByBucket[bucket] = (probeAboveByBucket[bucket] ?? 0) + 1;
+        } else {
           probeBelow++;
+          probeBelowByBucket[bucket] = (probeBelowByBucket[bucket] ?? 0) + 1;
         }
       }
       if (probeTemp + 0.99 > maxY) {
         maxY = (probeTemp + 0.99).ceilToDouble();
       }
+      final unit = series.unit == 'F' ? 'F' : 'C';
+      final aboveParts = (probeAboveByBucket.keys.toList()..sort())
+          .map((b) => '${probeAboveByBucket[b]} @ $b$unit')
+          .join(' ; ');
+      final belowParts = (probeBelowByBucket.keys.toList()
+            ..sort((a, b) => b.compareTo(a)))
+          .map((b) => '${probeBelowByBucket[b]} @ $b$unit')
+          .join(' ; ');
+      probeSummary =
+          '${probeTemp.round()}$unit probe - Total above = $probeAbove'
+          '${probeAbove > 0 ? ' [ $aboveParts ]' : ''}'
+          ' | Total below = $probeBelow'
+          '${probeBelow > 0 ? ' [ $belowParts ]' : ''}';
     }
 
     double? dailyMinTemp;
@@ -230,10 +250,7 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                   child: Text(
-                    '${probeTemp.round()}$unitSuffix probe — '
-                    '$probeAbove forecasted temps above this temperature bucket; '
-                    '$probeBelow forecasted temps below this temperature. '
-                    '(Tap axis again to clear.)',
+                    probeSummary!,
                     style: const TextStyle(
                       fontSize: 11,
                       height: 1.25,
