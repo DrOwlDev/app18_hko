@@ -324,7 +324,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
                 padding: const EdgeInsets.all(4),
                 child: DailyTemperatureChart(
                   series: _chartSeries!,
-                  height: 640,
+                  height: 512,
                   hideNonExtremeTempRows: true,
                   overlayForecast: true,
                   showPointsTable: !_hideTempTable,
