@@ -10,7 +10,7 @@ import '../services/hko_weather_icons.dart';
 import '../services/temperature_series.dart';
 
 /// Daily hourly temperature chart (observed + forecast) with a "now" line.
-class DailyTemperatureChart extends StatelessWidget {
+class DailyTemperatureChart extends StatefulWidget {
   const DailyTemperatureChart({
     super.key,
     required this.series,
@@ -35,7 +35,30 @@ class DailyTemperatureChart extends StatelessWidget {
   final bool showPointsTable;
 
   @override
+  State<DailyTemperatureChart> createState() => _DailyTemperatureChartState();
+}
+
+class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
+  /// Whole-degree Y-axis probe (°C/°F); null = none selected.
+  double? _probeTemp;
+
+  @override
+  void didUpdateWidget(covariant DailyTemperatureChart oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.series.dayStart != widget.series.dayStart ||
+        oldWidget.series.dayEnd != widget.series.dayEnd) {
+      _probeTemp = null;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final series = widget.series;
+    final height = widget.height;
+    final hideNonExtremeTempRows = widget.hideNonExtremeTempRows;
+    final overlayForecast = widget.overlayForecast;
+    final showPointsTable = widget.showPointsTable;
+
     final points = series.points;
     if (points.isEmpty) {
       return const Padding(
@@ -103,7 +126,23 @@ class DailyTemperatureChart extends StatelessWidget {
     const fcMaxColor = Color(0xFFCA8A04);
     const fcMaxStroke = Color(0xFFA16207);
     const nowColor = Color(0xFFDC2626);
-    const leftTitleWidth = 36.0;
+    const probeColor = Color(0xFF7C3AED);
+    const leftTitleWidth = 40.0;
+
+    final probeTemp = _probeTemp;
+    var probeAbove = 0;
+    var probeBelow = 0;
+    if (probeTemp != null) {
+      for (final p in forecastPoints) {
+        final t = p.localHourStart.millisecondsSinceEpoch.toDouble();
+        if (t < nowMs || t > dayEndMs) continue;
+        if (p.temperature > probeTemp) {
+          probeAbove++;
+        } else if (p.temperature < probeTemp) {
+          probeBelow++;
+        }
+      }
+    }
 
     double? dailyMinTemp;
     double? dailyMaxTemp;
@@ -175,6 +214,35 @@ class DailyTemperatureChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (probeTemp != null) ...[
+            Padding(
+              padding: const EdgeInsets.only(left: leftTitleWidth, right: 4, bottom: 6),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F3FF),
+                  border: Border.all(color: probeColor.withValues(alpha: 0.35)),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  child: Text(
+                    '${probeTemp.round()}$unitSuffix probe — '
+                    '$probeAbove forecasted yellow-line temps above this '
+                    'temperature from now to end of day; '
+                    '$probeBelow forecasted yellow-line temps below this '
+                    'temperature from now to end of day. '
+                    '(Tap axis again to clear.)',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      height: 1.25,
+                      color: Color(0xFF4C1D95),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
           if (showHkoForecastIcons && forecastIconPoints.isNotEmpty)
             SizedBox(
               height: 28,
@@ -220,7 +288,7 @@ class DailyTemperatureChart extends StatelessWidget {
                   gridData: FlGridData(
                     show: true,
                     drawVerticalLine: true,
-                    horizontalInterval: _niceInterval(maxY - minY),
+                    horizontalInterval: 1,
                     getDrawingHorizontalLine: (v) => FlLine(
                       color: Colors.grey.shade300,
                       strokeWidth: 1,
@@ -312,6 +380,25 @@ class DailyTemperatureChart extends StatelessWidget {
                                 'fc max ${line.y.toStringAsFixed(1)}$unitSuffix',
                           ),
                         ),
+                      if (probeTemp != null)
+                        HorizontalLine(
+                          y: probeTemp,
+                          color: probeColor,
+                          strokeWidth: 1.5,
+                          dashArray: const [4, 3],
+                          label: HorizontalLineLabel(
+                            show: true,
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(right: 4),
+                            style: const TextStyle(
+                              fontSize: 10,
+                              color: probeColor,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            labelResolver: (_) =>
+                                '${probeTemp.round()}$unitSuffix',
+                          ),
+                        ),
                     ],
                     verticalLines: [
                       if (nowMs > dayMs && nowMs < dayEndMs)
@@ -349,16 +436,39 @@ class DailyTemperatureChart extends StatelessWidget {
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: leftTitleWidth,
-                        interval: _niceInterval(maxY - minY),
+                        interval: 1,
                         getTitlesWidget: (value, meta) {
-                          if (value == meta.min || value == meta.max) {
+                          if ((value - value.roundToDouble()).abs() > 1e-6) {
                             return const SizedBox.shrink();
                           }
-                          return Text(
-                            '${value.toStringAsFixed(0)}$unitSuffix',
-                            style: TextStyle(
-                              fontSize: 9,
-                              color: Colors.grey.shade700,
+                          final degree = value.roundToDouble();
+                          final selected = probeTemp == degree;
+                          return GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              setState(() {
+                                _probeTemp =
+                                    selected ? null : degree;
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 2),
+                              child: Text(
+                                '${degree.round()}$unitSuffix',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: selected
+                                      ? FontWeight.w800
+                                      : FontWeight.w500,
+                                  color: selected
+                                      ? probeColor
+                                      : Colors.grey.shade700,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: selected
+                                      ? probeColor
+                                      : Colors.grey.shade400,
+                                ),
+                              ),
                             ),
                           );
                         },
@@ -574,41 +684,34 @@ class DailyTemperatureChart extends StatelessWidget {
       ),
     );
   }
+}
 
-  static double _niceInterval(double range) {
-    if (range <= 4) return 1;
-    if (range <= 10) return 2;
-    if (range <= 20) return 5;
-    return 10;
-  }
+String _ordinalDay(int day) {
+  if (day >= 11 && day <= 13) return '${day}th';
+  return switch (day % 10) {
+    1 => '${day}st',
+    2 => '${day}nd',
+    3 => '${day}rd',
+    _ => '${day}th',
+  };
+}
 
-  static String _ordinalDay(int day) {
-    if (day >= 11 && day <= 13) return '${day}th';
-    return switch (day % 10) {
-      1 => '${day}st',
-      2 => '${day}nd',
-      3 => '${day}rd',
-      _ => '${day}th',
-    };
-  }
+String _formatPointDateTime(tz.TZDateTime local, DateFormat hourFmt) {
+  return '${_ordinalDay(local.day)} ${DateFormat('MMM yyyy').format(local)} '
+      '${hourFmt.format(local)}';
+}
 
-  static String _formatPointDateTime(tz.TZDateTime local, DateFormat hourFmt) {
-    return '${_ordinalDay(local.day)} ${DateFormat('MMM yyyy').format(local)} '
-        '${hourFmt.format(local)}';
-  }
-
-  /// Label for the red "now" line: latest NWS obs temp + observation time.
-  static String _nowLineLabel({
-    required DailyTemperatureSeries series,
-    required DateFormat hourFmt,
-    required String unitSuffix,
-  }) {
-    final latest = series.latestObservation;
-    if (latest == null) return 'now';
-    final temp = latest.temperature.toStringAsFixed(1);
-    final time = hourFmt.format(latest.observedAtLocal);
-    return '$temp$unitSuffix @ $time';
-  }
+/// Label for the red "now" line: latest NWS obs temp + observation time.
+String _nowLineLabel({
+  required DailyTemperatureSeries series,
+  required DateFormat hourFmt,
+  required String unitSuffix,
+}) {
+  final latest = series.latestObservation;
+  if (latest == null) return 'now';
+  final temp = latest.temperature.toStringAsFixed(1);
+  final time = hourFmt.format(latest.observedAtLocal);
+  return '$temp$unitSuffix @ $time';
 }
 
 class _TemperaturePointsTable extends StatelessWidget {
@@ -708,7 +811,7 @@ class _TemperaturePointsTable extends StatelessWidget {
                 ),
                 children: [
                   cell(
-                    DailyTemperatureChart._formatPointDateTime(
+                    _formatPointDateTime(
                       visiblePoints[i].localHourStart,
                       hourFmt,
                     ),

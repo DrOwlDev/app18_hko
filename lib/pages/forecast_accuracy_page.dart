@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../models/market_event.dart';
 import '../services/city_timezones.dart';
@@ -23,7 +22,6 @@ class ForecastAccuracyPage extends StatefulWidget {
 }
 
 class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
-  final _dateFormat = DateFormat('yyyy-MM-dd');
   final _api = PolymarketApi(preferStaticSnapshot: kIsWeb);
   List<DateTime> _days = [];
   List<String> _snapshots = [];
@@ -202,9 +200,9 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
       );
     }
 
-    final snapshotCaption = formatHkoForecastRetrievedCaption(
-      modelTime: _selectedSnapshot,
-    );
+    final snapshotCaption = _selectedSnapshot == null
+        ? null
+        : _snapshotLabel(_selectedSnapshot!);
 
     return RefreshIndicator(
       onRefresh: _loadInitial,
@@ -214,6 +212,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
           Row(
             children: [
               Expanded(
+                flex: 3,
                 child: InputDecorator(
                   decoration: const InputDecoration(
                     labelText: 'HKT day',
@@ -242,6 +241,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
               ),
               const SizedBox(width: 8),
               Expanded(
+                flex: 7,
                 child: InputDecorator(
                   decoration: const InputDecoration(
                     labelText: 'Forecast snapshot (ModelTime)',
@@ -256,7 +256,10 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
                         for (final id in _snapshots)
                           DropdownMenuItem(
                             value: id,
-                            child: Text(_snapshotLabel(id)),
+                            child: Text(
+                              _snapshotLabel(id),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                       ],
                       onChanged: (v) async {
@@ -321,7 +324,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
                 padding: const EdgeInsets.all(4),
                 child: DailyTemperatureChart(
                   series: _chartSeries!,
-                  height: 320,
+                  height: 640,
                   hideNonExtremeTempRows: true,
                   overlayForecast: true,
                   showPointsTable: !_hideTempTable,
@@ -376,18 +379,48 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
 
   String _fmt(double? v) => v == null ? '—' : v.toStringAsFixed(1);
 
+  static const _weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  static const _months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  ];
+
   String _dayLabel(DateTime day) {
-    final stamp = _dateFormat.format(day);
+    final wd = _weekdays[day.weekday - 1];
+    final stamp =
+        '$wd ${day.day.toString().padLeft(2, '0')}-${_months[day.month - 1]}';
     final nowHkt = CityTimezones.nowInCity('Hong Kong');
     if (nowHkt == null) return stamp;
     final today = DateTime(nowHkt.year, nowHkt.month, nowHkt.day);
-    if (day.isAfter(today)) return '$stamp (forecast)';
+    if (day.isAfter(today)) return '$stamp (F)';
     return stamp;
   }
 
+  /// e.g. `Model Fri 11-Sep 00:00 (Refreshed Sat 12-Sep 00:11)`
   String _snapshotLabel(String snapshotId) {
-    final caption = formatHkoForecastRetrievedCaption(modelTime: snapshotId);
-    if (caption != null) return caption.replaceFirst('HKO OCF/ARWF forecast ', '');
-    return snapshotId;
+    final modelPart =
+        snapshotId.contains('_') ? snapshotId.split('_').first : snapshotId;
+    final modifiedPart =
+        snapshotId.contains('_') ? snapshotId.split('_').last : null;
+    final model = _compactHktStamp(modelPart);
+    final refreshed = _compactHktStamp(modifiedPart);
+    if (model == null) return snapshotId;
+    if (refreshed == null) return 'Model $model';
+    return 'Model $model (Refreshed $refreshed)';
+  }
+
+  /// `YYYYMMDDHH[MM[SS]]` → `ddd dd-MMM HH:mm`
+  String? _compactHktStamp(String? raw) {
+    if (raw == null || raw.isEmpty) return null;
+    final wall = parseHkoCompactDateTime(
+      raw.length >= 12 ? raw.substring(0, 12) : raw,
+    );
+    if (wall == null) return null;
+    final wd = _weekdays[wall.weekday - 1];
+    final dd = wall.day.toString().padLeft(2, '0');
+    final mon = _months[wall.month - 1];
+    final hh = wall.hour.toString().padLeft(2, '0');
+    final mm = wall.minute.toString().padLeft(2, '0');
+    return '$wd $dd-$mon $hh:$mm';
   }
 }
