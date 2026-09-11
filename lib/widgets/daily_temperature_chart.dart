@@ -133,14 +133,18 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
     var probeAbove = 0;
     var probeBelow = 0;
     if (probeTemp != null) {
+      // Settlement-style bucket [T, T+0.99]: above = ≥ T+1, below = < T.
       for (final p in forecastPoints) {
         final t = p.localHourStart.millisecondsSinceEpoch.toDouble();
         if (t < nowMs || t > dayEndMs) continue;
-        if (p.temperature > probeTemp) {
+        if (p.temperature >= probeTemp + 1) {
           probeAbove++;
         } else if (p.temperature < probeTemp) {
           probeBelow++;
         }
+      }
+      if (probeTemp + 0.99 > maxY) {
+        maxY = (probeTemp + 0.99).ceilToDouble();
       }
     }
 
@@ -227,10 +231,8 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                   child: Text(
                     '${probeTemp.round()}$unitSuffix probe — '
-                    '$probeAbove forecasted yellow-line temps above this '
-                    'temperature from now to end of day; '
-                    '$probeBelow forecasted yellow-line temps below this '
-                    'temperature from now to end of day. '
+                    '$probeAbove forecasted temps above this temperature bucket; '
+                    '$probeBelow forecasted temps below this temperature. '
                     '(Tap axis again to clear.)',
                     style: const TextStyle(
                       fontSize: 11,
@@ -301,6 +303,16 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                   borderData: FlBorderData(
                     show: true,
                     border: Border.all(color: Colors.grey.shade400, width: 1),
+                  ),
+                  rangeAnnotations: RangeAnnotations(
+                    horizontalRangeAnnotations: [
+                      if (probeTemp != null)
+                        HorizontalRangeAnnotation(
+                          y1: probeTemp,
+                          y2: probeTemp + 0.99,
+                          color: probeColor.withValues(alpha: 0.22),
+                        ),
+                    ],
                   ),
                   extraLinesData: ExtraLinesData(
                     horizontalLines: [
@@ -378,25 +390,6 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                             ),
                             labelResolver: (line) =>
                                 'fc max ${line.y.toStringAsFixed(1)}$unitSuffix',
-                          ),
-                        ),
-                      if (probeTemp != null)
-                        HorizontalLine(
-                          y: probeTemp,
-                          color: probeColor,
-                          strokeWidth: 1.5,
-                          dashArray: const [4, 3],
-                          label: HorizontalLineLabel(
-                            show: true,
-                            alignment: Alignment.centerRight,
-                            padding: const EdgeInsets.only(right: 4),
-                            style: const TextStyle(
-                              fontSize: 10,
-                              color: probeColor,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            labelResolver: (_) =>
-                                '${probeTemp.round()}$unitSuffix',
                           ),
                         ),
                     ],
