@@ -23,6 +23,9 @@ class HkoTemperatureApi {
   static const latestTempCsvUrl =
       'https://data.weather.gov.hk/weatherAPI/hko_data/'
       'regional-weather/latest_1min_temperature.csv';
+  /// Same HK Observatory air temp as the regional text readings page.
+  static const textReadingsUrl =
+      'https://www.weather.gov.hk/textonly/v2/forecast/text_readings_v2_e.htm';
   static const hkocCsvReferer =
       'https://www.hko.gov.hk/en/wxinfo/awsgis/regional_portal.html';
   static const defaultObservedDataSource = 'https://www.weather.gov.hk';
@@ -190,6 +193,41 @@ class HkoTemperatureApi {
     required tz.Location location,
     required String unit,
   }) async {
+    return fetchLatestHkObservatoryObservation(
+      location: location,
+      unit: unit,
+    );
+  }
+
+  /// Latest HK Observatory air temperature (text readings page, CSV fallback).
+  Future<LatestStationObservation?> fetchLatestHkObservatoryObservation({
+    tz.Location? location,
+    String unit = 'C',
+  }) async {
+    final loc =
+        location ?? CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
+    final unitNorm = unit == 'F' ? 'F' : 'C';
+    try {
+      final textResponse = await _client.get(
+        Uri.parse(textReadingsUrl),
+        headers: {
+          'User-Agent': _userAgent,
+          'Accept': 'text/html,text/plain,*/*',
+        },
+      );
+      if (textResponse.statusCode == 200) {
+        final parsed = parseHkoTextReadingsAirTemp(textResponse.body);
+        if (parsed != null) {
+          return _latestFromWallTemp(
+            location: loc,
+            unit: unitNorm,
+            wall: parsed.wall,
+            tempC: parsed.tempC,
+          );
+        }
+      }
+    } catch (_) {}
+
     try {
       final response = await _client.get(
         Uri.parse(latestTempCsvUrl),
@@ -198,21 +236,35 @@ class HkoTemperatureApi {
       if (response.statusCode != 200) return null;
       final parsed = parseHkoLatestTemperatureCsv(response.body);
       if (parsed == null) return null;
-      final local = tz.TZDateTime(
-        location,
-        parsed.wall.year,
-        parsed.wall.month,
-        parsed.wall.day,
-        parsed.wall.hour,
-        parsed.wall.minute,
-      );
-      return LatestStationObservation(
-        temperature: convertTempC(parsed.tempC, unit),
-        observedAtLocal: local,
+      return _latestFromWallTemp(
+        location: loc,
+        unit: unitNorm,
+        wall: parsed.wall,
+        tempC: parsed.tempC,
       );
     } catch (_) {
       return null;
     }
+  }
+
+  LatestStationObservation _latestFromWallTemp({
+    required tz.Location location,
+    required String unit,
+    required DateTime wall,
+    required double tempC,
+  }) {
+    final local = tz.TZDateTime(
+      location,
+      wall.year,
+      wall.month,
+      wall.day,
+      wall.hour,
+      wall.minute,
+    );
+    return LatestStationObservation(
+      temperature: convertTempC(tempC, unit),
+      observedAtLocal: local,
+    );
   }
 
   void close() => _client.close();
@@ -350,6 +402,51 @@ Map<int, double> indexOcfHourlyForecastC({
     return (wall: wall, tempC: temp);
   }
   return null;
+}
+
+/// Parse HK Observatory air temp from the regional text-readings HTML page.
+({DateTime wall, double tempC})? parseHkoTextReadingsAirTemp(String body) {
+  final timeMatch = RegExp(
+    r'Latest readings recorded at\s+(\d{1,2}):(\d{2})\s+Hong Kong Time\s+'
+    r'(\d{1,2})\s+(\w+)\s+(\d{4})',
+    caseSensitive: false,
+  ).firstMatch(body);
+  final tempMatch = RegExp(
+    r'HK Observatory\s+(\d+(?:\.\d+)?)',
+    caseSensitive: false,
+  ).firstMatch(body);
+  if (timeMatch == null || tempMatch == null) return null;
+
+  final hour = int.tryParse(timeMatch.group(1)!);
+  final minute = int.tryParse(timeMatch.group(2)!);
+  final day = int.tryParse(timeMatch.group(3)!);
+  final month = _englishMonthNumber(timeMatch.group(4)!);
+  final year = int.tryParse(timeMatch.group(5)!);
+  final temp = double.tryParse(tempMatch.group(1)!);
+  if ([hour, minute, day, month, year, temp].contains(null)) return null;
+
+  return (
+    wall: DateTime(year!, month!, day!, hour!, minute!),
+    tempC: temp!,
+  );
+}
+
+int? _englishMonthNumber(String raw) {
+  const months = {
+    'january': 1,
+    'february': 2,
+    'march': 3,
+    'april': 4,
+    'may': 5,
+    'june': 6,
+    'july': 7,
+    'august': 8,
+    'september': 9,
+    'october': 10,
+    'november': 11,
+    'december': 12,
+  };
+  return months[raw.trim().toLowerCase()];
 }
 
 /// Parse HKO compact timestamps: `YYYYMMDDHH`, `YYYYMMDDHHMM`, or `YYYY/MM/DD HH:MM`.

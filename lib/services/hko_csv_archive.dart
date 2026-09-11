@@ -297,6 +297,7 @@ class HkoCsvArchive {
   Future<HkoArchiveCollectResult> collect() async {
     final obsAdded = await appendObservations();
     final fcWritten = await appendForecastIfNew();
+    await writeLatestHkObservatoryReading();
     final status = await readStatus();
     return HkoArchiveCollectResult(
       obsRowsAdded: obsAdded,
@@ -304,6 +305,33 @@ class HkoCsvArchive {
       modelTime: status.lastModelTime,
       lastObservedAtHkt: status.lastObservedAtHkt,
     );
+  }
+
+  /// Persists latest HK Observatory air temp for Forecast "now" (Pages + local).
+  Future<bool> writeLatestHkObservatoryReading() async {
+    final api = HkoTemperatureApi(client: _client);
+    final latest = await api.fetchLatestHkObservatoryObservation();
+    if (latest == null) return false;
+    await metaDir.create(recursive: true);
+    final file = File('${metaDir.path}/latest_hk_observatory.json');
+    await file.writeAsString('${jsonEncode(latest.toJson())}\n');
+    return true;
+  }
+
+  Future<LatestStationObservation?> readLatestHkObservatoryReading() async {
+    final file = File('${metaDir.path}/latest_hk_observatory.json');
+    if (!await file.exists()) return null;
+    try {
+      final decoded = jsonDecode(await file.readAsString());
+      if (decoded is! Map) return null;
+      final location = CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
+      return LatestStationObservation.fromJson(
+        Map<String, dynamic>.from(decoded),
+        location: location,
+      );
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<HkoArchiveStatus> readStatus() async {
@@ -517,6 +545,22 @@ class HkoCsvArchiveReader {
         .where((l) => l.isNotEmpty)
         .toList()
       ..sort((a, b) => b.compareTo(a));
+  }
+
+  Future<LatestStationObservation?> readLatestHkObservatoryReading() async {
+    final body = await fetchText('meta/latest_hk_observatory.json');
+    if (body == null || body.trim().isEmpty) return null;
+    try {
+      final decoded = jsonDecode(body);
+      if (decoded is! Map) return null;
+      final location = CityTimezones.locationForCity('Hong Kong') ?? tz.UTC;
+      return LatestStationObservation.fromJson(
+        Map<String, dynamic>.from(decoded),
+        location: location,
+      );
+    } catch (_) {
+      return null;
+    }
   }
 
   void close() => _client.close();

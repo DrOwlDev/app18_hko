@@ -694,7 +694,7 @@ String _formatPointDateTime(tz.TZDateTime local, DateFormat hourFmt) {
       '${hourFmt.format(local)}';
 }
 
-/// Label for the red "now" line: latest NWS obs temp + observation time.
+/// Label for the red "now" line: latest HK Observatory air temp + time.
 String _nowLineLabel({
   required DailyTemperatureSeries series,
   required DateFormat hourFmt,

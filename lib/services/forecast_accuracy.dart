@@ -221,6 +221,7 @@ DailyTemperatureSeries? buildArchiveChartSeries({
   required ForecastArchiveSnapshot? forecast,
   List<ForecastArchiveSnapshot> relatedSnapshots = const [],
   tz.Location? location,
+  LatestStationObservation? latestObservation,
 }) {
   final loc = location ?? tz.getLocation('Asia/Hong_Kong');
   final dayStart = tz.TZDateTime(loc, targetDay.year, targetDay.month, targetDay.day);
@@ -310,6 +311,7 @@ DailyTemperatureSeries? buildArchiveChartSeries({
     dayEnd: dayEnd,
     nowLocal: nowLocal.isBefore(dayEnd) ? nowLocal : dayEnd,
     points: points,
+    latestObservation: latestObservation,
     forecastModelTime: forecast?.id ?? forecast?.modelTime,
   );
 }

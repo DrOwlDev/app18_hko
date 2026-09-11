@@ -8,14 +8,14 @@
 - Hong Kong only — no city search; HKO regional portal button on every market row.
 - Portfolio: sort by time-to-close (EOD passed first); label "Shares / Payout"; show Initial Cost; open market links in Firefox.
 - Forecast tab: Hide data table by default; HKT day as `ddd D/M` with `(F)` for forecast-only; ModelTime selector ~70% width labeled `ddd D/M Ham (ddd D/M HH:mm)`.
-- Forecast chart: tall vertically; yellow forecast from HKT 00:00 through next-day 00:00 (backfill past hours HKO drops on refresh); observed as line + single current black marker (no per-point dots); Y-axis every whole °C (clickable → purple [T, T+0.99] bucket band + remaining-forecast above ≥T+1 / below <T counts); extra horizontal lines when forecasted min/max ≠ observed.
+- Forecast chart: tall vertically; yellow forecast from HKT 00:00 through next-day 00:00 (backfill past hours HKO drops on refresh); observed as line + single current black marker (no per-point dots); Y-axis every whole °C (clickable → purple [T, T+0.99] bucket band + remaining-forecast above ≥T+1 / below <T counts); red "now" line labeled with latest HK Observatory air temp from text readings / 1-min CSV; extra horizontal lines when forecasted min/max ≠ observed.
 
 ## Learned Workspace Facts
 
 - Flutter app `app18_hko`: Hong Kong Polymarket daily temperature markets (lowest Gamma `104597` + highest `104596`), filtered to `cityName == Hong Kong`.
 - **Windows**: live Gamma/CLOB + HKO APIs; background CSV collector to `%USERPROFILE%\Documents\app18_hko\data\hko\`.
 - **GitHub Pages**: same-origin `data/markets.json` + `data/hko/` (no CORS); Actions refresh ~every 5 minutes.
-- HKO charts: `hkoc.csv` observed + OCF `HKO.xml` forecast; HKO may refresh hourly temps under the same `ModelTime` (portal red line = latest refresh); archive/snapshot id uses `ModelTime_LastModified`.
+- HKO charts: `hkoc.csv` observed + OCF `HKO.xml` forecast; HKO may refresh hourly temps under the same `ModelTime` (portal red line = latest refresh); archive/snapshot id uses `ModelTime_LastModified`; latest HK Observatory air temp archived to `meta/latest_hk_observatory.json` (from text readings / 1-min CSV).
 - Settlement buckets: truncate toward zero (`27.9°C → 27`).
 - Tabs: **Forecast** (first) + **Markets** + **Portfolio** (no Sites, Android). Forecast HKT day list is today−3 through today+3 (forecast-only days labeled), plus any archived observed days.
 - Portfolio loads Polymarket Data API for proxy wallet `0x8cEF3c1B592953D61EEE2bC9375C5944A8926B6d`; tap opens/expands matching HK market on Markets when present.

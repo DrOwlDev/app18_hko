@@ -214,6 +214,17 @@ Date time, Automatic Weather Station, Air Temperature(degree Celsius)
       expect(parsed.wall.minute, 25);
     });
 
+    test('parseHkoTextReadingsAirTemp finds HK Observatory', () {
+      const html = '''
+Latest readings recorded at 03:20 Hong Kong Time 12 September 2026
+HK Observatory                 27.9       77        28.4 / 27.9       +2.1
+''';
+      final parsed = parseHkoTextReadingsAirTemp(html);
+      expect(parsed, isNotNull);
+      expect(parsed!.tempC, 27.9);
+      expect(parsed.wall, DateTime(2026, 9, 12, 3, 20));
+    });
+
     test('merge uses HKO obs before now and OCF forecast after', () {
       final hk = tz.getLocation('Asia/Hong_Kong');
       final dayStart = tz.TZDateTime(hk, 2026, 9, 5);

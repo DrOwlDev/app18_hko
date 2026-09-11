@@ -23,6 +23,7 @@ class ForecastAccuracyPage extends StatefulWidget {
 
 class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   final _api = PolymarketApi(preferStaticSnapshot: kIsWeb);
+  final _hkoTempApi = HkoTemperatureApi();
   List<DateTime> _days = [];
   List<String> _snapshots = [];
   List<MarketEvent> _events = [];
@@ -56,6 +57,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   void dispose() {
     _webReader?.close();
     _api.close();
+    _hkoTempApi.close();
     super.dispose();
   }
 
@@ -155,6 +157,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
       observedCsv: _observedCsv,
       forecast: selected,
       relatedSnapshots: snapshots,
+      latestObservation: await _loadLatestHkObservatoryReading(day),
     );
 
     _lowEvent = null;
@@ -174,6 +177,26 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     }
 
     if (mounted) setState(() {});
+  }
+
+  /// Live text-readings/CSV on Windows; archived JSON on GitHub Pages.
+  Future<LatestStationObservation?> _loadLatestHkObservatoryReading(
+    DateTime day,
+  ) async {
+    final nowHkt = CityTimezones.nowInCity('Hong Kong');
+    if (nowHkt == null) return null;
+    final today = DateTime(nowHkt.year, nowHkt.month, nowHkt.day);
+    if (day.year != today.year ||
+        day.month != today.month ||
+        day.day != today.day) {
+      return null;
+    }
+    if (!kIsWeb) {
+      final live = await _hkoTempApi.fetchLatestHkObservatoryObservation();
+      if (live != null) return live;
+      return _localArchive?.readLatestHkObservatoryReading();
+    }
+    return _webReader?.readLatestHkObservatoryReading();
   }
 
   @override
