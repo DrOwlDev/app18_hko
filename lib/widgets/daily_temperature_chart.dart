@@ -177,7 +177,7 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
       probeBelowSummary =
           '$probeDeg$unit probe - BELOW $probeDeg$unit = $probeBelow'
           '${probeBelow > 0 ? ' [ $belowParts ]' : ''}'
-          '${belowWv != null ? ' · wv ${belowWv.toStringAsFixed(2)}' : ''}';
+          '${belowWv != null ? ' · wv ${(-belowWv).toStringAsFixed(2)}' : ''}';
     }
 
     double? dailyMinTemp;
