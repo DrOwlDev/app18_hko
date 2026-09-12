@@ -17,5 +17,5 @@
 - **GitHub Pages**: same-origin `data/markets.json` + `data/hko/` (no CORS); Actions refresh ~every 5 minutes.
 - HKO charts: `hkoc.csv` observed + OCF `HKO.xml` forecast; HKO may refresh hourly temps under the same `ModelTime` (portal red line = latest refresh); archive/snapshot id uses `ModelTime_LastModified`; latest HK Observatory air temp archived to `meta/latest_hk_observatory.json` (from text readings / 1-min CSV).
 - Settlement buckets: truncate toward zero (`27.9°C → 27`).
-- Tabs: **Forecast** (first) + **Markets** + **Portfolio** (no Sites, Android). Forecast HKT day list is today−3 through today+3 (forecast-only days labeled), plus any archived observed days.
+- Tabs: **Forecast** (first) + **Markets** + **Portfolio** + **Admin** (Windows: multi-select delete local HKO archive under Documents; Pages: message only). Forecast HKT day list is today−3 through today+3 (forecast-only days labeled), plus any archived observed days.
 - Portfolio loads Polymarket Data API for proxy wallet `0x8cEF3c1B592953D61EEE2bC9375C5944A8926B6d`; tap opens/expands matching HK market on Markets when present.

@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'models/market_alert.dart';
 import 'models/market_event.dart';
 import 'models/temp_outcome_bucket.dart';
+import 'pages/admin_page.dart';
 import 'pages/forecast_accuracy_page.dart';
 import 'pages/positions_page.dart';
 import 'services/city_timezones.dart';
@@ -87,7 +88,7 @@ class _HomeShellState extends State<HomeShell> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Builder(
         builder: (tabContext) {
           return Scaffold(
@@ -108,6 +109,7 @@ class _HomeShellState extends State<HomeShell> {
                   Tab(text: 'Forecast'),
                   Tab(text: 'Markets'),
                   Tab(text: 'Portfolio'),
+                  Tab(text: 'Admin'),
                 ],
               ),
             ),
@@ -134,6 +136,7 @@ class _HomeShellState extends State<HomeShell> {
                       DefaultTabController.of(tabContext).animateTo(1);
                     },
                   ),
+                  const AdminPage(),
                 ],
               ),
             ),
