@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -34,17 +36,41 @@ jobs:
       - name: Export Hong Kong markets snapshot
         run: dart run tool/export_markets.dart web/data/markets.json
 
+      - name: Snapshot collected data
+        run: |
+          mkdir -p /tmp/hko-refresh
+          rm -rf /tmp/hko-refresh/hko
+          cp -a data/hko /tmp/hko-refresh/hko
+          cp web/data/markets.json /tmp/hko-refresh/markets.json
+
       - name: Commit archive + snapshot to main
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/hko web/data/markets.json
-          if git diff --staged --quiet; then
-            echo "No data changes on main"
-          else
-            git commit -m "Refresh HKO archive + markets $(date -u +%Y-%m-%dT%H:%MZ)"
-            git push origin HEAD:main
-          fi
+          msg="Refresh HKO archive + markets $(date -u +%Y-%m-%dT%H:%MZ)"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p data/hko web/data
+            cp -a /tmp/hko-refresh/hko/. data/hko/
+            cp /tmp/hko-refresh/markets.json web/data/markets.json
+            git add data/hko web/data/markets.json
+            if git diff --staged --quiet; then
+              echo "No data changes on main"
+              exit 0
+            fi
+            git commit -m "$msg"
+            if git push origin HEAD:main; then
+              echo "Pushed to main"
+              exit 0
+            fi
+            echo "Push to main rejected (attempt $attempt); retrying..."
+            sleep $((attempt * 2))
+          done
+          echo "Failed to push to main after retries"
+          exit 1
 
       - name: Checkout gh-pages
         id: ghpages
@@ -53,27 +79,38 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
-
-      - name: Update snapshot + HKO data on Pages
-        if: steps.ghpages.outcome == 'success'
-        run: |
-          mkdir -p gh-pages/data/hko
-          cp web/data/markets.json gh-pages/data/markets.json
-          cp -r data/hko/. gh-pages/data/hko/
+          fetch-depth: 0
 
       - name: Commit and push gh-pages data
         if: steps.ghpages.outcome == 'success'
         working-directory: gh-pages
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --staged --quiet; then
-            echo "No data changes on gh-pages"
-            exit 0
-          fi
-          git commit -m "Refresh HKO data $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push origin HEAD:gh-pages
+          msg="Refresh HKO data $(date -u +%Y-%m-%dT%H:%MZ)"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin gh-pages
+            git reset --hard origin/gh-pages
+            mkdir -p data/hko
+            cp /tmp/hko-refresh/markets.json data/markets.json
+            cp -a /tmp/hko-refresh/hko/. data/hko/
+            git add data/
+            if git diff --staged --quiet; then
+              echo "No data changes on gh-pages"
+              exit 0
+            fi
+            git commit -m "$msg"
+            if git push origin HEAD:gh-pages; then
+              echo "Pushed to gh-pages"
+              exit 0
+            fi
+            echo "Push to gh-pages rejected (attempt $attempt); retrying..."
+            sleep $((attempt * 2))
+          done
+          echo "Failed to push to gh-pages after retries"
+          exit 1
 
       - name: Skip Pages update when gh-pages missing
         if: steps.ghpages.outcome != 'success'

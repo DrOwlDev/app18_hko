@@ -3,6 +3,10 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+    # Data-only Refresh commits should not rebuild the Flutter site.
+    paths-ignore:
+      - 'data/hko/**'
+      - 'web/data/markets.json'
   workflow_dispatch:
 
 permissions:
