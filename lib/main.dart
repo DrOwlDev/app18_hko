@@ -179,10 +179,9 @@ class _MarketListPageState extends State<MarketListPage> {
   Timer? _autoRefreshTimer;
   Timer? _countdownTimer;
   String? _expandedEventId;
-  /// Hide thin temperature rows (Yes&lt;1¢ & No --). On by default.
+  /// Hide Odds on by default. Hide Table hides the whole temp points table.
   bool _hideThinOutcomes = true;
-  /// Hide temp-table rows that are neither daily Min nor Max. On by default.
-  bool _hideNonExtremeTempRows = true;
+  bool _hideTempTable = true;
 
   final List<MarketAlert> _alertLog = [];
   final Map<String, double> _prevObsExtremumByEventId = {};
@@ -464,9 +463,9 @@ class _MarketListPageState extends State<MarketListPage> {
                   Checkbox(
                     visualDensity: VisualDensity.compact,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value: _hideNonExtremeTempRows,
+                    value: _hideTempTable,
                     onChanged: (value) {
-                      setState(() => _hideNonExtremeTempRows = value ?? true);
+                      setState(() => _hideTempTable = value ?? true);
                     },
                   ),
                   const Flexible(
@@ -653,7 +652,7 @@ class _MarketListPageState extends State<MarketListPage> {
             dayFormat: _dayFormat,
             expanded: _expandedEventId == event.id,
             hideThinOutcomes: _hideThinOutcomes,
-            hideNonExtremeTempRows: _hideNonExtremeTempRows,
+            hideTempTable: _hideTempTable,
             onExpansionChanged: (expanded) {
               setState(() {
                 _expandedEventId = expanded ? event.id : null;
@@ -747,7 +746,7 @@ class _MarketEventTile extends StatefulWidget {
     required this.dayFormat,
     required this.expanded,
     required this.hideThinOutcomes,
-    required this.hideNonExtremeTempRows,
+    required this.hideTempTable,
     required this.onExpansionChanged,
     required this.onObservedExtremum,
     required this.onOpen,
@@ -764,7 +763,7 @@ class _MarketEventTile extends StatefulWidget {
   final DateFormat dayFormat;
   final bool expanded;
   final bool hideThinOutcomes;
-  final bool hideNonExtremeTempRows;
+  final bool hideTempTable;
   final ValueChanged<bool> onExpansionChanged;
   final ValueChanged<double?> onObservedExtremum;
   final VoidCallback onOpen;
@@ -1160,8 +1159,10 @@ class _MarketEventTileState extends State<_MarketEventTile> {
                               : _tempSeries != null
                                   ? DailyTemperatureChart(
                                       series: _tempSeries!,
-                                      hideNonExtremeTempRows:
-                                          widget.hideNonExtremeTempRows,
+                                      height: 270,
+                                      overlayForecast: true,
+                                      hideNonExtremeTempRows: false,
+                                      showPointsTable: !widget.hideTempTable,
                                     )
                                   : const SizedBox.shrink(),
                     ),

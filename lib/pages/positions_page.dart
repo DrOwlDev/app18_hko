@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/market_event.dart';
 import '../models/user_position.dart';
+import '../services/city_timezones.dart';
 import '../services/open_url.dart';
 import '../services/polymarket_positions_api.dart';
 import '../ui/eod_badge_color.dart';
@@ -43,6 +45,8 @@ class _PositionsPageState extends State<PositionsPage>
   String? _error;
   DateTime? _lastRefreshedAt;
   Timer? _autoRefreshTimer;
+  /// Hide positions whose market EOD has already passed. On by default.
+  bool _hidePast = true;
 
   @override
   bool get wantKeepAlive => true;
@@ -141,16 +145,103 @@ class _PositionsPageState extends State<PositionsPage>
   }
 
   double get _totalValue =>
-      _positions.fold(0.0, (sum, p) => sum + p.currentValue);
+      _visiblePositions.fold(0.0, (sum, p) => sum + p.currentValue);
 
-  double get _totalPnl => _positions.fold(0.0, (sum, p) => sum + p.cashPnl);
+  double get _totalPnl =>
+      _visiblePositions.fold(0.0, (sum, p) => sum + p.cashPnl);
+
+  bool _isEodPassed(UserPosition p) {
+    final remaining =
+        _match(p)?.event.timeToLocalEndOfDay ?? _positionTimeToEod(p);
+    return remaining != null && remaining.isNegative;
+  }
+
+  /// Fallback when the market is no longer in the live Markets list (past EOD).
+  Duration? _positionTimeToEod(UserPosition p) {
+    final day = _positionObservationDay(p);
+    if (day == null) return null;
+    final eodUtc = CityTimezones.endOfDayUtc(
+      cityName: 'Hong Kong',
+      year: day.year,
+      month: day.month,
+      day: day.day,
+    );
+    if (eodUtc == null) return null;
+    return eodUtc.difference(DateTime.now().toUtc());
+  }
+
+  ({int year, int month, int day})? _positionObservationDay(UserPosition p) {
+    const months = {
+      'january': 1,
+      'february': 2,
+      'march': 3,
+      'april': 4,
+      'may': 5,
+      'june': 6,
+      'july': 7,
+      'august': 8,
+      'september': 9,
+      'october': 10,
+      'november': 11,
+      'december': 12,
+    };
+
+    final slug = p.eventSlug.isNotEmpty ? p.eventSlug : p.slug;
+    final slugMatch = RegExp(
+      r'on-([a-z]+)-(\d{1,2})-(\d{4})$',
+      caseSensitive: false,
+    ).firstMatch(slug);
+    if (slugMatch != null) {
+      final month = months[slugMatch.group(1)!.toLowerCase()];
+      final day = int.tryParse(slugMatch.group(2)!);
+      final year = int.tryParse(slugMatch.group(3)!);
+      if (month != null && day != null && year != null) {
+        return (year: year, month: month, day: day);
+      }
+    }
+
+    final titleMatch = RegExp(
+      r'on\s+([A-Za-z]+)\s+(\d{1,2})\??\s*$',
+      caseSensitive: false,
+    ).firstMatch(p.title);
+    if (titleMatch != null) {
+      final month = months[titleMatch.group(1)!.toLowerCase()];
+      final day = int.tryParse(titleMatch.group(2)!);
+      if (month != null && day != null) {
+        var year =
+            CityTimezones.nowInCity('Hong Kong')?.year ?? DateTime.now().year;
+        final end = DateTime.tryParse(p.endDate ?? '');
+        if (end != null) {
+          final loc = CityTimezones.locationForCity('Hong Kong');
+          year = loc != null
+              ? tz.TZDateTime.from(end.toUtc(), loc).year
+              : end.toUtc().year;
+        }
+        return (year: year, month: month, day: day);
+      }
+    }
+
+    final end = DateTime.tryParse(p.endDate ?? '');
+    if (end != null) {
+      final loc = CityTimezones.locationForCity('Hong Kong');
+      if (loc != null) {
+        final local = tz.TZDateTime.from(end.toUtc(), loc);
+        return (year: local.year, month: local.month, day: local.day);
+      }
+      final u = end.toUtc();
+      return (year: u.year, month: u.month, day: u.day);
+    }
+    return null;
+  }
 
   /// EOD passed first, then soonest remaining time-to-EOD, then unknown last.
   List<UserPosition> get _sortedPositions {
     final list = List<UserPosition>.from(_positions);
     list.sort((a, b) {
-      final aDur = _match(a)?.event.timeToLocalEndOfDay;
-      final bDur = _match(b)?.event.timeToLocalEndOfDay;
+      final aDur =
+          _match(a)?.event.timeToLocalEndOfDay ?? _positionTimeToEod(a);
+      final bDur =
+          _match(b)?.event.timeToLocalEndOfDay ?? _positionTimeToEod(b);
       if (aDur == null && bDur == null) return 0;
       if (aDur == null) return 1;
       if (bDur == null) return -1;
@@ -161,6 +252,15 @@ class _PositionsPageState extends State<PositionsPage>
       return aDur.compareTo(bDur);
     });
     return list;
+  }
+
+  List<UserPosition> get _visiblePositions {
+    final sorted = _sortedPositions;
+    if (!_hidePast) return sorted;
+    return [
+      for (final p in sorted)
+        if (!_isEodPassed(p)) p,
+    ];
   }
 
   @override
@@ -190,7 +290,9 @@ class _PositionsPageState extends State<PositionsPage>
                     ),
                     if (!_loading && _error == null)
                       Text(
-                        '${_positions.length} positions · '
+                        '${_visiblePositions.length}'
+                        '${_hidePast && _visiblePositions.length != _positions.length ? '/${_positions.length}' : ''}'
+                        ' positions · '
                         '${_money.format(_totalValue)} · '
                         'PnL ${_money.format(_totalPnl)}',
                         style: TextStyle(
@@ -203,6 +305,18 @@ class _PositionsPageState extends State<PositionsPage>
                       ),
                   ],
                 ),
+              ),
+              Checkbox(
+                visualDensity: VisualDensity.compact,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                value: _hidePast,
+                onChanged: (v) {
+                  setState(() => _hidePast = v ?? true);
+                },
+              ),
+              const Text(
+                'Hide Past',
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
               ),
               if (_refreshing || (_loading && _positions.isNotEmpty))
                 const Padding(
@@ -273,7 +387,10 @@ class _PositionsPageState extends State<PositionsPage>
       return const Center(child: Text('No open positions'));
     }
 
-    final positions = _sortedPositions;
+    final positions = _visiblePositions;
+    if (positions.isEmpty) {
+      return const Center(child: Text('No open positions (Hide Past on)'));
+    }
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
       itemCount: positions.length,
@@ -283,7 +400,8 @@ class _PositionsPageState extends State<PositionsPage>
         final matched = _match(p);
         final event = matched?.event;
         final outcome = matched?.outcome;
-        final remaining = event?.timeToLocalEndOfDay;
+        final remaining =
+            event?.timeToLocalEndOfDay ?? _positionTimeToEod(p);
         final eodLabel = formatTimeToEndOfDay(remaining);
         final chance = outcome?.displayChance ??
             (p.curPrice > 0 && p.curPrice < 1 ? p.curPrice : null);

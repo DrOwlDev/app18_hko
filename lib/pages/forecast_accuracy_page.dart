@@ -9,6 +9,7 @@ import '../services/forecast_accuracy.dart';
 import '../services/hko_csv_archive.dart';
 import '../services/hko_data_collector.dart';
 import '../services/hko_temperature_api.dart';
+import '../services/open_url.dart';
 import '../services/polymarket_api.dart';
 import '../services/temperature_series.dart';
 import '../widgets/daily_temperature_chart.dart';
@@ -305,58 +306,52 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Wrap(
-                spacing: 8,
-                runSpacing: 8,
+                spacing: 6,
+                runSpacing: 6,
                 children: [
-                  FilledButton.tonalIcon(
+                  _compactActionButton(
                     onPressed: _refreshing ? null : _refreshData,
                     icon: _refreshing
                         ? const SizedBox(
-                            width: 14,
-                            height: 14,
+                            width: 12,
+                            height: 12,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Icon(Icons.refresh, size: 18),
-                    label: Text(
-                      kIsWeb ? 'Refresh Data (GitHub Actions)' : 'Refresh Data',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                        : const Icon(Icons.refresh, size: 14),
+                    label: kIsWeb
+                        ? 'Refresh Data (GitHub Actions)'
+                        : 'Refresh Data',
                   ),
-                  FilledButton.tonalIcon(
-                    onPressed: () => launchUrl(
-                      Uri.parse(HkoTemperatureApi.rainForecastUrl),
-                      mode: LaunchMode.externalApplication,
+                  _compactActionButton(
+                    onPressed: () => _openExternalUrl(
+                      HkoTemperatureApi.rainForecastUrl,
                     ),
-                    icon: const Icon(Icons.water_drop_outlined, size: 18),
-                    label: const Text(
-                      'Rain Forecast',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-                    ),
+                    icon: const Icon(Icons.water_drop_outlined, size: 14),
+                    label: 'Rain Forecast',
                   ),
-                  FilledButton.tonalIcon(
-                    onPressed: () => launchUrl(
-                      Uri.parse(HkoTemperatureApi.textReadingsUrl),
-                      mode: LaunchMode.externalApplication,
+                  _compactActionButton(
+                    onPressed: () => _openExternalUrl(
+                      HkoTemperatureApi.textReadingsUrl,
                     ),
-                    icon: const Icon(Icons.thermostat_outlined, size: 18),
-                    label: const Text(
-                      'Check Temp',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-                    ),
+                    icon: const Icon(Icons.thermostat_outlined, size: 14),
+                    label: 'Check Temp',
                   ),
-                  FilledButton.tonalIcon(
-                    onPressed: () => launchUrl(
-                      Uri.parse(HkoTemperatureApi.regionalPortalTempChartUrl),
-                      mode: LaunchMode.externalApplication,
+                  _compactActionButton(
+                    onPressed: () => _openExternalUrl(
+                      HkoTemperatureApi.regionalPortalTempChartUrl,
                     ),
-                    icon: const Icon(Icons.show_chart, size: 18),
-                    label: const Text(
-                      'Check Forecast',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-                    ),
+                    icon: const Icon(Icons.show_chart, size: 14),
+                    label: 'Check Forecast',
+                  ),
+                  _compactActionButton(
+                    onPressed: () => _openTodayPolymarket(TempMarketKind.low),
+                    icon: const Icon(Icons.arrow_downward, size: 14),
+                    label: 'Open Low',
+                  ),
+                  _compactActionButton(
+                    onPressed: () => _openTodayPolymarket(TempMarketKind.high),
+                    icon: const Icon(Icons.arrow_upward, size: 14),
+                    label: 'Open High',
                   ),
                 ],
               ),
@@ -505,9 +500,89 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
 
   String _fmt(double? v) => v == null ? '—' : v.toStringAsFixed(1);
 
+  static const _monthSlugs = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+  ];
+
+  Widget _compactActionButton({
+    required VoidCallback? onPressed,
+    required Widget icon,
+    required String label,
+  }) {
+    return FilledButton.tonalIcon(
+      onPressed: onPressed,
+      style: FilledButton.styleFrom(
+        visualDensity: VisualDensity.compact,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        minimumSize: const Size(0, 28),
+        textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
+      ),
+      icon: icon,
+      label: Text(label),
+    );
+  }
+
+  Future<void> _openExternalUrl(String url) async {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+  }
+
+  Future<void> _openTodayPolymarket(TempMarketKind kind) async {
+    final url = _todayPolymarketUrl(kind);
+    if (!kIsWeb) {
+      final ok = await openUrlInFirefox(url);
+      if (ok) return;
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open Firefox')),
+        );
+      }
+    }
+    await _openExternalUrl(url);
+  }
+
+  String _todayPolymarketUrl(TempMarketKind kind) {
+    final nowHkt = CityTimezones.nowInCity('Hong Kong');
+    final today = nowHkt != null
+        ? DateTime(nowHkt.year, nowHkt.month, nowHkt.day)
+        : DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+          );
+
+    for (final e in _events) {
+      if (!isHongKongTemperatureMarket(e)) continue;
+      if (e.tempKind != kind) continue;
+      final d = e.observationDayInCity;
+      if (d == null) continue;
+      if (d.year != today.year || d.month != today.month || d.day != today.day) {
+        continue;
+      }
+      if (e.slug.isNotEmpty) return e.polymarketUrl;
+    }
+
+    final prefix =
+        kind == TempMarketKind.low ? 'lowest' : 'highest';
+    final month = _monthSlugs[today.month - 1];
+    return 'https://polymarket.com/event/'
+        '$prefix-temperature-in-hong-kong-on-$month-${today.day}-${today.year}';
+  }
+
   static const _weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  /// True when selected snapshot's LastModified (refresh) is >3h before now HKT.
+  /// True when selected snapshot's LastModified (refresh) is >2h before now HKT.
   bool get _isSelectedModelRefreshStale {
     final id = _selectedSnapshot;
     if (id == null) return false;
@@ -515,7 +590,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     if (refreshed == null) return false;
     final nowHkt = CityTimezones.nowInCity('Hong Kong');
     if (nowHkt == null) return false;
-    return nowHkt.difference(refreshed) > const Duration(hours: 3);
+    return nowHkt.difference(refreshed) > const Duration(hours: 2);
   }
 
   /// LastModified as HKT from snapshot id `ModelTime_LastModified`.
