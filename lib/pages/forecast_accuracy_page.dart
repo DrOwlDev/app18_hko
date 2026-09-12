@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/market_event.dart';
 import '../services/city_timezones.dart';
@@ -38,6 +39,9 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
   bool _loading = true;
   String? _error;
   bool _hideTempTable = true;
+  bool _hideBucketTable = true;
+  bool _refreshing = false;
+  int _webcamCacheBust = DateTime.now().millisecondsSinceEpoch;
 
   HkoCsvArchive? _localArchive;
   HkoCsvArchiveReader? _webReader;
@@ -224,10 +228,6 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
       );
     }
 
-    final snapshotCaption = _selectedSnapshot == null
-        ? null
-        : _snapshotLabel(_selectedSnapshot!);
-
     return RefreshIndicator(
       onRefresh: _loadInitial,
       child: ListView(
@@ -300,34 +300,55 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
               ),
             ],
           ),
-          Row(
-            children: [
-              Checkbox(
-                visualDensity: VisualDensity.compact,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                value: _hideTempTable,
-                onChanged: (v) {
-                  setState(() => _hideTempTable = v ?? true);
-                },
-              ),
-              const Text(
-                'Hide Table',
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          if (snapshotCaption != null) ...[
-            const SizedBox(height: 6),
-            Text(
-              snapshotCaption,
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF334155),
+          if (_chartSeries != null) ...[
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: FilledButton.tonalIcon(
+                onPressed: _refreshing ? null : _refreshData,
+                icon: _refreshing
+                    ? const SizedBox(
+                        width: 14,
+                        height: 14,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.refresh, size: 18),
+                label: Text(
+                  kIsWeb ? 'Refresh Data (GitHub Actions)' : 'Refresh Data',
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
-          ],
-          if (_chartSeries != null) ...[
+            const SizedBox(height: 8),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: DailyTemperatureChart(
+                  series: _chartSeries!,
+                  height: 512,
+                  hideNonExtremeTempRows: true,
+                  overlayForecast: true,
+                  showPointsTable: !_hideTempTable,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            _HkoLiveWebcamRow(cacheBust: _webcamCacheBust),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: FilledButton.tonalIcon(
+                onPressed: () => launchUrl(
+                  Uri.parse(HkoTemperatureApi.rainForecastUrl),
+                  mode: LaunchMode.externalApplication,
+                ),
+                icon: const Icon(Icons.water_drop_outlined, size: 18),
+                label: const Text(
+                  'Rain Forecast',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                ),
+              ),
+            ),
             if (_lowEvent != null) ...[
               const SizedBox(height: 8),
               SettlementBucketHud(
@@ -346,63 +367,113 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
                 title: 'Settlement · Highest',
               ),
             ],
-            const SizedBox(height: 8),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: DailyTemperatureChart(
-                  series: _chartSeries!,
-                  height: 512,
-                  hideNonExtremeTempRows: true,
-                  overlayForecast: true,
-                  showPointsTable: !_hideTempTable,
+            Row(
+              children: [
+                Checkbox(
+                  visualDensity: VisualDensity.compact,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  value: _hideTempTable,
+                  onChanged: (v) {
+                    setState(() => _hideTempTable = v ?? true);
+                  },
                 ),
+                const Text(
+                  'Hide Table',
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(width: 12),
+                Checkbox(
+                  visualDensity: VisualDensity.compact,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  value: _hideBucketTable,
+                  onChanged: (v) {
+                    setState(() => _hideBucketTable = v ?? true);
+                  },
+                ),
+                const Text(
+                  'Hide Bucket',
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ],
+          if (!_hideBucketTable) ...[
+            const SizedBox(height: 8),
+            Text(
+              'Bucket accuracy (truncate toward zero: 27.9°C → 27)',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(height: 4),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                headingRowHeight: 32,
+                dataRowMinHeight: 28,
+                columns: const [
+                  DataColumn(label: Text('ModelTime')),
+                  DataColumn(label: Text('FcMin')),
+                  DataColumn(label: Text('FcMax')),
+                  DataColumn(label: Text('PredLow')),
+                  DataColumn(label: Text('PredHigh')),
+                  DataColumn(label: Text('ActLow')),
+                  DataColumn(label: Text('ActHigh')),
+                  DataColumn(label: Text('Low✓')),
+                  DataColumn(label: Text('High✓')),
+                ],
+                rows: [
+                  for (final r in _rows)
+                    DataRow(
+                      cells: [
+                        DataCell(Text(r.modelTime)),
+                        DataCell(Text(_fmt(r.forecastMinC))),
+                        DataCell(Text(_fmt(r.forecastMaxC))),
+                        DataCell(Text(r.predLowBucket?.toString() ?? '—')),
+                        DataCell(Text(r.predHighBucket?.toString() ?? '—')),
+                        DataCell(Text(_fmt(r.actualLowC))),
+                        DataCell(Text(_fmt(r.actualHighC))),
+                        DataCell(Text(r.lowHit ? '✓' : '✗')),
+                        DataCell(Text(r.highHit ? '✓' : '✗')),
+                      ],
+                    ),
+                ],
               ),
             ),
           ],
-          const SizedBox(height: 8),
-          Text(
-            'Bucket accuracy (truncate toward zero: 27.9°C → 27)',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          const SizedBox(height: 4),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              headingRowHeight: 32,
-              dataRowMinHeight: 28,
-              columns: const [
-                DataColumn(label: Text('ModelTime')),
-                DataColumn(label: Text('FcMin')),
-                DataColumn(label: Text('FcMax')),
-                DataColumn(label: Text('PredLow')),
-                DataColumn(label: Text('PredHigh')),
-                DataColumn(label: Text('ActLow')),
-                DataColumn(label: Text('ActHigh')),
-                DataColumn(label: Text('Low✓')),
-                DataColumn(label: Text('High✓')),
-              ],
-              rows: [
-                for (final r in _rows)
-                  DataRow(
-                    cells: [
-                      DataCell(Text(r.modelTime)),
-                      DataCell(Text(_fmt(r.forecastMinC))),
-                      DataCell(Text(_fmt(r.forecastMaxC))),
-                      DataCell(Text(r.predLowBucket?.toString() ?? '—')),
-                      DataCell(Text(r.predHighBucket?.toString() ?? '—')),
-                      DataCell(Text(_fmt(r.actualLowC))),
-                      DataCell(Text(_fmt(r.actualHighC))),
-                      DataCell(Text(r.lowHit ? '✓' : '✗')),
-                      DataCell(Text(r.highHit ? '✓' : '✗')),
-                    ],
-                  ),
-              ],
-            ),
-          ),
         ],
       ),
     );
+  }
+
+  Future<void> _refreshData() async {
+    if (_refreshing) return;
+    if (kIsWeb) {
+      final uri = Uri.parse(
+        'https://github.com/DrOwlDev/app18_hko/actions',
+      );
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      return;
+    }
+
+    setState(() => _refreshing = true);
+    try {
+      final collector = widget.collector;
+      if (collector != null) {
+        await collector.collectNow();
+      } else {
+        final archive = _localArchive ??
+            HkoCsvArchive(rootDir: HkoCsvArchive.defaultLocalRoot());
+        await archive.collect();
+        if (_localArchive == null) archive.close();
+      }
+      await _loadInitial();
+    } finally {
+      if (mounted) {
+        setState(() {
+          _refreshing = false;
+          _webcamCacheBust = DateTime.now().millisecondsSinceEpoch;
+        });
+      }
+    }
   }
 
   String _fmt(double? v) => v == null ? '—' : v.toStringAsFixed(1);
@@ -446,7 +517,7 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     return stamp;
   }
 
-  /// e.g. `Fri 11/9 0am (Sat 12/9 03:12)`
+  /// e.g. `Sat 12/9 03:12 (Fri 11/9 0am)` — refresh first, model second.
   String _snapshotLabel(String snapshotId) {
     final modelPart =
         snapshotId.contains('_') ? snapshotId.split('_').first : snapshotId;
@@ -454,9 +525,10 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
         snapshotId.contains('_') ? snapshotId.split('_').last : null;
     final model = _compactModelStamp(modelPart);
     final refreshed = _compactRefreshedStamp(modifiedPart);
-    if (model == null) return snapshotId;
-    if (refreshed == null) return model;
-    return '$model ($refreshed)';
+    if (refreshed != null && model != null) return '$refreshed ($model)';
+    if (refreshed != null) return refreshed;
+    if (model != null) return model;
+    return snapshotId;
   }
 
   /// `YYYYMMDDHH…` → `ddd D/M Ham` (e.g. `Fri 11/9 0am`)
@@ -489,5 +561,106 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
     if (hour < 12) return '${hour}am';
     if (hour == 12) return '12pm';
     return '${hour - 12}pm';
+  }
+}
+
+/// Side-by-side latest HKO HQ webcam stills (west + east).
+class _HkoLiveWebcamRow extends StatelessWidget {
+  const _HkoLiveWebcamRow({required this.cacheBust});
+
+  final int cacheBust;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: _HkoLiveWebcamTile(
+            title: 'HKO looking west',
+            imageUrl: HkoTemperatureApi.webcamHk2WestUrl,
+            pageUrl: HkoTemperatureApi.webcamHk2WestPageUrl,
+            cacheBust: cacheBust,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _HkoLiveWebcamTile(
+            title: 'HKO looking east',
+            imageUrl: HkoTemperatureApi.webcamHkoEastUrl,
+            pageUrl: HkoTemperatureApi.webcamHkoEastPageUrl,
+            cacheBust: cacheBust,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _HkoLiveWebcamTile extends StatelessWidget {
+  const _HkoLiveWebcamTile({
+    required this.title,
+    required this.imageUrl,
+    required this.pageUrl,
+    required this.cacheBust,
+  });
+
+  final String title;
+  final String imageUrl;
+  final String pageUrl;
+  final int cacheBust;
+
+  @override
+  Widget build(BuildContext context) {
+    final src = Uri.parse(imageUrl).replace(
+      queryParameters: {'v': '$cacheBust'},
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF334155),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Material(
+          color: const Color(0xFFF8FAFC),
+          child: InkWell(
+            onTap: () => launchUrl(
+              Uri.parse(pageUrl),
+              mode: LaunchMode.externalApplication,
+            ),
+            child: AspectRatio(
+              aspectRatio: 4 / 3,
+              child: Image.network(
+                src.toString(),
+                fit: BoxFit.cover,
+                gaplessPlayback: true,
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+                  return const Center(
+                    child: SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stack) => const Center(
+                  child: Text(
+                    'Webcam unavailable',
+                    style: TextStyle(fontSize: 11, color: Color(0xFF64748B)),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

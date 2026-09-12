@@ -16,6 +16,19 @@ class HkoTemperatureApi {
   static const observedStationName = 'HK Observatory';
   static const regionalPortalUrl =
       'https://www.hko.gov.hk/en/wxinfo/awsgis/regional_portal.html?loc=hko';
+  /// Live webcam looking west from HKO HQ (middle image on HK2_photo.htm).
+  static const webcamHk2WestUrl =
+      'https://www.hko.gov.hk/wxinfo/aws/hko_mica/hk2/latest_HD_HK2.jpg';
+  static const webcamHk2WestPageUrl =
+      'https://www.hko.gov.hk/en/wxinfo/ts/webcam/HK2_photo.htm';
+  /// Live webcam looking east from HKO HQ (middle image on HKO_photo.htm).
+  static const webcamHkoEastUrl =
+      'https://www.hko.gov.hk/wxinfo/aws/hko_mica/hko/latest_HD_HKO.jpg';
+  static const webcamHkoEastPageUrl =
+      'https://www.hko.gov.hk/en/wxinfo/ts/webcam/HKO_photo.htm';
+  /// Nowcast rain forecast map (OCF).
+  static const rainForecastUrl =
+      'https://maps.weather.gov.hk/ocf/index_e.html?data=ncrf';
   static const hkocCsvUrl =
       'https://www.hko.gov.hk/wxinfo/awsgis/hkoc.csv';
   static const ocfForecastUrl =

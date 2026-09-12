@@ -117,7 +117,7 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
     final hourFmt = DateFormat('HH:mm');
     final dayFmt = DateFormat('MMM d');
     const lineColor = Color(0xFF111827);
-    const forecastLineColor = Color(0xFFEAB308);
+    const forecastLineColor = Color(0xFF16A34A);
     const minColor = Color(0xFF2563EB);
     const minStroke = Color(0xFF1D4ED8);
     const maxColor = Color(0xFFEA580C);
@@ -135,10 +135,13 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
     var probeBelow = 0;
     final probeAboveByBucket = <int, int>{};
     final probeBelowByBucket = <int, int>{};
-    String? probeSummary;
+    String? probeAboveSummary;
+    String? probeBelowSummary;
     if (probeTemp != null) {
       // Probe bucket [T, T+0.99]: below = < T; above = ≥ T+1 (excludes clicked bucket).
       final aboveFrom = probeTemp.round() + 1;
+      var aboveExcessSum = 0.0;
+      var belowDeficitSum = 0.0;
       for (final p in forecastPoints) {
         final t = p.localHourStart.millisecondsSinceEpoch.toDouble();
         if (t < nowMs || t > dayEndMs) continue;
@@ -146,9 +149,11 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
         if (p.temperature >= probeTemp + 1) {
           probeAbove++;
           probeAboveByBucket[bucket] = (probeAboveByBucket[bucket] ?? 0) + 1;
+          aboveExcessSum += p.temperature - aboveFrom;
         } else if (p.temperature < probeTemp) {
           probeBelow++;
           probeBelowByBucket[bucket] = (probeBelowByBucket[bucket] ?? 0) + 1;
+          belowDeficitSum += probeTemp - p.temperature;
         }
       }
       if (probeTemp + 0.99 > maxY) {
@@ -157,17 +162,22 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
       final unit = series.unit == 'F' ? 'F' : 'C';
       final probeDeg = probeTemp.round();
       final aboveParts = (probeAboveByBucket.keys.toList()..sort())
-          .map((b) => '$b$unit=${probeAboveByBucket[b]}')
+          .map((b) => '$b$unit = ${probeAboveByBucket[b]}')
           .join(' ; ');
       final belowParts = (probeBelowByBucket.keys.toList()
             ..sort((a, b) => b.compareTo(a)))
-          .map((b) => '$b$unit=${probeBelowByBucket[b]}')
+          .map((b) => '$b$unit = ${probeBelowByBucket[b]}')
           .join(' ; ');
-      probeSummary =
-          '$probeDeg$unit probe - BELOW $probeDeg$unit=$probeBelow'
+      final aboveWv = probeAbove > 0 ? aboveExcessSum / probeAbove : null;
+      final belowWv = probeBelow > 0 ? belowDeficitSum / probeBelow : null;
+      probeAboveSummary =
+          '$probeDeg$unit probe - ABOVE $aboveFrom$unit = $probeAbove'
+          '${probeAbove > 0 ? ' [ $aboveParts ]' : ''}'
+          '${aboveWv != null ? ' · wv ${aboveWv.toStringAsFixed(2)}' : ''}';
+      probeBelowSummary =
+          '$probeDeg$unit probe - BELOW $probeDeg$unit = $probeBelow'
           '${probeBelow > 0 ? ' [ $belowParts ]' : ''}'
-          ' - ABOVE $aboveFrom$unit=$probeAbove'
-          '${probeAbove > 0 ? ' [ $aboveParts ]' : ''}';
+          '${belowWv != null ? ' · wv ${belowWv.toStringAsFixed(2)}' : ''}';
     }
 
     double? dailyMinTemp;
@@ -251,14 +261,29 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                  child: Text(
-                    probeSummary!,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      height: 1.25,
-                      color: Color(0xFF4C1D95),
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        probeAboveSummary!,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          height: 1.25,
+                          color: Color(0xFF4C1D95),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        probeBelowSummary!,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          height: 1.25,
+                          color: Color(0xFF4C1D95),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -683,11 +708,9 @@ class _DailyTemperatureChartState extends State<DailyTemperatureChart> {
                             final rain = point.weatherIconCode != null &&
                                 isHkoRainWeatherIcon(point.weatherIconCode!);
                             if (rain) {
-                              return FlDotCirclePainter(
-                                radius: 3,
-                                color: const Color(0xFFDC2626),
-                                strokeWidth: 0,
-                                strokeColor: const Color(0xFFDC2626),
+                              return const _FlDotCrossPainter(
+                                color: Color(0xFFDC2626),
+                                size: 10,
                               );
                             }
                             return FlDotCirclePainter(
@@ -1024,6 +1047,49 @@ class _FlDotStarPainter extends FlDotPainter {
 
   @override
   List<Object?> get props => [color, strokeColor, size];
+
+  @override
+  FlDotPainter lerp(FlDotPainter a, FlDotPainter b, double t) => this;
+}
+
+/// Red X marker for forecast hours with rain weather icons.
+class _FlDotCrossPainter extends FlDotPainter {
+  const _FlDotCrossPainter({
+    required this.color,
+    required this.size,
+  });
+
+  final Color color;
+  final double size;
+
+  @override
+  void draw(Canvas canvas, FlSpot spot, Offset offsetInCanvas) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 2
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+    final half = size / 2;
+    canvas.drawLine(
+      Offset(offsetInCanvas.dx - half, offsetInCanvas.dy - half),
+      Offset(offsetInCanvas.dx + half, offsetInCanvas.dy + half),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(offsetInCanvas.dx + half, offsetInCanvas.dy - half),
+      Offset(offsetInCanvas.dx - half, offsetInCanvas.dy + half),
+      paint,
+    );
+  }
+
+  @override
+  Size getSize(FlSpot spot) => Size(size, size);
+
+  @override
+  Color get mainColor => color;
+
+  @override
+  List<Object?> get props => [color, size];
 
   @override
   FlDotPainter lerp(FlDotPainter a, FlDotPainter b, double t) => this;
