@@ -304,19 +304,61 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
             const SizedBox(height: 8),
             Align(
               alignment: Alignment.centerLeft,
-              child: FilledButton.tonalIcon(
-                onPressed: _refreshing ? null : _refreshData,
-                icon: _refreshing
-                    ? const SizedBox(
-                        width: 14,
-                        height: 14,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Icon(Icons.refresh, size: 18),
-                label: Text(
-                  kIsWeb ? 'Refresh Data (GitHub Actions)' : 'Refresh Data',
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-                ),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  FilledButton.tonalIcon(
+                    onPressed: _refreshing ? null : _refreshData,
+                    icon: _refreshing
+                        ? const SizedBox(
+                            width: 14,
+                            height: 14,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.refresh, size: 18),
+                    label: Text(
+                      kIsWeb ? 'Refresh Data (GitHub Actions)' : 'Refresh Data',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  FilledButton.tonalIcon(
+                    onPressed: () => launchUrl(
+                      Uri.parse(HkoTemperatureApi.rainForecastUrl),
+                      mode: LaunchMode.externalApplication,
+                    ),
+                    icon: const Icon(Icons.water_drop_outlined, size: 18),
+                    label: const Text(
+                      'Rain Forecast',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  FilledButton.tonalIcon(
+                    onPressed: () => launchUrl(
+                      Uri.parse(HkoTemperatureApi.textReadingsUrl),
+                      mode: LaunchMode.externalApplication,
+                    ),
+                    icon: const Icon(Icons.thermostat_outlined, size: 18),
+                    label: const Text(
+                      'Check Temp',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  FilledButton.tonalIcon(
+                    onPressed: () => launchUrl(
+                      Uri.parse(HkoTemperatureApi.regionalPortalTempChartUrl),
+                      mode: LaunchMode.externalApplication,
+                    ),
+                    icon: const Icon(Icons.show_chart, size: 18),
+                    label: const Text(
+                      'Check Forecast',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 8),
@@ -334,21 +376,6 @@ class _ForecastAccuracyPageState extends State<ForecastAccuracyPage> {
             ),
             const SizedBox(height: 8),
             _HkoLiveWebcamRow(cacheBust: _webcamCacheBust),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: FilledButton.tonalIcon(
-                onPressed: () => launchUrl(
-                  Uri.parse(HkoTemperatureApi.rainForecastUrl),
-                  mode: LaunchMode.externalApplication,
-                ),
-                icon: const Icon(Icons.water_drop_outlined, size: 18),
-                label: const Text(
-                  'Rain Forecast',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-                ),
-              ),
-            ),
             if (_lowEvent != null) ...[
               const SizedBox(height: 8),
               SettlementBucketHud(

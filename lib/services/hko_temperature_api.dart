@@ -16,6 +16,10 @@ class HkoTemperatureApi {
   static const observedStationName = 'HK Observatory';
   static const regionalPortalUrl =
       'https://www.hko.gov.hk/en/wxinfo/awsgis/regional_portal.html?loc=hko';
+  /// Regional portal Temperature chart view for HKO.
+  static const regionalPortalTempChartUrl =
+      'https://www.hko.gov.hk/en/wxinfo/awsgis/regional_portal.html'
+      '?loc=hko&ele=Temperature&show=chart';
   /// Live webcam looking west from HKO HQ (middle image on HK2_photo.htm).
   static const webcamHk2WestUrl =
       'https://www.hko.gov.hk/wxinfo/aws/hko_mica/hk2/latest_HD_HK2.jpg';
